@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/XSS学习小结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/xss小结1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="E-bounce">
@@ -251,7 +251,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/03/XSS学习小结/" itemprop="url">XSS学习小结</a></h1>
+                <a class="post-title-link" href="/2018/12/03/xss小结1/" itemprop="url">xss小结1</a></h1>
         
 
         <div class="post-meta">
@@ -263,7 +263,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T20:41:18+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T22:13:03+08:00">
                 2018-12-03
               </time>
             
@@ -317,7 +317,7 @@
 也就是level 2，所以弹窗就对了。
 然后我们就顺利来到了level 2了
 看了一下网页源码，是构造了一个表单，
-{% asset_img 18.png 表单 %}
+![1](xss小结1/18.png)
 这个表单从input标签中得到字符串，并加入到value属性里，
 我们可以像这幅图一样通过&quot;将前面value值闭合掉，在后面插入我们自己的事件进行弹窗。
 {% asset_img 15.png 如图 %}
