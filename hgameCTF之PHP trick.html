@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/baidu.png">
 <meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/flag.png">
 <meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/payload.png">
-<meta property="og:updated_time" content="2019-02-22T12:49:21.830Z">
+<meta property="og:updated_time" content="2019-02-22T12:58:03.307Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hgameCTF之PHP trick">
 <meta name="twitter:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获取的">
@@ -355,7 +355,7 @@
 <p></p><h1>curl的处理</h1><br>curl在这里相当于解析我们的url并进行访问，但注意curl的访问，相当于在服务器内部进行的访问，也就是说如果我们访问本地的文件，就相当于以localhost去访问本地<br>资源，因此要想办法让curl解析访问admin.php，这里就要利用URL的组成了，首先parse_url（）在解析host时，会解析第二个@后面的内容，而CURL则会解析第一个@后的内容<br><a href="http://www.php.cn/php-weizijiaocheng-393305.html" target="_blank" rel="noopener">有关curl是个啥</a><br>因此这里构造参数<p></p>
 <p><pre><code>url=http:<a href="mailto://@127.0.0.1" target="_blank" rel="noopener">//@127.0.0.1</a>:<a href="mailto:80@www.baidu.com" target="_blank" rel="noopener">80@www.baidu.com</a>/admin.php</code></pre><br>便可以成功访问admin.php了，但不知道为什么直接用127.0.0.1不能直接访问需要加个80端口。<br>{% asset_img admin.png  %}</p>
 <p></p><h1>php伪协议读取</h1><br>这里admin.php出现了源码,如下图：<br>这里要求传参为GET方法传入的参数filename，并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，而读取文件函数却是在文件不存在条件下才会执行，这里<br>很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，有关php伪协议的知识可以参照下文：<br><a href="http://www.cnblogs.com/LittleHann/p/3665062.html" target="_blank" rel="noopener">PHP伪协议</a><br>最后利用php://filter读取flag.php<p></p>
-<p><pre><code>filename=php://filter/read=convert.base64-encode/resource=flag.php</code></pre><br>最后将这段base64解码就可以得到flag啦。<br><img src="/hgameCTF之PHP%20trick/flag.png"><br><img src="/hgameCTF之PHP%20trick/payload.png"></p>
+<p><pre><code>filename=php://filter/read=convert.base64-encode/resource=flag.php</code></pre><br>最后将这段base64解码就可以得到flag啦。<br><img src="/hgameCTF之PHP%20trick/flag.png"><br>完整的payload如下图:<br><img src="/hgameCTF之PHP%20trick/payload.png"></p>
 
       <div>
 </div>
