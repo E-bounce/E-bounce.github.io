@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,7 +56,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/w11.png?v=5.1.4">
 
 
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="sql,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="第一次sql注入最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入’，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作，测试了两组payload，都是报错界面（后面的一个-其实都是两个-号） id=1’+or+1=1–+ id=1’+order+by+2–+于">
-<meta name="keywords" content="security,CTF,others">
+<meta name="keywords" content="sql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BugkuCTF 多次wp">
 <meta property="og:url" content="https://www.ebounce.cn/BugkuCTF-多次.html">
@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/9.png">
 <meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/11.png">
 <meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/10.png">
-<meta property="og:updated_time" content="2019-01-28T12:35:14.917Z">
+<meta property="og:updated_time" content="2019-02-22T10:36:32.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BugkuCTF 多次wp">
 <meta name="twitter:description" content="第一次sql注入最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入’，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作，测试了两组payload，都是报错界面（后面的一个-其实都是两个-号） id=1’+or+1=1–+ id=1’+order+by+2–+于">
@@ -110,7 +110,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -197,9 +197,19 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br>
+            
+            标签
           </a>
         </li>
       
@@ -207,7 +217,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             发布进程
           </a>
@@ -286,6 +296,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -348,6 +380,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sql/" rel="tag"># sql</a>
+          
+        </div>
       
 
       
@@ -456,13 +494,41 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="3199729962@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -524,7 +590,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Mist</a> v5.1.4</div>
 
 
 

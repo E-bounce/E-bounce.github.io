@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,7 +56,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/w11.png?v=5.1.4">
 
 
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="sql,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，而用union连接却不会出现，搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。感觉这是小坑因此">
-<meta name="keywords" content="security,CTF,others">
+<meta name="keywords" content="sql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="有关sql报错注入一点小坑">
 <meta property="og:url" content="https://www.ebounce.cn/有关sql报错注入一点小坑.html">
@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/union.png">
 <meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and的修正版.png">
 <meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/payload.png">
-<meta property="og:updated_time" content="2019-02-22T09:07:34.599Z">
+<meta property="og:updated_time" content="2019-02-22T10:36:49.944Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="有关sql报错注入一点小坑">
 <meta name="twitter:description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，而用union连接却不会出现，搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。感觉这是小坑因此">
@@ -103,7 +103,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -190,9 +190,19 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br>
+            
+            标签
           </a>
         </li>
       
@@ -200,7 +210,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             发布进程
           </a>
@@ -279,6 +289,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -328,6 +360,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sql/" rel="tag"># sql</a>
+          
+        </div>
       
 
       
@@ -423,13 +461,41 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="3199729962@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -475,7 +541,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Mist</a> v5.1.4</div>
 
 
 
