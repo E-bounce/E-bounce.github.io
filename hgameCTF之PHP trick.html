@@ -79,20 +79,22 @@
 
 
 
-<meta name="description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。首先是 PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获">
+<meta name="description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获取的">
 <meta name="keywords" content="security,CTF,others">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hgameCTF之PHP trick">
 <meta property="og:url" content="https://www.ebounce.cn/hgameCTF之PHP trick.html">
 <meta property="og:site_name" content="web小白成长记">
-<meta property="og:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。首先是 PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获">
+<meta property="og:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获取的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/源码.png">
+<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/baidu.png">
+<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/flag.png">
 <meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/payload.png">
-<meta property="og:updated_time" content="2019-02-22T12:37:55.156Z">
+<meta property="og:updated_time" content="2019-02-22T12:49:21.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hgameCTF之PHP trick">
-<meta name="twitter:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。首先是 PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获">
+<meta name="twitter:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获取的">
 <meta name="twitter:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/源码.png">
 
 
@@ -341,18 +343,20 @@
       
 
       
-        <p>做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。<br>首先是 PHP trick这道题，我们先看源码，如下图：<br><img src="/hgameCTF之PHP%20trick/源码.png"><br>然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）<br>所以先来看看给出的源码，所有参数都是通过GET方法来获取的，这样我们直接使用hackbar就可以了</p>
+        <p>做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。<br>就是PHP trick这道题，我们先看源码，如下图：<br><img src="/hgameCTF之PHP%20trick/源码.png"><br>然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）<br>所以先来看看给出的源码，所有参数都是通过GET方法来获取的，这样我们直接使用hackbar就可以了</p>
 <p></p><h1>第一二个if的绕过</h1><br>先看第一个if要求str1和str2不相等,这个可以轻易绕过，主要<br>就是第二个if要求str1和str2的MD5值相等，注意是”=!”也就是弱相等，因此我们可以构造md5值为0e开头的，php在读入X（X是数字）e开头的字符会理解为科学计数法，<br>因此0E开头，可以理解为0的多少次方，我们知道0^n无论如何还是0，所以就能够绕过第二个if了。<br>这里构造参数<p></p>
 <p><pre><code>str1=s878926199a str2=s155964671a</code></pre></p>
-<p></p><h1>第三四个if的绕过</h1><br>我们看到第三个if仍然是相同的套路，但这时MD5值得校验已经变成了强相等，这时候不能再用之前得方法绕过了，我们可以用数组进行绕过，因此这时候<br>str3[]=1 str4[]=2因为这种写法会使php的参数变成error，而两个参数均为error转换为MD5后值一定相同。<p></p>
+<p></p><h1>第三四个if的绕过</h1><br>我们看到第三个if仍然是相同的套路，但这时MD5值得校验已经变成了强相等，这时候不能再用之前得方法绕过了，我们可以用数组进行绕过，因此这时候<p></p>
+<p><pre><code>str3[]=1 str4[]=2</code></pre><br>因为这种写法会使php的参数变成error，而两个参数均为error转换为MD5后值一定相同。</p>
 <p></p><h1>第五六七个if绕过</h1><br>$_SERVER[“QUERY_STRING”]这个在PHP中等同于查询字符”?”后的所有字符，因此第五个if要求H_game字符不能在”?”后面出现，但由于$str5 = @$_GET[‘H_game’];<br>也就是说我们必须传入h_game参数，并且要是数字，而且不能满足后面两个if又要&gt;=9999999999，转化为字符后又必须&lt;=0。<br>一步一步来，先绕过校验H_game存在，这里可以利用URL编码进行绕过，轻轻松松。而后面两个if也可以用数组进行绕过<br>最后H_game参数就直接变成了<p></p>
 <p><pre><code>%48%5f%67%61%6d%65[]=%20</code></pre></p>
-<p></p><h1>第八九个if</h1><br>parse_url（）函数是用于解析我们的URL并返回组成部分，这第八九个if就是校验我们的传入URL是否为<a href="http://www.baidu.com，虽然能够直接传入这个值，但是后面" target="_blank" rel="noopener">http://www.baidu.com，虽然能够直接传入这个值，但是后面</a><br>就会出现问题。<p></p>
-<p></p><h1>curl的处理<h2><br>curl在这里相当于解析我们的url并进行访问，但注意curl的访问，相当于在服务器内部进行的访问，也就是说如果我们访问本地的文件，就相当于以localhost去访问本地<br>资源，因此要想办法让curl解析访问admin.php，这里就要利用URL的组成了，首先parse_url（）在解析host时，会解析第二个@后面的内容，而CURL则会解析第一个@后的内容<br>因此这里构造参数<p></p>
+<p></p><h1>第八九十个if绕过</h1><br>parse_url（）函数是用于解析我们的URL并返回组成部分，这最后两个if就是校验我们的传入URL是否为<a href="http://www.baidu.com，虽然能够直接传入这个值，但是后面" target="_blank" rel="noopener">http://www.baidu.com，虽然能够直接传入这个值，但是后面</a><br>就会出现问题。如果我们直接传入<p></p>
+<p><pre><code>url=<a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a></code></pre><br>那么我们会发现下面出现了百度的界面<br><img src="/hgameCTF之PHP%20trick/baidu.png"></p>
+<p></p><h1>curl的处理</h1><br>curl在这里相当于解析我们的url并进行访问，但注意curl的访问，相当于在服务器内部进行的访问，也就是说如果我们访问本地的文件，就相当于以localhost去访问本地<br>资源，因此要想办法让curl解析访问admin.php，这里就要利用URL的组成了，首先parse_url（）在解析host时，会解析第二个@后面的内容，而CURL则会解析第一个@后的内容<br><a href="http://www.php.cn/php-weizijiaocheng-393305.html" target="_blank" rel="noopener">有关curl是个啥</a><br>因此这里构造参数<p></p>
 <p><pre><code>url=http:<a href="mailto://@127.0.0.1" target="_blank" rel="noopener">//@127.0.0.1</a>:<a href="mailto:80@www.baidu.com" target="_blank" rel="noopener">80@www.baidu.com</a>/admin.php</code></pre><br>便可以成功访问admin.php了，但不知道为什么直接用127.0.0.1不能直接访问需要加个80端口。<br>{% asset_img admin.png  %}</p>
-<p></p><h1>php伪协议读取<h1><br>这里admin.php出现了源码,如下图：<br>这里要求传参为GET方法传入的参数filename，并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，而读取文件函数却是在文件不存在条件下才会执行，这里<br>很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，有关php伪协议的知识可以参照下文：<br><a href="http://www.cnblogs.com/LittleHann/p/3665062.html" target="_blank" rel="noopener">PHP伪协议</a><br>最后利用php://filter读取flag.php<p></p>
-<p><pre><code>filename=php://filter/read=convert.base64-encode/resource=flag.php</code></pre><br><br>最后将这段base64解码就可以得到flag啦。<br><img src="/hgameCTF之PHP%20trick/payload.png"></p>
-</h1></h1></h2></h1>
+<p></p><h1>php伪协议读取</h1><br>这里admin.php出现了源码,如下图：<br>这里要求传参为GET方法传入的参数filename，并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，而读取文件函数却是在文件不存在条件下才会执行，这里<br>很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，有关php伪协议的知识可以参照下文：<br><a href="http://www.cnblogs.com/LittleHann/p/3665062.html" target="_blank" rel="noopener">PHP伪协议</a><br>最后利用php://filter读取flag.php<p></p>
+<p><pre><code>filename=php://filter/read=convert.base64-encode/resource=flag.php</code></pre><br>最后将这段base64解码就可以得到flag啦。<br><img src="/hgameCTF之PHP%20trick/flag.png"><br><img src="/hgameCTF之PHP%20trick/payload.png"></p>
+
       <div>
 </div>
 	  
@@ -530,19 +534,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">第一二个if的绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">第三四个if的绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">第五六七个if绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">第八九个if</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">curl的处理curl在这里相当于解析我们的url并进行访问，但注意curl的访问，相当于在服务器内部进行的访问，也就是说如果我们访问本地的文件，就相当于以localhost去访问本地资源，因此要想办法让curl解析访问admin.php，这里就要利用URL的组成了，首先parse_url（）在解析host时，会解析第二个@后面的内容，而CURL则会解析第一个@后的内容因此这里构造参数
-url=http://@127.0.0.1:80@www.baidu.com/admin.php便可以成功访问admin.php了，但不知道为什么直接用127.0.0.1不能直接访问需要加个80端口。{% asset_img admin.png  %}
-php伪协议读取这里admin.php出现了源码,如下图：这里要求传参为GET方法传入的参数filename，并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，而读取文件函数却是在文件不存在条件下才会执行，这里很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，有关php伪协议的知识可以参照下文：PHP伪协议最后利用php://filter读取flag.php
-filename=php://filter/read=convert.base64-encode/resource=flag.php最后将这段base64解码就可以得到flag啦。
-</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.1.</span> <span class="nav-text">curl在这里相当于解析我们的url并进行访问，但注意curl的访问，相当于在服务器内部进行的访问，也就是说如果我们访问本地的文件，就相当于以localhost去访问本地资源，因此要想办法让curl解析访问admin.php，这里就要利用URL的组成了，首先parse_url（）在解析host时，会解析第二个@后面的内容，而CURL则会解析第一个@后的内容因此这里构造参数
-url=http://@127.0.0.1:80@www.baidu.com/admin.php便可以成功访问admin.php了，但不知道为什么直接用127.0.0.1不能直接访问需要加个80端口。{% asset_img admin.png  %}
-php伪协议读取这里admin.php出现了源码,如下图：这里要求传参为GET方法传入的参数filename，并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，而读取文件函数却是在文件不存在条件下才会执行，这里很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，有关php伪协议的知识可以参照下文：PHP伪协议最后利用php://filter读取flag.php
-filename=php://filter/read=convert.base64-encode/resource=flag.php最后将这段base64解码就可以得到flag啦。
-</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">php伪协议读取这里admin.php出现了源码,如下图：这里要求传参为GET方法传入的参数filename，并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，而读取文件函数却是在文件不存在条件下才会执行，这里很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，有关php伪协议的知识可以参照下文：PHP伪协议最后利用php://filter读取flag.php
-filename=php://filter/read=convert.base64-encode/resource=flag.php最后将这段base64解码就可以得到flag啦。
-</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">这里admin.php出现了源码,如下图：这里要求传参为GET方法传入的参数filename，并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，而读取文件函数却是在文件不存在条件下才会执行，这里很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，有关php伪协议的知识可以参照下文：PHP伪协议最后利用php://filter读取flag.php
-filename=php://filter/read=convert.base64-encode/resource=flag.php最后将这段base64解码就可以得到flag啦。
-</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">第一二个if的绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">第三四个if的绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">第五六七个if绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">第八九十个if绕过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">curl的处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">php伪协议读取</span></a></li></ol></div>
             
 
           </div>
