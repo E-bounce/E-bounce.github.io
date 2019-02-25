@@ -79,22 +79,21 @@
 
 
 
-<meta name="description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，而用union连接却不会出现，搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。感觉这是小坑因此">
+<meta name="description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，而用union连接却不会出现，这种报错信息。搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。感">
 <meta name="keywords" content="sql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="有关sql报错注入一点小坑">
 <meta property="og:url" content="https://www.ebounce.cn/有关sql报错注入一点小坑.html">
 <meta property="og:site_name" content="web小白成长记">
-<meta property="og:description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，而用union连接却不会出现，搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。感觉这是小坑因此">
+<meta property="og:description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，而用union连接却不会出现，这种报错信息。搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。感">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and.png">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/union.png">
 <meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and的修正版.png">
 <meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/payload.png">
-<meta property="og:updated_time" content="2019-02-22T10:36:49.944Z">
+<meta property="og:updated_time" content="2019-02-25T05:26:23.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="有关sql报错注入一点小坑">
-<meta name="twitter:description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，而用union连接却不会出现，搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。感觉这是小坑因此">
+<meta name="twitter:description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，而用union连接却不会出现，这种报错信息。搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。感">
 <meta name="twitter:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and.png">
 
 
@@ -343,7 +342,7 @@
       
 
       
-        <p>在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细<br><a href="https://blog.51cto.com/wt7315/1891458" target="_blank" rel="noopener">sql报错注入原理</a><br>然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，<br><img src="/有关sql报错注入一点小坑/and.png"><br>而用union连接却不会出现，<br><img src="/有关sql报错注入一点小坑/union.png"><br>搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。<br><img src="/有关sql报错注入一点小坑/and的修正版.png"><br>感觉这是小坑因此在这里记录一下。<br>下面是探索过程中使用的payload：<br><img src="/有关sql报错注入一点小坑/payload.png"></p>
+        <p>在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细<br><a href="https://blog.51cto.com/wt7315/1891458" target="_blank" rel="noopener">sql报错注入原理</a><br>然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，<br><img src="/有关sql报错注入一点小坑/and.png"><br>而用union连接却不会出现，这种报错信息。搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。<br><img src="/有关sql报错注入一点小坑/and的修正版.png"><br>感觉这是小坑因此在这里记录一下。<br>下面是探索过程中使用的payload：<br><img src="/有关sql报错注入一点小坑/payload.png"></p>
 
       <div>
 </div>
