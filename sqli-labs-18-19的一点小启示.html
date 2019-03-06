@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/sqli-labs-18-19的一点小启示/1.png">
 <meta property="og:image" content="https://www.ebounce.cn/sqli-labs-18-19的一点小启示/2.png">
 <meta property="og:image" content="https://www.ebounce.cn/sqli-labs-18-19的一点小启示/3.png">
-<meta property="og:updated_time" content="2019-03-06T06:34:03.539Z">
+<meta property="og:updated_time" content="2019-03-06T06:35:43.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sqli-labs 18,19的一点小启示">
 <meta name="twitter:description" content="今天做了一下sqli-labs头部注入的两道题，下面来说说自己的所得吧。首先，做了这么多便发现了，其实真正存在sql回显注入（union联合查询注入）是比较少见的，而一般更加普遍一点的便是报错注入了，无论是子查询报错注入，还是updatexml(),extractvalue()函数的报错注入都应该熟练掌握，之前一直使用的报错注入都是在select语句里面实现的，但是这次的http包头部注入不同，是">
@@ -344,8 +344,8 @@
 
       
         <p>今天做了一下sqli-labs头部注入的两道题，下面来说说自己的所得吧。首先，做了这么多便发现了，其实真正存在sql回显注入（union联合查询注入）是比较少见的，<br>而一般更加普遍一点的便是报错注入了，无论是子查询报错注入，还是updatexml(),extractvalue()函数的报错注入都应该熟练掌握，之前一直使用的报错注入都是在<br>select语句里面实现的，但是这次的http包头部注入不同，是存在于insert语句里面的注入，所以使用报错注入的时候出现了下面的问题。</p>
-<p></p><h1>问题1 参数的闭合</h1><br><img src="/sqli-labs-18-19的一点小启示/php.png"><br>首先先看看源码，由于前面已经对post参数进行了过滤和检查，所以我们不能从post的数据入手，阅读下来便看到了下面这条insert语句，他会插入两个参数的数据，<br>这时如果我们忘记了闭合第二个参数，就会出现下面的这种情况:<br><img src="/sqli-labs-18-19的一点小启示/1.png"><br>这里用的updatexml()，而正确的应该在updatexml()的外面再闭合第二个插入数据的参数，如下图：<br><img src="/sqli-labs-18-19的一点小启示/2.png"><p></p>
-<p></p><h1>查询返回值多于1列的情况</h1><br>如果我们直接查询select table_name会返回一个错误:<br><img src="/sqli-labs-18-19的一点小启示/3.png"><br>这个时候我们记得要使用group_concat()这个函数了，可以保证只返回一列，当然也可以在后面加上limit语句来限制返回值。<br>正确的利用在上面，这里就不赘述了<p></p>
+<p></p><h1>问题1:参数的闭合</h1><br><img src="/sqli-labs-18-19的一点小启示/php.png"><br>首先先看看源码，由于前面已经对post参数进行了过滤和检查，所以我们不能从post的数据入手，阅读下来便看到了下面这条insert语句，他会插入两个参数的数据，<br>这时如果我们忘记了闭合第二个参数，就会出现下面的这种情况:<br><img src="/sqli-labs-18-19的一点小启示/1.png"><br>这里用的updatexml()，而正确的应该在updatexml()的外面再闭合第二个插入数据的参数，如下图：<br><img src="/sqli-labs-18-19的一点小启示/2.png"><p></p>
+<p></p><h1>问题2:查询返回值多于1列的情况</h1><br>如果我们直接查询select table_name会返回一个错误:<br><img src="/sqli-labs-18-19的一点小启示/3.png"><br>这个时候我们记得要使用group_concat()这个函数了，可以保证只返回一列，当然也可以在后面加上limit语句来限制返回值。<br>正确的利用在上面，这里就不赘述了<p></p>
 
       <div>
 </div>
@@ -530,7 +530,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">问题1 参数的闭合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">查询返回值多于1列的情况</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">问题1:参数的闭合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">问题2:查询返回值多于1列的情况</span></a></li></ol></div>
             
 
           </div>
