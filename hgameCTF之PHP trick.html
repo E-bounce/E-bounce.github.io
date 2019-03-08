@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/admin.png">
 <meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/flag.png">
 <meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/payload.png">
-<meta property="og:updated_time" content="2019-03-06T07:11:47.747Z">
+<meta property="og:updated_time" content="2019-03-08T15:02:42.321Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hgameCTF之PHP trick">
 <meta name="twitter:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获取的">
@@ -347,7 +347,7 @@
         <p>做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。<br>就是PHP trick这道题，我们先看源码，如下图：<br><img src="/hgameCTF之PHP%20trick/源码.png"><br>然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）<br>所以先来看看给出的源码，所有参数都是通过GET方法来获取的，这样我们直接使用hackbar就可以了</p>
 <p></p><h1>第一二个if的绕过</h1><br>先看第一个if要求str1和str2不相等,这个可以轻易绕过，主要<br>就是第二个if要求str1和str2的MD5值相等，注意是”=!”也就是弱相等，因此我们可以构造md5值为0e开头的，php在读入X（X是数字）e开头的字符会理解为科学计数法，<br>因此0E开头，可以理解为0的多少次方，我们知道0^n无论如何还是0，所以就能够绕过第二个if了。<br>这里构造参数<p></p>
 <p><pre><code>str1=s878926199a str2=s155964671a</code></pre></p>
-<p></p><h1>第三四个if的绕过</h1><br>我们看到第三个if仍然是相同的套路，但这时MD5值得校验已经变成了强相等，这时候不能再用之前得方法绕过了，我们可以用数组进行绕过，因此这时候<p></p>
+<p></p><h1>第三四个if的绕过</h1><br>我们看到第三个if仍然是相同的套路，但这时MD5值得校验已经变成了强相等，这时候不能再用之前得方法绕过了，我们可以用数组进行绕过，由于如果在MD5里面传入<br>数组的话，那么MD5函数会返回一个NULL，由于两边都是NULL，所以就可以绕过这个强相等问题了。<p></p>
 <p><pre><code>str3[]=1 str4[]=2</code></pre><br>因为这种写法会使php的参数变成error，而两个参数均为error转换为MD5后值一定相同。</p>
 <p></p><h1>第五六七个if绕过</h1><br>$_SERVER[“QUERY_STRING”]这个在PHP中等同于查询字符”?”后的所有字符，因此第五个if要求H_game字符不能在”?”后面出现，但由于$str5 = @$_GET[‘H_game’];<br>也就是说我们必须传入h_game参数，并且要是数字，而且不能满足后面两个if，即又要&gt;=9999999999，转化为字符后又必须&lt;=0。<br>一步一步来，先绕过校验H_game存在，这里可以利用URL编码进行绕过，轻轻松松。而后面两个if也可以用数组进行绕过<br>最后H_game参数就直接变成了<p></p>
 <p><pre><code>%48%5f%67%61%6d%65[]=%20</code></pre></p>
