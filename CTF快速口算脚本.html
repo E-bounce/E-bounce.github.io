@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="sql,">
+  <meta name="keywords" content="CTF,">
 
 
 
@@ -79,24 +79,21 @@
 
 
 
-<meta name="description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，大致明白问题出现在哪里了，这里就粗略归纳成为每多一个子查询，就需要新命名一次。而用union连接却不会出现，这种报错信息。搜索了一下网上有">
-<meta name="keywords" content="sql">
+<meta name="description" content="消失了一段时间，练习了一下python以弥补肝CTF题时，因为不会写脚本，而无法解决快速口算之类问题的遗憾。不多说来贴脚本源码吧，这是按照某个大佬的脚本来写的，链接在这里:CTF快速口算这里就来贴源码: import requests url=&amp;quot;******************&amp;quot; cook=requests.session() html=cook.get(url).text">
+<meta name="keywords" content="CTF">
 <meta property="og:type" content="article">
-<meta property="og:title" content="有关sql报错注入一点小坑">
-<meta property="og:url" content="https://www.ebounce.cn/有关sql报错注入一点小坑.html">
+<meta property="og:title" content="CTF快速口算脚本">
+<meta property="og:url" content="https://www.ebounce.cn/CTF快速口算脚本.html">
 <meta property="og:site_name" content="web小白成长记">
-<meta property="og:description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，大致明白问题出现在哪里了，这里就粗略归纳成为每多一个子查询，就需要新命名一次。而用union连接却不会出现，这种报错信息。搜索了一下网上有">
+<meta property="og:description" content="消失了一段时间，练习了一下python以弥补肝CTF题时，因为不会写脚本，而无法解决快速口算之类问题的遗憾。不多说来贴脚本源码吧，这是按照某个大佬的脚本来写的，链接在这里:CTF快速口算这里就来贴源码: import requests url=&amp;quot;******************&amp;quot; cook=requests.session() html=cook.get(url).text">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and.png">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and的修正版.png">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/payload.png">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/fuzha.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/jiandan.jpg">
-<meta property="og:updated_time" content="2019-03-04T03:04:50.064Z">
+<meta property="og:image" content="https://www.ebounce.cn/CTF快速口算脚本/paqu.png">
+<meta property="og:image" content="https://www.ebounce.cn/CTF快速口算脚本/flag.jpg">
+<meta property="og:updated_time" content="2019-03-21T11:16:34.448Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="有关sql报错注入一点小坑">
-<meta name="twitter:description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，大致明白问题出现在哪里了，这里就粗略归纳成为每多一个子查询，就需要新命名一次。而用union连接却不会出现，这种报错信息。搜索了一下网上有">
-<meta name="twitter:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and.png">
+<meta name="twitter:title" content="CTF快速口算脚本">
+<meta name="twitter:description" content="消失了一段时间，练习了一下python以弥补肝CTF题时，因为不会写脚本，而无法解决快速口算之类问题的遗憾。不多说来贴脚本源码吧，这是按照某个大佬的脚本来写的，链接在这里:CTF快速口算这里就来贴源码: import requests url=&amp;quot;******************&amp;quot; cook=requests.session() html=cook.get(url).text">
+<meta name="twitter:image" content="https://www.ebounce.cn/CTF快速口算脚本/paqu.png">
 
 
 
@@ -126,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://www.ebounce.cn/有关sql报错注入一点小坑.html">
+  <link rel="canonical" href="https://www.ebounce.cn/CTF快速口算脚本.html">
 
 
 
 
 
-  <title>有关sql报错注入一点小坑 | web小白成长记</title>
+  <title>CTF快速口算脚本 | web小白成长记</title>
   
 
 
@@ -250,7 +247,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/有关sql报错注入一点小坑.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/CTF快速口算脚本.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="E-bounce">
@@ -267,7 +264,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">有关sql报错注入一点小坑</h1>
+          <h1 class="post-title" itemprop="name headline">CTF快速口算脚本</h1>
         
 
         <div class="post-meta">
@@ -279,8 +276,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T16:57:05+08:00">
-                2019-02-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-21T18:50:33+08:00">
+                2019-03-21
               </time>
             
 
@@ -289,28 +286,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/web安全/" itemprop="url" rel="index">
-                    <span itemprop="name">web安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -344,8 +319,29 @@
       
 
       
-        <p>在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细<br><a href="https://blog.51cto.com/wt7315/1891458" target="_blank" rel="noopener">sql报错注入原理</a><br>然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，<br>大致明白问题出现在哪里了，这里就粗略归纳成为每多一个子查询，就需要新命名一次。<br><img src="/有关sql报错注入一点小坑/and.png"><br>而用union连接却不会出现，这种报错信息。搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。<br><img src="/有关sql报错注入一点小坑/and的修正版.png"><br>感觉这是小坑因此在这里记录一下。<br>下面是探索过程中使用的payload：<br><img src="/有关sql报错注入一点小坑/payload.png"></p>
-<p></p><h1>sql报错注入目前熟悉的报错payload</h1><br>两个sqli-labs的使用实例:<br>比较复杂的：<br><img src="/有关sql报错注入一点小坑/fuzha.jpg"><br>简单一点的updataxml():<br><img src="/有关sql报错注入一点小坑/jiandan.jpg"><br>这里才发现自己使用的方法有误，updatexml()应该是有三个参数才对，这里并没有正确的报错，而且由于单词拼写错误，导致根本没有使用对。<br>最后还有一个函数extractvalue()使用方法和updatexml()相似，不过它只有两个参数<p></p>
+        <p>消失了一段时间，练习了一下python以弥补肝CTF题时，因为不会写脚本，而无法解决快速口算之类问题的遗憾。<br>不多说来贴脚本源码吧，这是按照某个大佬的脚本来写的，链接在这里:<a href="https://www.jianshu.com/p/344538576ecb" target="_blank" rel="noopener">CTF快速口算</a><br>这里就来贴源码:</p>
+<pre><code>import requests
+url=&quot;******************&quot;
+cook=requests.session()
+html=cook.get(url).text
+print(html)
+def getdata(html,start,end):
+    a=html.find(start)
+    b=html.find(end,a+len(start))
+    c=html[a+len(start):b]
+    return c
+exp=getdata(html,&apos;&lt;br/&gt;&apos;,&apos;&lt;/p&gt;&apos;).replace(&quot; &quot;,&apos;&apos;)
+print (exp)
+result=eval(exp)
+print(v)
+data={&quot;result&quot;:result}
+final=cook.post(url,data=data)
+print(final.text)
+</code></pre><p>首先对于这种网页的爬取操作，我们需要的就是Python里面的requests模块了，这个模块也在爬虫里面经常使用，建议可以去学习一下。<br>分析如下：<br>首先就是把url给定，然后就是得到给定url的session了,<a href="https://baijiahao.baidu.com/s?id=1569587264497242&wfr=spider&for=pc" target="_blank" rel="noopener">有关session是个啥</a><br>虽然通过requests里面自带的get（）方法爬取页面的html代码，然后再转化成为文本格式也就是后面.text的作用。<br>爬取的页面内容如下图：<br><img src="/CTF快速口算脚本/paqu.png"><br>然后我们找到需要截取内容的特征，这里可以看到表达式位于标签</p>
+<pre><code>&lt;br/&gt;
+</code></pre><p>之后，位于</p>
+<pre><code>&lt;/p&gt;
+</code></pre><p>之前，<br>这中间的内容就是我们需要截取的内容了，这里仿造大佬的截取函数，构造了一个getdata（）函数，来获得表达式的内容，然后用eval（）函数直接执行表达式的内容，<br>通过观察html我们可以知道，提交的表单是以post方法提交，并且表单名为result，而通过构造字典这种键值对的结构，可以模拟表单的提交。这里需要使用前面给的session提交，<br>否则表达式就不是同一个了。最后获取返回来的页面，再进行打印就可以得到flag了。<br><img src="/CTF快速口算脚本/flag.jpg"></p>
 
       <div>
 </div>
@@ -365,7 +361,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/sql/" rel="tag"># sql</a>
+            <a href="/tags/CTF/" rel="tag"># CTF</a>
           
         </div>
       
@@ -378,8 +374,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/BugkuCTF-多次.html" rel="next" title="BugkuCTF 多次wp">
-                <i class="fa fa-chevron-left"></i> BugkuCTF 多次wp
+              <a href="/sqli-labs-18-19的一点小启示.html" rel="next" title="sqli-labs 18,19的一点小启示">
+                <i class="fa fa-chevron-left"></i> sqli-labs 18,19的一点小启示
               </a>
             
           </div>
@@ -387,10 +383,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hgameCTF之PHP trick.html" rel="prev" title="hgameCTF之PHP trick">
-                hgameCTF之PHP trick <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -442,17 +434,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -524,22 +507,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">sql报错注入目前熟悉的报错payload</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
