@@ -188,7 +188,7 @@ body {
   font-family: 'Lato', "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", sans-serif;
   font-size: 14px;
   line-height: 2;
-  color: #fffafa;
+  color: #00e5ee;
   background: #fff;
 }
 @media (max-width: 767px) {
@@ -277,15 +277,15 @@ p {
   margin: 0 0 20px 0;
 }
 a {
-  color: #fffafa;
+  color: #00e5ee;
   text-decoration: none;
   outline: none;
   border-bottom: 1px solid #999;
   word-wrap: break-word;
 }
 a:hover {
-  color: #222;
-  border-bottom-color: #222;
+  color: #0ff;
+  border-bottom-color: #0ff;
 }
 blockquote {
   margin: 0;
@@ -498,7 +498,7 @@ code {
 code {
   padding: 2px 4px;
   word-wrap: break-word;
-  color: #fffafa;
+  color: #00e5ee;
   background: #eee;
   border-radius: 3px;
   font-size: 13px;
@@ -921,7 +921,7 @@ pre .javascript .function {
 }
 .post-body .tabs ul.nav-tabs li.tab.active a {
   cursor: default;
-  color: #fffafa;
+  color: #00e5ee;
 }
 .post-body .tabs .tab-content {
   background-color: #fff;
@@ -940,9 +940,9 @@ pre .javascript .function {
   display: inline-block;
   padding: 0 20px;
   font-size: 14px;
-  color: #fffafa;
+  color: #00e5ee;
   background: transparent;
-  border: 2px solid #222;
+  border: 2px solid #0ff;
   text-decoration: none;
   border-radius: 0;
   transition-property: background-color;
@@ -952,8 +952,8 @@ pre .javascript .function {
   line-height: 2;
 }
 .btn:hover {
-  border-color: #222;
-  color: #222;
+  border-color: #0ff;
+  color: #0ff;
   background: #fff;
 }
 .btn +.btn {
@@ -967,7 +967,7 @@ pre .javascript .function {
   display: block;
   width: 22px;
   height: 2px;
-  background: #fffafa;
+  background: #00e5ee;
   border-radius: 1px;
 }
 .btn-bar+.btn-bar {
@@ -1011,7 +1011,7 @@ pre .javascript .function {
 .pagination .prev:hover,
 .pagination .next:hover,
 .pagination .page-number:hover {
-  border-top-color: #222;
+  border-top-color: #0ff;
 }
 .pagination .space {
   padding: 0;
@@ -1043,7 +1043,7 @@ pre .javascript .function {
   .pagination .prev:hover,
   .pagination .next:hover,
   .pagination .page-number:hover {
-    border-bottom-color: #222;
+    border-bottom-color: #0ff;
   }
 }
 .comments {
@@ -1064,7 +1064,7 @@ pre .javascript .function {
   z-index: 1050;
   padding: 0 6px;
   width: 24px;
-  background: #222;
+  background: #0ff;
   font-size: 12px;
   opacity: 1;
   color: #fff;
@@ -1097,7 +1097,7 @@ pre .javascript .function {
 }
 .headband {
   height: 3px;
-  background: #222;
+  background: #0ff;
 }
 .site-meta {
   margin: 0;
@@ -1113,7 +1113,7 @@ pre .javascript .function {
   display: inline-block;
   padding: 0 40px;
   color: #000;
-  background: #222;
+  background: #0ff;
   border-bottom: none;
 }
 .brand:hover {
@@ -1210,7 +1210,7 @@ pre .javascript .function {
   transition-delay: 0s;
 }
 .menu .menu-item a:hover {
-  border-bottom-color: #222;
+  border-bottom-color: #0ff;
 }
 .menu .menu-item .fa {
   margin-right: 5px;
@@ -1421,7 +1421,7 @@ pre .javascript .function {
   border-bottom-color: #666;
 }
 .posts-collapse .post-header:hover::before {
-  background: #222;
+  background: #0ff;
 }
 .posts-collapse .post-meta {
   position: absolute;
@@ -1460,7 +1460,7 @@ pre .javascript .function {
 .posts-expand .post-title-link {
   display: inline-block;
   position: relative;
-  color: #fffafa;
+  color: #00e5ee;
   border-bottom: none;
   line-height: 1.2;
   vertical-align: top;
@@ -1577,11 +1577,11 @@ pre .javascript .function {
   display: block;
   line-height: 25px;
   font-size: 14px;
-  color: #fffafa;
+  color: #00e5ee;
   border-bottom: none;
 }
 .post-nav-item a:hover {
-  color: #222;
+  color: #0ff;
   border-bottom: none;
 }
 .post-nav-item a:active {
@@ -1666,12 +1666,12 @@ pre .javascript .function {
   width: 0;
   z-index: 1040;
   box-shadow: inset 0 2px 6px #000;
-  background: #222;
+  background: #0ff;
   -webkit-transform: translateZ(0);
 }
 .sidebar a {
   color: #999;
-  border-bottom-color: #fffafa;
+  border-bottom-color: #00e5ee;
 }
 .sidebar a:hover {
   color: #eee;
@@ -1706,7 +1706,7 @@ pre .javascript .function {
   width: 14px;
   height: 14px;
   padding: 5px;
-  background: #222;
+  background: #0ff;
   line-height: 0;
   z-index: 1050;
   cursor: pointer;
@@ -1811,7 +1811,7 @@ pre .javascript .function {
   vertical-align: middle;
   margin-right: 10px;
   margin-bottom: 10px;
-  border-bottom-color: #fffafa;
+  border-bottom-color: #00e5ee;
   font-size: 13px;
 }
 .links-of-author a:before {
@@ -1822,7 +1822,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #a321ff;
+  background: #ff98e5;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1857,7 +1857,7 @@ pre .javascript .function {
   cursor: pointer;
   border-bottom: 1px solid transparent;
   font-size: 14px;
-  color: #fffafa;
+  color: #00e5ee;
 }
 .sidebar-nav li:hover {
   color: #f5f5f5;
@@ -1907,7 +1907,7 @@ pre .javascript .function {
   transition-delay: 0s;
   transition-property: all;
   color: #999;
-  border-bottom-color: #fffafa;
+  border-bottom-color: #00e5ee;
 }
 .post-toc ol a:hover {
   color: #fffafa;
@@ -2380,7 +2380,7 @@ pre .javascript .function {
   width: 10px;
   height: 10px;
   opacity: 0.5;
-  background: #fffafa;
+  background: #00e5ee;
   border: 1px solid #fff;
   border-radius: 50%;
 }
@@ -2676,7 +2676,7 @@ hr {
   position: relative;
   display: block;
   height: 2px;
-  background: #222;
+  background: #0ff;
 }
 @media (max-width: 767px) {
   .logo-line-before i,
@@ -2791,7 +2791,7 @@ hr {
   }
 }
 .posts-expand .post-title:hover:before {
-  background: #222;
+  background: #0ff;
 }
 @media (max-width: 767px) {
   .posts-expand .post-body {
@@ -2838,7 +2838,7 @@ hr {
   }
 }
 .post-button a:hover {
-  border-bottom-color: #222;
+  border-bottom-color: #0ff;
 }
 .links-of-blogroll-inline .links-of-blogroll-item {
   display: inline-block;
