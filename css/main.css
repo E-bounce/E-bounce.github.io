@@ -906,7 +906,7 @@ pre .javascript .function {
   width: 1.285714285714286em;
 }
 .post-body .tabs ul.nav-tabs li.tab.active {
-  border-top: 3px solid #fc6423;
+  border-top: 3px solid #00e5ee;
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
   background-color: #fff;
@@ -914,7 +914,7 @@ pre .javascript .function {
 @media (max-width: 413px) {
   .post-body .tabs ul.nav-tabs li.tab.active {
     border-top: 1px solid #ddd;
-    border-left: 3px solid #fc6423;
+    border-left: 3px solid #00e5ee;
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
   }
@@ -1822,7 +1822,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #9846fc;
+  background: #96ffbb;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2913,7 +2913,7 @@ hr {
     background-size: 100% 100%;
   }
   #footer a {
-    color: #eee;
+    color: #000;
   }
 }
 .post {
