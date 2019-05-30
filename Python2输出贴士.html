@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/Python2输出贴士/2.png">
 <meta property="og:image" content="https://www.ebounce.cn/Python2输出贴士/3.jpg">
 <meta property="og:image" content="https://www.ebounce.cn/Python2输出贴士/4.png">
-<meta property="og:updated_time" content="2019-05-30T04:45:00.119Z">
+<meta property="og:updated_time" content="2019-05-30T04:49:28.645Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python2输出贴士">
 <meta name="twitter:description" content="这里吐槽一下学校考试的判题系统对Python的极度不友好,给的电脑环境是python3.4,实际上判题环境是python2.x,数据结构考试的时候Python2的输出坑死我了…首先Python2的输出是会自动添加换行符”\n”的,解决这个换行符的方法便是在print语句的末尾加上”,”,这样python会知道这里不需要换行,但是这个贴心的print语句,会很智能的(智障的)给你在输出的末尾加上”">
@@ -321,7 +321,8 @@
       
 
       
-        <p>这里吐槽一下学校考试的判题系统对Python的极度不友好,给的电脑环境是python3.4,实际上判题环境是python2.x,数据结构考试的时候Python2的输出坑死我了…<br>首先Python2的输出是会自动添加换行符”\n”的,解决这个换行符的方法便是在print语句的末尾加上”,”,这样python会知道这里不需要换行,但是这个贴心的print语句,<br>会很智能的(智障的)给你在输出的末尾加上” “–一个空格.<br>如下图:<br><img src="/Python2输出贴士/1.png"><br>输出比较:<br><img src="/Python2输出贴士/2.png"><br>解决方法有两种,一种是引入sys包,利用sys.stdout.write(string)来解决,还有一种是在print需要的字符前加”\b”,也能让Python不自动输出空格:<br>如下图:<br><img src="/Python2输出贴士/3.jpg"><br>输出比较:<br><img src="/Python2输出贴士/4.png"><br>这样就可以解决了,最后希望学校稍微注意一下,起码环境要和判题环境匹配吧…….w(-Д-)w</p>
+        <p>这里吐槽一下学校考试的判题系统对Python的极度不友好,给的电脑环境是python3.4,实际上判题环境是python2.x,数据结构考试的时候Python2的输出坑死我了…<br>首先Python2的输出是会自动添加换行符”\n”的,解决这个换行符的方法便是在print语句的末尾加上”,”,这样python会知道这里不需要换行,但是这个贴心的print语句,<br>会很智能的(智障的)给你在输出的末尾加上” “–一个空格.<br>如下图:<br><img src="/Python2输出贴士/1.png"><br>输出比较:<br><img src="/Python2输出贴士/2.png"><br>解决方法有两种,一种是引入sys包,利用sys.stdout.write(string)来解决,还有一种是在print需要的字符前加”\b”,也能让Python不自动输出空格<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">""</span></span><br></pre></td></tr></table></figure></p>
+<p>这一句是为了让输出换行,方便看效果<br>具体效果如下图:<br><img src="/Python2输出贴士/3.jpg"><br>输出比较:<br><img src="/Python2输出贴士/4.png"><br>这样就可以解决了,最后希望学校稍微注意一下,起码环境要和判题环境匹配吧…….w(-Д-)w</p>
 
       <div>
 </div>
