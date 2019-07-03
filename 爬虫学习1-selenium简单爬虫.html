@@ -2,11 +2,9 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html class="theme-next mist" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -100,7 +98,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/爬虫学习1-selenium简单爬虫/3.jpg">
 <meta property="og:image" content="https://www.ebounce.cn/爬虫学习1-selenium简单爬虫/4.png">
 <meta property="og:image" content="https://www.ebounce.cn/爬虫学习1-selenium简单爬虫/5.png">
-<meta property="og:updated_time" content="2019-05-30T04:50:51.957Z">
+<meta property="og:updated_time" content="2019-07-03T02:34:51.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="爬虫学习1-selenium简单爬虫">
 <meta name="twitter:description" content="最近都没怎么写博客了，一是前段时间有点忙，二是研究了一段时间的爬虫，废话不多说直接上代码吧。以下代码主要参照一个python爬虫学习的公众号–学习python的正确姿势，是非常有趣的python学习公众号，你看了下面的代码用途就知道为什么有趣了。 from selenium import webdriver from selenium.webdriver.common.by import By//">
@@ -117,7 +115,7 @@
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -347,27 +345,33 @@
 <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">()</span>:</span>
     <span class="keyword">try</span>:
         print(<span class="string">"开始访问B站.............."</span>)
-        fox.get(url)//这里的url是B站的首页
+        fox.get(url)
+//这里的url是B站的首页
         index=wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,<span class="string">"#primary_menu&gt;ul&gt;li.home&gt;a"</span>)))
-        index.click()//这里我们通过css选择器定位到了B站的”首页“元素，由于刚打开开始爬取是会要求我们登陆，从而影响定位，所以先点击首页刷新一下
+        index.click()
+//这里我们通过css选择器定位到了B站的”首页“元素，由于刚打开开始爬取是会要求我们登陆，从而影响定位，所以先点击首页刷新一下
         input=wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,<span class="string">"#banner_link&gt;div&gt;div&gt;form&gt;input"</span>)))
-        input.send_keys(<span class="string">"鸡你太美"</span>)//这里我们选中了B站的搜索框，并输入了关键字”鸡你太美“
+        input.send_keys(<span class="string">"鸡你太美"</span>)
+//这里我们选中了B站的搜索框，并输入了关键字”鸡你太美“
         button=wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,<span class="string">"#banner_link&gt;div&gt;div&gt;form&gt;button"</span>)))
-        button.click()//这里选中了B站的搜索按钮，并点击了搜索
+        button.click()
+//这里选中了B站的搜索按钮，并点击了搜索
         print(<span class="string">"跳转新窗口"</span>)
         all_h = fox.window_handles
         fox.switch_to.window(all_h[<span class="number">1</span>])
         get_source()
         total=wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,<span class="string">"#server-search-app&gt;div.contain&gt;div.body-contain&gt;div&gt;div.page-wrap&gt;div&gt;ul&gt;li.page-item.last&gt;button"</span>)))
         //这里定位到了B站的最后一页元素
-        <span class="keyword">return</span> int(total.text)//获得最后一页元素的数字，方便我们知道要执行多少次
+        <span class="keyword">return</span> int(total.text)
+//获得最后一页元素的数字，方便我们知道要执行多少次
     <span class="keyword">except</span> TimeoutException:
         <span class="keyword">return</span> search()
 
 <span class="function"><span class="keyword">def</span> <span class="title">next_page</span><span class="params">(page_num)</span>:</span>
     <span class="keyword">try</span>:
         print(<span class="string">'获取下一页数据'</span>)
-        time.sleep(<span class="number">3</span>)//爬取太快似乎会被B站搞，所以暂时性的休眠<span class="number">3</span>秒，如果绝对慢也可以自行修改
+        time.sleep(<span class="number">3</span>)
+//爬取太快似乎会被B站搞，所以暂时性的休眠<span class="number">3</span>秒，如果决定慢也可以自行修改
         next= wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,<span class="string">'#server-search-app&gt;div.contain&gt;div.body-contain &gt;div&gt;div.page-wrap&gt;div&gt;ul&gt;li.page-item.next&gt;button'</span>)))
         next.click()//定位到了下一个元素并点击
         wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR,<span class="string">'#server-search-app&gt;div.contain&gt;div.body-contain&gt;div&gt;div.page-wrap&gt;div&gt;ul&gt;li.page-item.active&gt;button'</span>),str(page_num)))//这里定位到当前页面
@@ -382,7 +386,7 @@
         print(<span class="string">"正在获得当前数据中......."</span>)
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,<span class="string">"#server-search-app&gt;div.contain&gt;div.body-contain&gt;div&gt;div.result-wrap.clearfix"</span>)))
         html=fox.page_source//这里是获得B站下面一大块具有视频信息的DOM位置
-        soup=BeautifulSoup(html,<span class="string">'lxml'</span>)//用BeautifulSoup库直接解析html的内容，解析这里之后会返回一个列表
+        soup=BeautifulSoup(html,<span class="string">'lxml'</span>)
         print(<span class="string">"获得数据完毕......."</span>)
         save_data(soup)
     <span class="keyword">except</span>:
@@ -422,12 +426,15 @@ sheet.write(<span class="number">0</span>,<span class="number">5</span>,<span cl
 sheet.write(<span class="number">0</span>,<span class="number">6</span>,<span class="string">"弹幕数"</span>)
 n=<span class="number">1</span>//进行excel最初列的设置
 url = <span class="string">"https://www.bilibili.com"</span>
-fox = webdriver.Firefox()//安装什么浏览器的内核就用什么浏览器
-wait = WebDriverWait(fox,<span class="number">10</span>)//设置最大的等待时间是多少
+fox = webdriver.Firefox()
+//安装什么浏览器的内核就用什么浏览器
+wait = WebDriverWait(fox,<span class="number">10</span>)
+//设置最大的等待时间是多少
 <span class="keyword">try</span>:
     total = search()
     print(total)
-    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, int(total)+<span class="number">1</span>)://这里用获得的最大页数控制循环次数，因为前面
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, int(total)+<span class="number">1</span>)://
+这里用获得的最大页数控制循环次数，因为前面以及爬取了第一页因此从<span class="number">1</span>开始
         next_page(i)
 <span class="keyword">finally</span>:
     fox.close()
@@ -548,7 +555,7 @@ data.save(<span class="string">u"菜虚鲲打篮球.xls"</span>)
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
