@@ -11,10 +11,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-CN">
+<html class="theme-next mist" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
 <script type="text/javascript" src="/js/mouse.js"></script>
 <script type="text/javascript" src="/js/click.js"></script>
@@ -83,7 +81,7 @@
     fastclick: false,
     lazyload: false,
     tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -142,7 +140,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/payload.png">
 <meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/qian.png">
 <meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/tan.png">
-<meta property="og:updated_time" content="2019-07-06T01:39:24.141Z">
+<meta property="og:updated_time" content="2019-07-06T10:38:47.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php代码审计入门笔记-bluecms">
 <meta name="twitter:description" content="最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的) 参考大佬文章:https://www.freebuf.com/articles">
@@ -389,7 +387,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-06 09:39:24" itemprop="dateModified" datetime="2019-07-06T09:39:24+08:00">2019-07-06</time>
+                <time title="修改时间：2019-07-06 18:38:47" itemprop="dateModified" datetime="2019-07-06T18:38:47+08:00">2019-07-06</time>
               </span>
             
           
@@ -532,7 +530,7 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
 这里from参数的值是由base64编码之后的../../../phpMyAdmin,然后burpsuite抓到了下一步的数据包,居然是请求GET-phpMyAdmin的数据包
 <img src="/php代码审计入门笔记-bluecms/burp.png">
 而且还携带了blueCMS的参数(注意看Cookie)
-这是最开始测试时候使用的登陆功能,我们可以发现哪个showmsg.htm的页面上<a>标签的href已经变成了我们注入的脏数据了.
+这是最开始测试时候使用的登陆功能,我们可以发现哪个showmsg.htm的页面上a标签的href已经变成了我们注入的脏数据了.
 <img src="/php代码审计入门笔记-bluecms/blue.png">
 这也就意味我们可以通过这个参数完成对文件的包含,那么我来再来看看为什么会出现这种问题,问题其实是出在showmsg()函数上面
 <img src="/php代码审计入门笔记-bluecms/showmsg.jpg">
@@ -553,7 +551,7 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
 最后感觉PHP代码审计还是比较有意思,当然思维模式很重要,我是一开始就从功能下手,一个个文件去审计,这样既需要搞懂CMS本身的架构逻辑,还需要大量的时间,效率真的是非常的低,因此上面参考的两篇博客都说到了思维这个东西.大佬们似乎比较建议用两个方式进行审计.
 <li>从黑盒测试入手,追踪数据流,从而快速判断哪些功能出现问题,缺点是很容易漏掉一些不容易注意的网页</li>
 <li>从用户输入入手,对于所有的功能文件,只关注用户输入,可能还是需要搞清页面本身的逻辑,但比一行行代码的读取有效率多了.....</li>
-最后希望自己在代码审计的路上能够走远点,没事多看看CMS(flag高高立起...)</'和'></a>
+最后希望自己在代码审计的路上能够走远点,没事多看看CMS(flag高高立起...)</'和'>
       
     </div>
 
@@ -661,7 +659,9 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
       <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
-
+	<div id="music163player">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=29405904&auto=1&height=66"></iframe>
+</div>
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
