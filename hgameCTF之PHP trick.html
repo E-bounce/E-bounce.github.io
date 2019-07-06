@@ -3,33 +3,28 @@
 
 
 
-<html class="theme-next mist" lang="zh-Hans">
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
+<script type="text/javascript" src="/js/mouse.js"></script>
+<script type="text/javascript" src="/js/click.js"></script>
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
 
 
 
@@ -45,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
 
 
 
@@ -53,27 +48,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/w11.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=7.2.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon2.png?v=7.2.0">
 
 
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
 
 
 
@@ -81,44 +70,20 @@
 
 
 
-
-
-
-<meta name="description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获取的">
-<meta name="keywords" content="security,CTF,others">
-<meta property="og:type" content="article">
-<meta property="og:title" content="hgameCTF之PHP trick">
-<meta property="og:url" content="https://www.ebounce.cn/hgameCTF之PHP trick.html">
-<meta property="og:site_name" content="web小白成长记">
-<meta property="og:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获取的">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/源码.png">
-<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/baidu.png">
-<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/admin.png">
-<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/flag.png">
-<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/payload.png">
-<meta property="og:updated_time" content="2019-03-09T06:15:02.073Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hgameCTF之PHP trick">
-<meta name="twitter:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获取的">
-<meta name="twitter:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick/源码.png">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
     fancybox: true,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
-    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -130,12 +95,45 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://www.ebounce.cn/hgameCTF之PHP trick.html">
-
+  
 
 
 
+
+  <meta name="description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：  然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获">
+<meta name="keywords" content="security,CTF,others">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hgameCTF之PHP trick">
+<meta property="og:url" content="https://www.ebounce.cn/hgameCTF之PHP trick.html">
+<meta property="og:site_name" content="web小白成长记">
+<meta property="og:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：  然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick.htm/源码.png">
+<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick.htm/baidu.png">
+<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick.htm/admin.png">
+<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick.htm/flag.png">
+<meta property="og:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick.htm/payload.png">
+<meta property="og:updated_time" content="2019-03-09T06:15:02.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hgameCTF之PHP trick">
+<meta name="twitter:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：  然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）所以先来看看给出的源码，所有参数都是通过GET方法来获">
+<meta name="twitter:image" content="https://www.ebounce.cn/hgameCTF之PHP%20trick.htm/源码.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.ebounce.cn/hgameCTF之PHP trick">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>hgameCTF之PHP trick | web小白成长记</title>
   
@@ -147,9 +145,38 @@
 
 
 
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -161,10 +188,9 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
-	
-	
+
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
@@ -172,13 +198,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">day day up!（´v｀）</p>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -186,45 +215,53 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            发布进程
-          </a>
-        </li>
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
       
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
 
       
+      
     </ul>
+  
+
+  
+    
+
   
 
   
@@ -232,12 +269,20 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
           <div id="content" class="content">
             
 
@@ -250,6 +295,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -259,8 +306,8 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="E-bounce">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/timg.jpg">
+      <meta itemprop="description" content="keep better than yesterday">
+      <meta itemprop="image" content="/images/touxiang.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -272,33 +319,54 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">hgameCTF之PHP trick</h1>
+          <h1 class="post-title" itemprop="name headline">hgameCTF之PHP trick
+
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T19:27:55+08:00">
-                2019-02-22
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
+              <time title="创建时间：2019-02-22 19:27:55" itemprop="dateCreated datePublished" datetime="2019-02-22T19:27:55+08:00">2019-02-22</time>
+            </span>
+          
 
           
-            <span class="post-category">
             
-              <span class="post-meta-divider">|</span>
+
             
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-09 14:15:02" itemprop="dateModified" datetime="2019-03-09T14:15:02+08:00">2019-03-09</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
@@ -306,11 +374,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/CTF/" itemprop="url" rel="index">
-                    <span itemprop="name">CTF</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
 
                 
                 
@@ -320,18 +384,45 @@
 
           
             
+            
           
 
           
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>浏览量o(￣▽￣)ｄ
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
             </span>
           
 
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">830</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">1 分钟</span>
+            </span>
           
 
           
@@ -349,24 +440,55 @@
       
 
       
-        <p>做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。<br>就是PHP trick这道题，我们先看源码，如下图：<br><img src="/hgameCTF之PHP%20trick/源码.png"><br>然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）<br>所以先来看看给出的源码，所有参数都是通过GET方法来获取的，这样我们直接使用hackbar就可以了</p>
-<p></p><h1>第一二个if的绕过</h1><br>先看第一个if要求str1和str2不相等,这个可以轻易绕过，主要<br>就是第二个if要求str1和str2的MD5值相等，注意是”=!”也就是弱相等，因此我们可以构造md5值为0e开头的，php在读入X（X是数字）e开头的字符会理解为X的多少次方，<br>因此0E开头，可以理解为0的多少次方，我们知道0^n无论如何还是0，所以就能够绕过第二个if了。<br>这里构造参数<p></p>
-<p><pre><code>str1=s878926199a str2=s155964671a</code></pre></p>
-<p></p><h1>第三四个if的绕过</h1><br>我们看到第三个if仍然是相同的套路，但这时MD5值得校验已经变成了强相等，这时候不能再用之前得方法绕过了，我们可以用数组进行绕过，由于如果在MD5里面传入<br>数组的话，那么MD5函数会返回一个NULL，由于两边都是NULL，所以就可以绕过这个强相等问题了。<p></p>
-<p><pre><code>str3[]=1 str4[]=2</code></pre><br>因为这种写法会使php的参数变成error，而两个参数均为error转换为MD5后值一定相同。</p>
-<p></p><h1>第五六七个if绕过</h1><br>$_SERVER[“QUERY_STRING”]这个在PHP中等同于查询字符”?”后的所有字符，因此第五个if要求H_game字符不能在”?”后面出现，但由于$str5 = @$_GET[‘H_game’];<br>也就是说我们必须传入h_game参数，并且要是数字，而且不能满足后面两个if，即又要&gt;=9999999999，转化为字符后又必须&lt;=0。<br>一步一步来，先绕过校验H_game存在，这里可以利用URL编码进行绕过，轻轻松松。而后面两个if也可以用数组进行绕过<br>最后H_game参数就直接变成了<p></p>
-<p><pre><code>%48%5f%67%61%6d%65[]=%20</code></pre></p>
-<p></p><h1>第八九十个if绕过</h1><br>parse_url（）函数是用于解析我们的URL并返回组成部分，这最后两个if就是校验我们的传入URL的协议名是否是http，然后域名是不是<a href="http://www.baidu.com，虽然能够直接传入这个值，但是后面" target="_blank" rel="noopener">www.baidu.com，虽然能够直接传入这个值，但是后面</a><br>就会出现问题。如果我们直接传入<p></p>
-<p><pre><code>url=<a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a></code></pre><br>那么我们会发现下面出现了百度的界面<br><img src="/hgameCTF之PHP%20trick/baidu.png"></p>
-<p></p><h1>curl的处理</h1><br>curl在这里相当于解析我们的url并进行访问，但注意curl的访问，相当于在服务器内部进行的访问，也就是说如果我们访问本地的文件，就相当于以localhost去访问本地<br>资源，因此要想办法让curl解析访问admin.php，这里就要利用URL的组成了，首先parse_url（）在解析host时，会解析第二个@后面的内容，而CURL则会解析第一个@后的内容<br><a href="http://www.php.cn/php-weizijiaocheng-393305.html" target="_blank" rel="noopener">有关curl是个啥</a><br>因此这里构造参数<p></p>
-<p><pre><code>url=http:<a href="mailto://@127.0.0.1" target="_blank" rel="noopener">//@127.0.0.1</a>:<a href="mailto:80@www.baidu.com" target="_blank" rel="noopener">80@www.baidu.com</a>/admin.php</code></pre><br>便可以成功访问admin.php了，但不知道为什么直接用127.0.0.1不能直接访问需要加个80端口。</p>
-<p></p><h1>php伪协议读取</h1><br>admin.php的源码如下：<br>这里要求传参为GET方法传入的参数filename，<br>并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，<br>而读取文件函数却是在文件不存在条件下才会执行，这里很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，<br>有关php伪协议的知识可以参照下文：<br><a href="http://www.cnblogs.com/LittleHann/p/3665062.html" target="_blank" rel="noopener">PHP伪协议</a><br>最后利用php://filter读取flag.php<p></p>
-<p><pre><code>filename=php://filter/read=convert.base64-encode/resource=flag.php</code></pre><br><img src="/hgameCTF之PHP%20trick/admin.png"><br>最后将这段base64解码就可以得到flag啦。<br><img src="/hgameCTF之PHP%20trick/flag.png"><br>完整的payload如下图:<br><img src="/hgameCTF之PHP%20trick/payload.png"></p>
-
-      <div>
-</div>
-	  
+        <p>做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。<br>就是PHP trick这道题，我们先看源码，如下图：</p>
+<img src="/hgameCTF之PHP trick.htm/源码.png">
+<p>然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）<br>所以先来看看给出的源码，所有参数都是通过GET方法来获取的，这样我们直接使用hackbar就可以了</p>
+<h1>第一二个if的绕过</h1>
+先看第一个if要求str1和str2不相等,这个可以轻易绕过，主要
+就是第二个if要求str1和str2的MD5值相等，注意是"=!"也就是弱相等，因此我们可以构造md5值为0e开头的，php在读入X（X是数字）e开头的字符会理解为X的多少次方，
+因此0E开头，可以理解为0的多少次方，我们知道0^n无论如何还是0，所以就能够绕过第二个if了。
+这里构造参数
+<pre><code>str1=s878926199a str2=s155964671a</code></pre>
+<h1>第三四个if的绕过</h1>
+我们看到第三个if仍然是相同的套路，但这时MD5值得校验已经变成了强相等，这时候不能再用之前得方法绕过了，我们可以用数组进行绕过，由于如果在MD5里面传入
+数组的话，那么MD5函数会返回一个NULL，由于两边都是NULL，所以就可以绕过这个强相等问题了。
+<pre><code>str3[]=1 str4[]=2</code></pre>
+因为这种写法会使php的参数变成error，而两个参数均为error转换为MD5后值一定相同。
+<h1>第五六七个if绕过</h1>
+$_SERVER["QUERY_STRING"]这个在PHP中等同于查询字符"?"后的所有字符，因此第五个if要求H_game字符不能在"?"后面出现，但由于$str5 = @$_GET['H_game'];
+也就是说我们必须传入h_game参数，并且要是数字，而且不能满足后面两个if，即又要>=9999999999，转化为字符后又必须<=0。 一步一步来，先绕过校验h_game存在，这里可以利用url编码进行绕过，轻轻松松。而后面两个if也可以用数组进行绕过="" 最后h_game参数就直接变成了="" <pre=""><code>%48%5f%67%61%6d%65[]=%20</code>
+<h1>第八九十个if绕过</h1>
+parse_url（）函数是用于解析我们的URL并返回组成部分，这最后两个if就是校验我们的传入URL的协议名是否是http，然后域名是不是www.baidu.com，虽然能够直接传入这个值，但是后面
+就会出现问题。如果我们直接传入
+<pre><code>url=http://www.baidu.com</code></pre>
+那么我们会发现下面出现了百度的界面
+<img src="/hgameCTF之PHP trick.htm/baidu.png">
+<h1>curl的处理</h1>
+curl在这里相当于解析我们的url并进行访问，但注意curl的访问，相当于在服务器内部进行的访问，也就是说如果我们访问本地的文件，就相当于以localhost去访问本地
+资源，因此要想办法让curl解析访问admin.php，这里就要利用URL的组成了，首先parse_url（）在解析host时，会解析第二个@后面的内容，而CURL则会解析第一个@后的内容
+<a href="http://www.php.cn/php-weizijiaocheng-393305.html" target="_blank" rel="noopener">有关curl是个啥</a>
+因此这里构造参数
+<pre><code>url=http://@127.0.0.1:80@www.baidu.com/admin.php</code></pre>
+便可以成功访问admin.php了，但不知道为什么直接用127.0.0.1不能直接访问需要加个80端口。
+<h1>php伪协议读取</h1>
+admin.php的源码如下：
+这里要求传参为GET方法传入的参数filename，
+并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，
+而读取文件函数却是在文件不存在条件下才会执行，这里很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，
+有关php伪协议的知识可以参照下文：
+<a href="http://www.cnblogs.com/LittleHann/p/3665062.html" target="_blank" rel="noopener">PHP伪协议</a>
+最后利用php://filter读取flag.php
+<pre><code>filename=php://filter/read=convert.base64-encode/resource=flag.php</code></pre>
+<img src="/hgameCTF之PHP trick.htm/admin.png">
+最后将这段base64解码就可以得到flag啦。
+<img src="/hgameCTF之PHP trick.htm/flag.png">
+完整的payload如下图:
+<img src="/hgameCTF之PHP trick.htm/payload.png"></=0。>
+      
     </div>
+
+    
+
     
     
     
@@ -374,7 +496,34 @@
     
 
     
+      
+    
+    
 
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>E-bounce</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://www.ebounce.cn/hgameCTF之PHP trick.html" title="hgameCTF之PHP trick">https://www.ebounce.cn/hgameCTF之PHP trick.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -416,17 +565,10 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
           </div>
-          
-
-
           
 
   
@@ -446,7 +588,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
@@ -462,88 +603,138 @@
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/timg.jpg" alt="E-bounce">
+	<a href="/">
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="E-bounce">
+	</a>
             
               <p class="site-author-name" itemprop="name">E-bounce</p>
-              <p class="site-description motion-element" itemprop="description">keep better than yesterday</p>
+              <div class="site-description motion-element" itemprop="description">keep better than yesterday</div>
           </div>
 
-          <nav class="site-state motion-element">
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
 
-            
-              <div class="site-state-item site-state-posts">
               
-                <a href="/archives">
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
               
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
 
-            
               
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
               
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
+            </nav>
+          
 
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
+          
 
           
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:3199729962@qq.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
-		<div id="music163player">
-			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=418602197&auto=1&height=66"></iframe>
-			
-		</div>
+
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
@@ -551,7 +742,7 @@
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
@@ -559,6 +750,7 @@
 
     </div>
   </aside>
+  
 
 
         
@@ -567,47 +759,68 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">E-bounce</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">24k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">22 分钟</span>
+  
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" href="http://hexo.io" target="_blank" rel="external nofollow">Hexo</a> 强力驱动</div>
 
 
 
-  <span class="post-meta-divider">|</span>
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Mist</a> v5.1.4</div>
-
-
-
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js""></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
-      <i class="fa fa-user"></i>访问人数╮(╯▽╰)╭
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人
     </span>
   
 
   
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>总访问量<(￣ˇ￣) <span="" class="busuanzi-value" id="busuanzi_value_site_pv"></(￣ˇ￣)></span>
-      次
-    
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
   
 </div>
+
 
 
 
@@ -629,11 +842,14 @@
 
     
 
+    
+
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -647,92 +863,6 @@
 
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
 
 
 
@@ -749,19 +879,69 @@
 
 
 
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
   
 
 
 
 
-
-  
-
-  
-
-  
-
-  
   
 
   
@@ -770,8 +950,63 @@
 
   
 
-  <!-- 鼠标动画 -->
-<script type="text/javascript" src="/js/src/beautiful.js"></script>
-<script type="text/javascript" src="/js/src/clicklove.js"></script>
-</body>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
 </html>

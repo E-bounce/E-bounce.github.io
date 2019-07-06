@@ -3,33 +3,28 @@
 
 
 
-<html class="theme-next mist" lang="zh-Hans">
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
+<script type="text/javascript" src="/js/mouse.js"></script>
+<script type="text/javascript" src="/js/click.js"></script>
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
 
 
 
@@ -45,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
 
 
 
@@ -53,27 +48,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/w11.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=7.2.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon2.png?v=7.2.0">
 
 
-
-
-
-  <meta name="keywords" content="web安全,">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
 
 
 
@@ -81,73 +70,20 @@
 
 
 
-
-
-
-<meta name="description" content="最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的) 参考大佬文章:https://www.freebuf.com/articles">
-<meta name="keywords" content="web安全">
-<meta property="og:type" content="article">
-<meta property="og:title" content="php代码审计入门笔记-bluecms">
-<meta property="og:url" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.html">
-<meta property="og:site_name" content="web小白成长记">
-<meta property="og:description" content="最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的) 参考大佬文章:https://www.freebuf.com/articles">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/aj_js_sql.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/table1.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/table2.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/getone.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/magic.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/lu.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/exap.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/hui.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/wrong1.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/wrong.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/xian.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/btable.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/bcolumn.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/data.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/ip.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/where.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/ip_sql_point_LI.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/ying.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/zhu.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/reu.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/pay.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/LI.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/from.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/from.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/burp.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/blue.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/showmsg.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/fun.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/htm.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/xss.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/filter.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/payload.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/qian.png">
-<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/tan.png">
-<meta property="og:updated_time" content="2019-07-06T01:39:24.141Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="php代码审计入门笔记-bluecms">
-<meta name="twitter:description" content="最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的) 参考大佬文章:https://www.freebuf.com/articles">
-<meta name="twitter:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms/aj_js_sql.jpg">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
     fancybox: true,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
-    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -159,12 +95,74 @@
 </script>
 
 
-
-  <link rel="canonical" href="https://www.ebounce.cn/php代码审计入门笔记-bluecms.html">
-
+  
 
 
 
+
+  <meta name="description" content="最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的) 参考大佬文章:https://www.freebuf.com/articles">
+<meta name="keywords" content="web安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php代码审计入门笔记-bluecms">
+<meta property="og:url" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.html">
+<meta property="og:site_name" content="web小白成长记">
+<meta property="og:description" content="最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的) 参考大佬文章:https://www.freebuf.com/articles">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/aj_js_sql.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/table1.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/table2.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/getone.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/magic.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/lu.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/exap.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/hui.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/wrong1.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/wrong.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/xian.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/btable.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/bcolumn.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/data.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/ip.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/where.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/ip_sql_point_LI.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/ying.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/zhu.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/reu.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/pay.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/LI.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/from.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/from.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/burp.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/blue.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/showmsg.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/fun.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/htm.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/xss.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/filter.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/payload.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/qian.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/tan.png">
+<meta property="og:updated_time" content="2019-07-06T01:39:24.141Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php代码审计入门笔记-bluecms">
+<meta name="twitter:description" content="最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的) 参考大佬文章:https://www.freebuf.com/articles">
+<meta name="twitter:image" content="https://www.ebounce.cn/php代码审计入门笔记-bluecms.htm/aj_js_sql.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.ebounce.cn/php代码审计入门笔记-bluecms">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>php代码审计入门笔记-bluecms | web小白成长记</title>
   
@@ -176,9 +174,38 @@
 
 
 
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -190,10 +217,9 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
-	
-	
+
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
@@ -201,13 +227,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">day day up!（´v｀）</p>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -215,45 +244,53 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            发布进程
-          </a>
-        </li>
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
       
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
 
       
+      
     </ul>
+  
+
+  
+    
+
   
 
   
@@ -261,12 +298,20 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
           <div id="content" class="content">
             
 
@@ -279,6 +324,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -288,8 +335,8 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="E-bounce">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/timg.jpg">
+      <meta itemprop="description" content="keep better than yesterday">
+      <meta itemprop="image" content="/images/touxiang.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -301,33 +348,54 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">php代码审计入门笔记-bluecms</h1>
+          <h1 class="post-title" itemprop="name headline">php代码审计入门笔记-bluecms
+
+              
+            
+          </h1>
         
 
         <div class="post-meta">
-          <span class="post-time">
-            
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-05T11:02:25+08:00">
-                2019-07-05
-              </time>
-            
 
-            
+              
+                
+              
 
-            
-          </span>
+              <time title="创建时间：2019-07-05 11:02:25" itemprop="dateCreated datePublished" datetime="2019-07-05T11:02:25+08:00">2019-07-05</time>
+            </span>
+          
 
           
-            <span class="post-category">
             
-              <span class="post-meta-divider">|</span>
+
             
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-06 09:39:24" itemprop="dateModified" datetime="2019-07-06T09:39:24+08:00">2019-07-06</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
@@ -335,11 +403,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/web安全/" itemprop="url" rel="index">
-                    <span itemprop="name">web安全</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/web安全/" itemprop="url" rel="index"><span itemprop="name">web安全</span></a></span>
 
                 
                 
@@ -349,18 +413,45 @@
 
           
             
+            
           
 
           
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>浏览量o(￣▽￣)ｄ
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
             </span>
           
 
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">3.6k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">3 分钟</span>
+            </span>
           
 
           
@@ -380,23 +471,94 @@
       
         <p>最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的)</p>
 <p>参考大佬文章:<br><a href="https://www.freebuf.com/articles/web/166602.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/166602.html</a></p>
-<p></p><h1>ad_js.php-SQL注入漏洞</h1><br>首先第一个也就是最多被人提及的注入漏洞了,这个是直接Seay自动审计就可以审计出来的(大多数时候不要相信这个玩意儿)<br><img src="/php代码审计入门笔记-bluecms/aj_js_sql.jpg"><br>然后就看到了这一串代码,这段代码只是简单的对ip参数进行了去除首位空白符的操作,并没有对用户输入进行过滤,table()函数只是为表名加上了’blue_’的前缀,而getone()函数则是将sql语句传过去,进行查询并没有进行过滤,但开头应用了一个common.inc.php,我们去看看是不是配置了什么其他过滤设置.<br><img src="/php代码审计入门笔记-bluecms/table1.jpg"><br><img src="/php代码审计入门笔记-bluecms/table2.png"><br><img src="/php代码审计入门笔记-bluecms/getone.jpg"><br><img src="/php代码审计入门笔记-bluecms/magic.jpg"><br>这里定义了如果魔术引号没有使用的话,将会对全局变量$_POST,$_GET,$_COOKIE,$_REQUEST调用deep_addslashe()函数,然后我们再去看看deep_addslashe()这个函数长什么样<br><img src="/php代码审计入门笔记-bluecms/lu.jpg"><br>我们发现这个函数将利用递归,将数组内的所有内容全部使用了addslashe()函数–即对输入中的引号加上’/‘就像下面的官方手册范例一样<br><img src="/php代码审计入门笔记-bluecms/exap.png"><br>经由测试,魔术引号是没有打开的也就是说,我们通过GET,POST,COOKIE传进来的数据中的引号都会被加上下划线,然后注意看原来ad_js.php的sql语句,发现了吗?这是数字型的注入,也就是说我们并不需要使用引号去闭合前面的语句,因此存在注入,那么是否有回显呢?注意下方的语句:<br><img src="/php代码审计入门笔记-bluecms/hui.jpg"><br>这条语句实际上起的作用是,如果查询成功则将查询的结果,以html注释的形式回显出来,然而出现查询错误,则会完整的将查询语句回显出来(非注释)如下图:<br><img src="/php代码审计入门笔记-bluecms/wrong1.png"><br><img src="/php代码审计入门笔记-bluecms/wrong.png"><br>由于是数字型注入,且有回显因此这里可以使用union联合查询注入,过程如下图:<br>前面已经使用order…by语句查询到了有7个列,因此接下来检查回显:<br><img src="/php代码审计入门笔记-bluecms/xian.png"><br>然后爆表名:<br><img src="/php代码审计入门笔记-bluecms/btable.png"><br>随后爆列名(这里需要注意的是由于deep_addslashe()函数的存在,这里如果使用表名加引号会自动被加上’/‘,导致查询失败,因此需要进行16进制编码绕过:<br><img src="/php代码审计入门笔记-bluecms/bcolumn.png"><br>最后回显admin用户的信息:<br><img src="/php代码审计入门笔记-bluecms/data.png"><p></p>
-<p></p><h1>ip伪造sql注入</h1><br>首先阅读配置文件的时候,发现了一个问题,就是前文提及的对全局变量过滤的函数,实际上忽略了$_SERVER和$_FILES这两个全局变量,也就以为则,这两个超级变量的引用将不会有任何的处理,而根据getip()函数,表明服务器获得ip的方式既可以使用X-Forwarded-for来伪造,也可以使用client-ip来伪造,两者皆可.<br><img src="/php代码审计入门笔记-bluecms/ip.jpg"><br>既然猜测在使用ip的时候没有进行数据处理,那么可以通过全局搜索调用getip()的地方,来寻找是否有注入点的地方,如下图:<br><img src="/php代码审计入门笔记-bluecms/where.png"><br><img src="/php代码审计入门笔记-bluecms/ip_sql_point_LI.jpg"><br>阅读这个insert语句,发现其中的变量在前后并没有过滤,或者说对getip()函数返回的结果没有进行过滤,因此这里存在注入,具体利用方式参照<br><a href="https://chybeta.github.io/2017/03/14/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8BSQL%E6%B3%A8%E5%85%A5%EF%BC%9ABlueCMSv1-6-sp1/" target="_blank" rel="noopener">blueCMSsql注入</a><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">','</span><span class="number">1</span><span class="string">'),('</span><span class="string">','</span><span class="number">6</span><span class="string">','</span><span class="number">2</span><span class="string">','</span><span class="number">1</span><span class="string">','</span><span class="number">6</span><span class="string">',(select concat(admin_name,'</span>:<span class="string">',pwd) from blue_admin),'</span><span class="number">1</span><span class="string">','</span><span class="number">1</span></span><br></pre></td></tr></table></figure><p></p>
-<img src="/php代码审计入门笔记-bluecms/ying.png">
-<p>博客中的payload,思路就是闭合前一个VALUE(),再构造下一个(),这里如果输入错误的sql语句会将sql语句全部回显出来,因为这个INSERT注入会涉及很多参数,而除了回显点,都需要和前一个VALUE()保持一致.<br><img src="/php代码审计入门笔记-bluecms/zhu.png"><br><img src="/php代码审计入门笔记-bluecms/reu.png"><br>PS:这里有个小坑的地方,回显语句后面的哪个参数是时间戳,也就是注入之后,回显的评论时候是由注入语句后那个参数决定了,之前按照上面博客的语句,注入的数据在最下面(时间为1970年).</p>
-<p></p><h1>有关用户支付功能存在的问题</h1><br><img src="/php代码审计入门笔记-bluecms/pay.jpg"><br>这个漏洞没有办法复现,因为网站的支付模块没有开启,而我加载的时候,会提示支付模块损坏,所以暂时无法复现,但这个漏洞其实是很明显,<br>具体利用过程,请参照博客: <a href="https://www.freebuf.com/vuls/196190.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/196190.html</a><br><img src="/php代码审计入门笔记-bluecms/LI.jpg"><br>注意这里POST上来的pay参数,我们可以看到前后没有做任何数据处理,就进行了包含语句的拼接,但是后面直接拼接了一个ndex.php,是不是我们只能包含带有index.php的文件呢?答案当然是否定的,由于这个CMS版本老旧,需要运行在phpstudy–PHP5.2的版本,而这个版本是存在%00截断和url长度截断的,因此可以利用这两个方法进行截断,从而包含我们想要的文件.<br>PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数,让%00被加上’/‘,从而无法执行截断.<p></p>
-<p></p><h1>from参数任意包含漏洞</h1><br>这个起因应该是发现一些功能会拼接这个$from参数,这个参数是用户可控参数,并且没有进行除了deep_addslashe()之外的任何处理,原来以为只是一个重定向的问题,但最后感觉问题还是挺大的,源码如下图:<br><img src="/php代码审计入门笔记-bluecms/from.jpg"><br>这是from参数的来源,只是先判断是否为空,不为空则直接获得REQUEST的值,然后我们再来看看,哪里使用了这个可控参数.<br><img src="/php代码审计入门笔记-bluecms/from.jpg"><p></p>
-<p><li><em>first</em>:do_login</li><br>从act参数的名字可以看出,这个是在进行登陆操作的时候会调用这个参数</p>
-<p><li><em>second</em>:do_reg</li><br>第二个则是进行注册时,会使用这个from参数,但这个参数通过测试,是进行重定向的作用,这个值默认为空,在判断里面空的情况下是为了重定向至user.php,但这个参数是可控的,通过用户构造恶意的base64编码后的数据,能够控制重定向的位置,这里以注册功能为例(登陆功能也是类似的):<br><br>这里from参数的值是由base64编码之后的../../../phpMyAdmin,然后burpsuite抓到了下一步的数据包,居然是请求GET-phpMyAdmin的数据包<br><img src="/php代码审计入门笔记-bluecms/burp.png"><br>而且还携带了blueCMS的参数(注意看Cookie)<br>这是最开始测试时候使用的登陆功能,我们可以发现哪个showmsg.htm的页面上<a>标签的href已经变成了我们注入的脏数据了.<br><img src="/php代码审计入门笔记-bluecms/blue.png"><br>这也就意味我们可以通过这个参数完成对文件的包含,那么我来再来看看为什么会出现这种问题,问题其实是出在showmsg()函数上面<br><img src="/php代码审计入门笔记-bluecms/showmsg.jpg"><br>就是这个基本上一定会调用的这个函数<br><img src="/php代码审计入门笔记-bluecms/fun.jpg"><br>函数原型在这里,assign()主要是将传入的值变成键值对的形式,而display()函数太长了,读完发现就只是用于在showmsg.htm页面上显示错误信息而已,问题其实是出在htm里,我们来看看源码<br><img src="/php代码审计入门笔记-bluecms/htm.png"><br>这里JS就将传入的gourl传给了自动跳转的函数上面,而gourl则是传入的from值,所以用户能够通过控制from值来进行文件包含.</a></p>
-<p></p><h1>修改新闻上面存在的XSS</h1><br><img src="/php代码审计入门笔记-bluecms/xss.jpg"><br>先来看这个功能进行了什么操作,前面的$autor,$source都进行了html实体编码,基本上不能注入,但我们看看后面剩下的参数对$content参数进行了去掉前后字符和过滤了一些数据,然后判断有没有$descript,有的话截取$descript的前90个字符(也就是长度限制),如果,如果没有$descript的话则会对$content参数再进行一次过滤,也就是说如果我们传入了$descript的值,就会少进行一次过滤,因此存在XSS的可能性.<br><img src="/php代码审计入门笔记-bluecms/filter.jpg"><br>看看filter_data()函数原型,我们可以发现是利用了正则表达式,对元数据进行了一次过滤,也就是说我们可以通过双写绕过,同时这里没有不区分大小写的匹配,因此也可以通过大写标签绕过.最后这里过滤的标签还少了几个,可以直接使用<img>的属性中,引用JS脚本,最后利用过程,这里简单的在修改新闻界面抓包,对注入的数据进行二次修改(因为包里的数据实际上是对’&lt;’和’&gt;’进行了html实体编码的,但只进行了一次,因此可以通过抓包该回去),大致过程如下:<br><img src="/php代码审计入门笔记-bluecms/payload.png"><br><img src="/php代码审计入门笔记-bluecms/qian.png"><br><img src="/php代码审计入门笔记-bluecms/tan.png"><p></p>
-<p></p><h1>总结</h1><br>最后感觉PHP代码审计还是比较有意思,当然思维模式很重要,我是一开始就从功能下手,一个个文件去审计,这样既需要搞懂CMS本身的架构逻辑,还需要大量的时间,效率真的是非常的低,因此上面参考的两篇博客都说到了思维这个东西.大佬们似乎比较建议用两个方式进行审计.<p></p>
-<p><li>从黑盒测试入手,追踪数据流,从而快速判断哪些功能出现问题,缺点是很容易漏掉一些不容易注意的网页</li></p>
-<p><li>从用户输入入手,对于所有的功能文件,只关注用户输入,可能还是需要搞清页面本身的逻辑,但比一行行代码的读取有效率多了…..</li><br>最后希望自己在代码审计的路上能够走远点,没事多看看CMS(flag高高立起…)</p>
+<h1>ad_js.php-SQL注入漏洞</h1>
+首先第一个也就是最多被人提及的注入漏洞了,这个是直接Seay自动审计就可以审计出来的(大多数时候不要相信这个玩意儿)
+<img src="/php代码审计入门笔记-bluecms.htm/aj_js_sql.jpg">
+然后就看到了这一串代码,这段代码只是简单的对ip参数进行了去除首位空白符的操作,并没有对用户输入进行过滤,table()函数只是为表名加上了'blue_'的前缀,而getone()函数则是将sql语句传过去,进行查询并没有进行过滤,但开头应用了一个common.inc.php,我们去看看是不是配置了什么其他过滤设置.
+<img src="/php代码审计入门笔记-bluecms.htm/table1.jpg">
+<img src="/php代码审计入门笔记-bluecms.htm/table2.png">
+<img src="/php代码审计入门笔记-bluecms.htm/getone.jpg">
+<img src="/php代码审计入门笔记-bluecms.htm/magic.jpg">
+这里定义了如果魔术引号没有使用的话,将会对全局变量$_POST,$_GET,$_COOKIE,$_REQUEST调用deep_addslashe()函数,然后我们再去看看deep_addslashe()这个函数长什么样
+<img src="/php代码审计入门笔记-bluecms.htm/lu.jpg">
+我们发现这个函数将利用递归,将数组内的所有内容全部使用了addslashe()函数--即对输入中的引号加上'/'就像下面的官方手册范例一样
+<img src="/php代码审计入门笔记-bluecms.htm/exap.png">
+经由测试,魔术引号是没有打开的也就是说,我们通过GET,POST,COOKIE传进来的数据中的引号都会被加上下划线,然后注意看原来ad_js.php的sql语句,发现了吗?这是数字型的注入,也就是说我们并不需要使用引号去闭合前面的语句,因此存在注入,那么是否有回显呢?注意下方的语句:
+<img src="/php代码审计入门笔记-bluecms.htm/hui.jpg">
+这条语句实际上起的作用是,如果查询成功则将查询的结果,以html注释的形式回显出来,然而出现查询错误,则会完整的将查询语句回显出来(非注释)如下图:
+<img src="/php代码审计入门笔记-bluecms.htm/wrong1.png">
+<img src="/php代码审计入门笔记-bluecms.htm/wrong.png">
+由于是数字型注入,且有回显因此这里可以使用union联合查询注入,过程如下图:
+前面已经使用order...by语句查询到了有7个列,因此接下来检查回显:
+<img src="/php代码审计入门笔记-bluecms.htm/xian.png">
+然后爆表名:
+<img src="/php代码审计入门笔记-bluecms.htm/btable.png">
+随后爆列名(这里需要注意的是由于deep_addslashe()函数的存在,这里如果使用表名加引号会自动被加上'/',导致查询失败,因此需要进行16进制编码绕过:
+<img src="/php代码审计入门笔记-bluecms.htm/bcolumn.png">
+最后回显admin用户的信息:
+<img src="/php代码审计入门笔记-bluecms.htm/data.png">
+<h1>ip伪造sql注入</h1>
+首先阅读配置文件的时候,发现了一个问题,就是前文提及的对全局变量过滤的函数,实际上忽略了$_SERVER和$_FILES这两个全局变量,也就以为则,这两个超级变量的引用将不会有任何的处理,而根据getip()函数,表明服务器获得ip的方式既可以使用X-Forwarded-for来伪造,也可以使用client-ip来伪造,两者皆可.
+<img src="/php代码审计入门笔记-bluecms.htm/ip.jpg">
+既然猜测在使用ip的时候没有进行数据处理,那么可以通过全局搜索调用getip()的地方,来寻找是否有注入点的地方,如下图:
+<img src="/php代码审计入门笔记-bluecms.htm/where.png">
+<img src="/php代码审计入门笔记-bluecms.htm/ip_sql_point_LI.jpg">
+阅读这个insert语句,发现其中的变量在前后并没有过滤,或者说对getip()函数返回的结果没有进行过滤,因此这里存在注入,具体利用方式参照
+<a href="https://chybeta.github.io/2017/03/14/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8BSQL%E6%B3%A8%E5%85%A5%EF%BC%9ABlueCMSv1-6-sp1/" target="_blank" rel="noopener">blueCMSsql注入</a>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">','</span><span class="number">1</span><span class="string">'),('</span><span class="string">','</span><span class="number">6</span><span class="string">','</span><span class="number">2</span><span class="string">','</span><span class="number">1</span><span class="string">','</span><span class="number">6</span><span class="string">',(select concat(admin_name,'</span>:<span class="string">',pwd) from blue_admin),'</span><span class="number">1</span><span class="string">','</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
 
-      <div>
-</div>
-	  
+<img src="/php代码审计入门笔记-bluecms.htm/ying.png">
+<p>博客中的payload,思路就是闭合前一个VALUE(),再构造下一个(),这里如果输入错误的sql语句会将sql语句全部回显出来,因为这个INSERT注入会涉及很多参数,而除了回显点,都需要和前一个VALUE()保持一致.</p>
+<img src="/php代码审计入门笔记-bluecms.htm/zhu.png">
+<img src="/php代码审计入门笔记-bluecms.htm/reu.png">
+<p>PS:这里有个小坑的地方,回显语句后面的哪个参数是时间戳,也就是注入之后,回显的评论时候是由注入语句后那个参数决定了,之前按照上面博客的语句,注入的数据在最下面(时间为1970年).</p>
+<h1>有关用户支付功能存在的问题</h1>
+<img src="/php代码审计入门笔记-bluecms.htm/pay.jpg">
+这个漏洞没有办法复现,因为网站的支付模块没有开启,而我加载的时候,会提示支付模块损坏,所以暂时无法复现,但这个漏洞其实是很明显,
+具体利用过程,请参照博客: <a href="https://www.freebuf.com/vuls/196190.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/196190.html</a>
+<img src="/php代码审计入门笔记-bluecms.htm/LI.jpg">
+注意这里POST上来的pay参数,我们可以看到前后没有做任何数据处理,就进行了包含语句的拼接,但是后面直接拼接了一个ndex.php,是不是我们只能包含带有index.php的文件呢?答案当然是否定的,由于这个CMS版本老旧,需要运行在phpstudy--PHP5.2的版本,而这个版本是存在%00截断和url长度截断的,因此可以利用这两个方法进行截断,从而包含我们想要的文件.
+PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数,让%00被加上'/',从而无法执行截断.
+<h1>from参数任意包含漏洞</h1>
+这个起因应该是发现一些功能会拼接这个$from参数,这个参数是用户可控参数,并且没有进行除了deep_addslashe()之外的任何处理,原来以为只是一个重定向的问题,但最后感觉问题还是挺大的,源码如下图:
+<img src="/php代码审计入门笔记-bluecms.htm/from.jpg">
+这是from参数的来源,只是先判断是否为空,不为空则直接获得REQUEST的值,然后我们再来看看,哪里使用了这个可控参数.
+<img src="/php代码审计入门笔记-bluecms.htm/from.jpg">
+<li><em>first</em>:do_login</li>
+从act参数的名字可以看出,这个是在进行登陆操作的时候会调用这个参数
+<li><em>second</em>:do_reg</li>
+第二个则是进行注册时,会使用这个from参数,但这个参数通过测试,是进行重定向的作用,这个值默认为空,在判断里面空的情况下是为了重定向至user.php,但这个参数是可控的,通过用户构造恶意的base64编码后的数据,能够控制重定向的位置,这里以注册功能为例(登陆功能也是类似的):
+
+这里from参数的值是由base64编码之后的../../../phpMyAdmin,然后burpsuite抓到了下一步的数据包,居然是请求GET-phpMyAdmin的数据包
+<img src="/php代码审计入门笔记-bluecms.htm/burp.png">
+而且还携带了blueCMS的参数(注意看Cookie)
+这是最开始测试时候使用的登陆功能,我们可以发现哪个showmsg.htm的页面上<a>标签的href已经变成了我们注入的脏数据了.
+<img src="/php代码审计入门笔记-bluecms.htm/blue.png">
+这也就意味我们可以通过这个参数完成对文件的包含,那么我来再来看看为什么会出现这种问题,问题其实是出在showmsg()函数上面
+<img src="/php代码审计入门笔记-bluecms.htm/showmsg.jpg">
+就是这个基本上一定会调用的这个函数
+<img src="/php代码审计入门笔记-bluecms.htm/fun.jpg">
+函数原型在这里,assign()主要是将传入的值变成键值对的形式,而display()函数太长了,读完发现就只是用于在showmsg.htm页面上显示错误信息而已,问题其实是出在htm里,我们来看看源码
+<img src="/php代码审计入门笔记-bluecms.htm/htm.png">
+这里JS就将传入的gourl传给了自动跳转的函数上面,而gourl则是传入的from值,所以用户能够通过控制from值来进行文件包含.
+<h1>修改新闻上面存在的XSS</h1>
+<img src="/php代码审计入门笔记-bluecms.htm/xss.jpg">
+先来看这个功能进行了什么操作,前面的$autor,$source都进行了html实体编码,基本上不能注入,但我们看看后面剩下的参数对$content参数进行了去掉前后字符和过滤了一些数据,然后判断有没有$descript,有的话截取$descript的前90个字符(也就是长度限制),如果,如果没有$descript的话则会对$content参数再进行一次过滤,也就是说如果我们传入了$descript的值,就会少进行一次过滤,因此存在XSS的可能性.
+<img src="/php代码审计入门笔记-bluecms.htm/filter.jpg">
+看看filter_data()函数原型,我们可以发现是利用了正则表达式,对元数据进行了一次过滤,也就是说我们可以通过双写绕过,同时这里没有不区分大小写的匹配,因此也可以通过大写标签绕过.最后这里过滤的标签还少了几个,可以直接使用<img>的属性中,引用JS脚本,最后利用过程,这里简单的在修改新闻界面抓包,对注入的数据进行二次修改(因为包里的数据实际上是对'<'和'>'进行了html实体编码的,但只进行了一次,因此可以通过抓包该回去),大致过程如下:
+<img src="/php代码审计入门笔记-bluecms.htm/payload.png">
+<img src="/php代码审计入门笔记-bluecms.htm/qian.png">
+<img src="/php代码审计入门笔记-bluecms.htm/tan.png">
+<h1>总结</h1>
+最后感觉PHP代码审计还是比较有意思,当然思维模式很重要,我是一开始就从功能下手,一个个文件去审计,这样既需要搞懂CMS本身的架构逻辑,还需要大量的时间,效率真的是非常的低,因此上面参考的两篇博客都说到了思维这个东西.大佬们似乎比较建议用两个方式进行审计.
+<li>从黑盒测试入手,追踪数据流,从而快速判断哪些功能出现问题,缺点是很容易漏掉一些不容易注意的网页</li>
+<li>从用户输入入手,对于所有的功能文件,只关注用户输入,可能还是需要搞清页面本身的逻辑,但比一行行代码的读取有效率多了.....</li>
+最后希望自己在代码审计的路上能够走远点,没事多看看CMS(flag高高立起...)</'和'></a>
+      
     </div>
+
+    
+
     
     
     
@@ -404,14 +566,44 @@
     
 
     
+      
+    
+    
 
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>E-bounce</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://www.ebounce.cn/php代码审计入门笔记-bluecms.html" title="php代码审计入门笔记-bluecms">https://www.ebounce.cn/php代码审计入门笔记-bluecms.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
       
+        
+          
+        
         <div class="post-tags">
           
-            <a href="/tags/web安全/" rel="tag"># web安全</a>
+            <a href="/tags/web安全/" rel="tag"><i class="fa fa-tag"># web安全</i></a>
           
         </div>
       
@@ -448,17 +640,10 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
           </div>
-          
-
-
           
 
   
@@ -478,7 +663,6 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
@@ -494,88 +678,138 @@
         </ul>
       
 
-      <section class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/timg.jpg" alt="E-bounce">
+	<a href="/">
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="E-bounce">
+	</a>
             
               <p class="site-author-name" itemprop="name">E-bounce</p>
-              <p class="site-description motion-element" itemprop="description">keep better than yesterday</p>
+              <div class="site-description motion-element" itemprop="description">keep better than yesterday</div>
           </div>
 
-          <nav class="site-state motion-element">
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
 
-            
-              <div class="site-state-item site-state-posts">
               
-                <a href="/archives">
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
               
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
 
-            
               
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
               
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
+            </nav>
+          
 
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
+          
 
           
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:3199729962@qq.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
-		<div id="music163player">
-			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=418602197&auto=1&height=66"></iframe>
-			
-		</div>
+
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
@@ -583,7 +817,7 @@
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
@@ -591,6 +825,7 @@
 
     </div>
   </aside>
+  
 
 
         
@@ -599,47 +834,68 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">E-bounce</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">24k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">22 分钟</span>
+  
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" href="http://hexo.io" target="_blank" rel="external nofollow">Hexo</a> 强力驱动</div>
 
 
 
-  <span class="post-meta-divider">|</span>
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Mist</a> v5.1.4</div>
-
-
-
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js""></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
-    <span class="site-uv">
-      <i class="fa fa-user"></i>访问人数╮(╯▽╰)╭
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人
     </span>
   
 
   
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>总访问量<(￣ˇ￣) <span="" class="busuanzi-value" id="busuanzi_value_site_pv"></(￣ˇ￣)></span>
-      次
-    
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
   
 </div>
+
 
 
 
@@ -661,11 +917,14 @@
 
     
 
+    
+
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -679,92 +938,6 @@
 
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
 
 
 
@@ -781,19 +954,69 @@
 
 
 
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
   
 
 
 
 
-
-  
-
-  
-
-  
-
-  
   
 
   
@@ -802,8 +1025,63 @@
 
   
 
-  <!-- 鼠标动画 -->
-<script type="text/javascript" src="/js/src/beautiful.js"></script>
-<script type="text/javascript" src="/js/src/clicklove.js"></script>
-</body>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
 </html>
