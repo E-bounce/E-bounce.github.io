@@ -98,24 +98,27 @@
 
 
 
-  <meta name="description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，大致明白问题出现在哪里了，这里就粗略归纳成为每多一个子查询，就需要新命名一次。  而用union连接却不会出现，这种报错信息。搜索了一下网">
-<meta name="keywords" content="sql">
+  <meta name="description" content="今天做了一道还算是非常涨姿势的题,是Moctf上的死亡退出,源码相当简单,如下图:  源码当中预定义了一个字符串c为 1&amp;lt;?php exit;?&amp;gt;  有关思考方向 而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和我们">
+<meta name="keywords" content="security,CTF,others">
 <meta property="og:type" content="article">
-<meta property="og:title" content="有关sql报错注入一点小坑">
-<meta property="og:url" content="https://www.ebounce.cn/有关sql报错注入一点小坑.html">
+<meta property="og:title" content="Moctf-死亡退出">
+<meta property="og:url" content="https://www.ebounce.cn/Moctf-死亡退出.html">
 <meta property="og:site_name" content="web小白成长记">
-<meta property="og:description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，大致明白问题出现在哪里了，这里就粗略归纳成为每多一个子查询，就需要新命名一次。  而用union连接却不会出现，这种报错信息。搜索了一下网">
+<meta property="og:description" content="今天做了一道还算是非常涨姿势的题,是Moctf上的死亡退出,源码相当简单,如下图:  源码当中预定义了一个字符串c为 1&amp;lt;?php exit;?&amp;gt;  有关思考方向 而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和我们">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and.png">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and的修正版.png">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/payload.png">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/fuzha.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/jiandan.jpg">
-<meta property="og:updated_time" content="2019-03-04T03:04:50.064Z">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-死亡退出/source.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-死亡退出/filter.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-死亡退出/file.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-死亡退出/get.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-死亡退出/cat.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-死亡退出/file.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-死亡退出/string.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-死亡退出/flag2.png">
+<meta property="og:updated_time" content="2019-07-07T08:25:10.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="有关sql报错注入一点小坑">
-<meta name="twitter:description" content="在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细sql报错注入原理然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，大致明白问题出现在哪里了，这里就粗略归纳成为每多一个子查询，就需要新命名一次。  而用union连接却不会出现，这种报错信息。搜索了一下网">
-<meta name="twitter:image" content="https://www.ebounce.cn/有关sql报错注入一点小坑/and.png">
+<meta name="twitter:title" content="Moctf-死亡退出">
+<meta name="twitter:description" content="今天做了一道还算是非常涨姿势的题,是Moctf上的死亡退出,源码相当简单,如下图:  源码当中预定义了一个字符串c为 1&amp;lt;?php exit;?&amp;gt;  有关思考方向 而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和我们">
+<meta name="twitter:image" content="https://www.ebounce.cn/Moctf-死亡退出/source.png">
 
 
 
@@ -123,7 +126,7 @@
 
   
   
-  <link rel="canonical" href="https://www.ebounce.cn/有关sql报错注入一点小坑">
+  <link rel="canonical" href="https://www.ebounce.cn/Moctf-死亡退出">
 
 
 
@@ -133,7 +136,7 @@
   };
 </script>
 
-  <title>有关sql报错注入一点小坑 | web小白成长记</title>
+  <title>Moctf-死亡退出 | web小白成长记</title>
   
 
 
@@ -300,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/有关sql报错注入一点小坑.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/Moctf-死亡退出.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="E-bounce">
@@ -317,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">有关sql报错注入一点小坑
+          <h1 class="post-title" itemprop="name headline">Moctf-死亡退出
 
               
             
@@ -343,7 +346,7 @@
                 
               
 
-              <time title="创建时间：2019-02-22 16:57:05" itemprop="dateCreated datePublished" datetime="2019-02-22T16:57:05+08:00">2019-02-22</time>
+              <time title="创建时间：2019-07-07 15:06:53 / 修改时间：16:25:10" itemprop="dateCreated datePublished" datetime="2019-07-07T15:06:53+08:00">2019-07-07</time>
             </span>
           
 
@@ -351,33 +354,8 @@
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-04 11:04:50" itemprop="dateModified" datetime="2019-03-04T11:04:50+08:00">2019-03-04</time>
-              </span>
-            
           
 
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/web安全/" itemprop="url" rel="index"><span itemprop="name">web安全</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -407,7 +385,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">466</span>
+              <span title="本文字数">1.5k</span>
             </span>
           
 
@@ -438,20 +416,42 @@
       
 
       
-        <p>在网上看过多次sql报错注入的一些资料，感觉很多人都是套那套公式，而对于sql报错注入的原理却少有人提及，所以这里转载一篇大佬的博客，对于sql报错注入解释的比较详细<br><a href="https://blog.51cto.com/wt7315/1891458" target="_blank" rel="noopener">sql报错注入原理</a><br>然后自己尝试了在sqli-labs上操作了一下发现用and连接会出现一个问题，<br>大致明白问题出现在哪里了，这里就粗略归纳成为每多一个子查询，就需要新命名一次。</p>
-<img src="/有关sql报错注入一点小坑/and.png">
-<p>而用union连接却不会出现，这种报错信息。搜索了一下网上有关该报错信息，领悟到前面需要多加入一个select语句，随后便报错注入成功。</p>
-<img src="/有关sql报错注入一点小坑/and的修正版.png">
-<p>感觉这是小坑因此在这里记录一下。<br>下面是探索过程中使用的payload：</p>
-<img src="/有关sql报错注入一点小坑/payload.png">
-<h1>sql报错注入目前熟悉的报错payload</h1>
-两个sqli-labs的使用实例:
-比较复杂的：
-<img src="/有关sql报错注入一点小坑/fuzha.jpg">
-简单一点的updataxml():
-<img src="/有关sql报错注入一点小坑/jiandan.jpg">
-这里才发现自己使用的方法有误，updatexml()应该是有三个参数才对，这里并没有正确的报错，而且由于单词拼写错误，导致根本没有使用对。
-最后还有一个函数extractvalue()使用方法和updatexml()相似，不过它只有两个参数
+        <p>今天做了一道还算是非常涨姿势的题,是Moctf上的死亡退出,源码相当简单,如下图:</p>
+<img src="/Moctf-死亡退出/source.png">
+<p>源码当中预定义了一个字符串c为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">exit</span>;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1>有关思考方向</h1>
+而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和我们传入的参数连接起来,最后将其包含,很明显的是要通过写入tmp.php去读取一些Php代码去读取flag,或者执行.而由于C已经预定义了一个退出的Php代码,因此整体思路便是如何绕过这串玩意儿,
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">exit</span>;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里主要参考了P神的文章<a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" target="_blank" rel="noopener">php://filter的妙用</a><br>这是官方对于php://filter的说明:</p>
+<img src="/Moctf-死亡退出/filter.png">
+<p>我们主要是利用第二个POST进来的可控参数file来进行过滤掉死亡退出,由于file参数会被用在file_put_contents()里面,这个函数和file_get_contents()函数一样,我们知道这两个函数是可以使用PHP伪协议的.<br>而文章针对可以使用伪协议这点,提供了三种不同的绕过姿势,分别是XXE,巧用编码以及字符串操作,这里P神主要利用了base64算法问题,所以我也跟着大神的思路来讲讲吧.</p>
+<h1>有关利用</h1>
+首先base64编码的主要是可打印的64个字符,其中'<',';','>'和'?'均不在里面,也就是说进行base64编码时,只会编码那64个可见字符,用正则表达式来表示就是"[^a-zA-Z+/]",所以自然的出现其他字符的时候,base64会将其忽略,因此如果将死亡退出,进行base64解码,实际传入的只有'phpexit'被解码后的字符,因为其他字符被忽略剔除掉了,但是base64是以四个为一组进行解码的,这里只有7个字符,因此为了后面我们传入的恶意base64编码不受影响,我们需要多添加一个任意字符,来将前面凑成两组,保证payload的完整性.
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">exit</span>;<span class="meta">?&gt;</span>----------&gt;phpexit</span><br></pre></td></tr></table></figure>
+
+<p>所以这时原来的php代码被转换为了文本内容,Php格式被破坏了,自然就会读取我们后面传入的恶意代码了.<br>具体利用过程如下图:<br>这里的任意字符是’b’<br>读本目录下的所有文件:</p>
+<img src="/Moctf-死亡退出/file.png">
+<img src="/Moctf-死亡退出/get.png">
+<p>读flag文件:</p>
+<img src="/Moctf-死亡退出/cat.png">
+<img src="/Moctf-死亡退出/file.png">
+<p>成功得到flag了<br>PS:这里原本写成功了,但我没有发现,就不小心把flag.php覆盖成了最后读flag的内容,最后还是从网上找到flag,给人家写回去了,爱护靶场,人人有责</p>
+<h1>番外:那么字符操作呢?</h1>
+说干就干!
+进行字符串操作过滤掉死亡退出的关键在于,php://filter是支持我们使用多种过滤方法的,因此我们可以先将恶意代码进行base64编码,(这里主要是为了防止strip_tags去标签的时候波及恶意代码)最后先将标签去掉,我们实际上是将
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> XXXXXXX <span class="meta">?&gt;</span> &lt;------&gt; <span class="meta">&lt;?</span>xml XXXXXX <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>看作了xml标签,strip_tags主要去掉的是’<?[中间的空格]?>‘(这一堆),最后剩的还是phpexit,因此还需要添加一个任意字符构成两组,用去base64解码,最后payload可以改成:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=bPD9waHAgc3lzdGVtKCJjYXQgZmxhZy5waHAiKTsgPz4=&amp;file=php:<span class="comment">//filter/write=string.string_tags|convert.base64-decode/resource=tmp.php</span></span><br></pre></td></tr></table></figure>
+
+<img src="/Moctf-死亡退出/string.png">
+<img src="/Moctf-死亡退出/flag2.png">
+
+<p>XXE的利用因为条件原因暂时鸽了吧,等以后再补….</p>
+</',';','>
       
     </div>
 
@@ -485,7 +485,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://www.ebounce.cn/有关sql报错注入一点小坑.html" title="有关sql报错注入一点小坑">https://www.ebounce.cn/有关sql报错注入一点小坑.html</a>
+    <a href="https://www.ebounce.cn/Moctf-死亡退出.html" title="Moctf-死亡退出">https://www.ebounce.cn/Moctf-死亡退出.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -496,15 +496,6 @@
 
     <footer class="post-footer">
       
-        
-          
-        
-        <div class="post-tags">
-          
-            <a href="/tags/sql/" rel="tag"><i class="fa fa-tag"># sql</i></a>
-          
-        </div>
-      
 
       
       
@@ -514,8 +505,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/BugkuCTF-多次.html" rel="next" title="BugkuCTF 多次wp">
-                <i class="fa fa-chevron-left"></i> BugkuCTF 多次wp
+              <a href="/php代码审计入门笔记-bluecms.html" rel="next" title="php代码审计入门笔记-bluecms">
+                <i class="fa fa-chevron-left"></i> php代码审计入门笔记-bluecms
               </a>
             
           </div>
@@ -523,10 +514,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hgameCTF之PHP trick.html" rel="prev" title="hgameCTF之PHP trick">
-                hgameCTF之PHP trick <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -714,7 +701,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">sql报错注入目前熟悉的报错payload</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">有关思考方向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">有关利用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">番外:那么字符操作呢?</span></a></li></ol></div>
             
 
           </div>

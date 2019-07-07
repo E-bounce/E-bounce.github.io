@@ -1751,7 +1751,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #50ffe4;
+  background: #9338c3;
 }
 .feed-link,
 .chat {
@@ -2770,7 +2770,4 @@ pre {
 code,
 pre {
   color: #ff7600;
-}
-.header {
-  backergroud: url("../image/head.jpg");
 }
