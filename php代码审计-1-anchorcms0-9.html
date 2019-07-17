@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+<script type="text/javascript" src="/js/mouse.js"></script>
+<script type="text/javascript" src="/js/click.js"></script>
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon2.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="红日代码审计项目今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面. 大概算是黑盒的东西 也就是当网站访问一个不存在的连接时,404页面会直接将错误回显在页面上,如下图:  那么既然输入的错误信息能够直接回显在页面上,那么又是否存在xss?接下来进行验证:  大概算是白盒的东西 发现存在xss,我们下一步就是看看问题出在哪,首先">
+<meta name="keywords" content="security,CTF,others">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php代码审计(1)-anchorcms0.9">
+<meta property="og:url" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9.html">
+<meta property="og:site_name" content="web小白成长记">
+<meta property="og:description" content="红日代码审计项目今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面. 大概算是黑盒的东西 也就是当网站访问一个不存在的连接时,404页面会直接将错误回显在页面上,如下图:  那么既然输入的错误信息能够直接回显在页面上,那么又是否存在xss?接下来进行验证:  大概算是白盒的东西 发现存在xss,我们下一步就是看看问题出在哪,首先">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-1.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-3.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-2.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-4.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-5.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-6.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-7.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-8.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-9.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-10.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-11.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-12.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-13.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-14.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-15.png">
+<meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-16.png">
+<meta property="og:updated_time" content="2019-07-17T07:48:08.028Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php代码审计(1)-anchorcms0.9">
+<meta name="twitter:description" content="红日代码审计项目今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面. 大概算是黑盒的东西 也就是当网站访问一个不存在的连接时,404页面会直接将错误回显在页面上,如下图:  那么既然输入的错误信息能够直接回显在页面上,那么又是否存在xss?接下来进行验证:  大概算是白盒的东西 发现存在xss,我们下一步就是看看问题出在哪,首先">
+<meta name="twitter:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-1.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.ebounce.cn/php代码审计-1-anchorcms0-9">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>php代码审计(1)-anchorcms0.9 | web小白成长记</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">web小白成长记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">day day up!（´v｀）</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/php代码审计-1-anchorcms0-9.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="E-bounce">
+      <meta itemprop="description" content="keep better than yesterday">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="web小白成长记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">php代码审计(1)-anchorcms0.9
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-17 10:28:24 / 修改时间：15:48:08" itemprop="dateCreated datePublished" datetime="2019-07-17T10:28:24+08:00">2019-07-17</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/web安全/" itemprop="url" rel="index"><span itemprop="name">web安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">3k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">3 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/hongriSec/PHP-Audit-Labs" target="_blank" rel="noopener">红日代码审计项目</a><br>今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面.</p>
+<h1>大概算是黑盒的东西</h1>
+也就是当网站访问一个不存在的连接时,404页面会直接将错误回显在页面上,如下图:
+<img src="/php代码审计-1-anchorcms0-9/1-1.png">
+那么既然输入的错误信息能够直接回显在页面上,那么又是否存在xss?接下来进行验证:
+<img src="/php代码审计-1-anchorcms0-9/1-3.png">
+<h1>大概算是白盒的东西</h1>
+发现存在xss,我们下一步就是看看问题出在哪,首先找到回显404.php的代码
+<img src="/php代码审计-1-anchorcms0-9/1-2.jpg">
+通过猜测名,以及黑盒的实际效果来看,似乎这个current_url()函数是获得我们当前url中最后的路径,然后回显在页面上,这才导致了代码注入的问题.
+接着追踪current_url()这个函数:
+<img src="/php代码审计-1-anchorcms0-9/1-4.jpg">
+这个函数调用了url类里的current()方法,下面这个是类中current()方法的源码:
+<img src="/php代码审计-1-anchorcms0-9/1-5.jpg">
+而这个方法则是主要调用了detect()方法,这个方法首先创建了$server对象,其实就是获得$_SERVER数组,然后将需要获得参数,以数组的形式,用foreach循环控制查询,随后获得数组中每个值,所对应的$_SERVER键值的内容,然后进行过滤.首先利用filter_var()函数进行初步过滤,这个函数是通过php本身已经定义好的内,进行过滤,第一步过滤的是
+<img src="/php代码审计-1-anchorcms0-9/1-6.png">
+如果我们注入了&ltscript&gt标签,这里会保留所有的内容,接着利用parse_url()进行解析,并指定了返回的内容,举个例子:
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$a=parse_url(<span class="string">"http://example.com/index.php/&lt;script&gt;alert('xss')&lt;/script&gt;"</span>,PHP_URL_PATH);</span><br><span class="line">var_dump($a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="comment">//回显为:string(40) "/index.php/&lt;script&gt;alert('xss')&lt;/script&gt;"</span></span><br></pre></td></tr></table></figure>
+
+<p>也就是说这里只是将我们的相对路径,传递给format()函数,进行格式化,format函数代码及其所调用的其他函数如下:</p>
+<img src="/php代码审计-1-anchorcms0-9/1-7.jpg">
+<img src="/php代码审计-1-anchorcms0-9/1-8.jpg">
+<img src="/php代码审计-1-anchorcms0-9/1-9.jpg">
+<p>format()又进行了一次过滤,但这个过滤和第一次过滤是类似的,并没有过滤&amp;lt&amp;gt这两个xss常用的符号,因此脏数据依然得以保留,随后开始remove_script_name(),然而我们传入的url会因为含有index.php,是的判断if条件成立,因此使用substr()进行index.php之后的截取,然后再传入remove_relative_uri(),这个函数作用,在这里只是过滤首位的’&#39;而已,因此xss标签被保留下来,从而成功注入页面上.</p>
+<p>有关遗留的ctf题,源码奉上:<br>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$url = $_GET[<span class="string">'url'</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($url) &amp;&amp; filter_var($url, FILTER_VALIDATE_URL))&#123;</span><br><span class="line">    $site_info = parse_url($url);</span><br><span class="line">    var_dump($site_info);</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">'/sec-redclub.com$/'</span>,$site_info[<span class="string">'host'</span>]))&#123;</span><br><span class="line">        exec(<span class="string">'curl "'</span>.$site_info[<span class="string">'host'</span>].<span class="string">'"'</span>, $result);</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;center&gt;&lt;h1&gt;You have curl &#123;$site_info['host']&#125; successfully!&lt;/h1&gt;&lt;/center&gt;</span></span><br><span class="line"><span class="string">              &lt;center&gt;&lt;textarea rows='20' cols='90'&gt;"</span>;</span><br><span class="line">        <span class="keyword">echo</span> implode(<span class="string">' '</span>, $result);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"&lt;center&gt;&lt;h1&gt;Error: Host not allowed&lt;/h1&gt;&lt;/center&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;center&gt;&lt;h1&gt;Just curl sec-redclub.com!&lt;/h1&gt;&lt;/center&gt;&lt;br&gt;</span></span><br><span class="line"><span class="string">          &lt;center&gt;&lt;h3&gt;For example:?url=http://sec-redclub.com&lt;/h3&gt;&lt;/center&gt;"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>flagi3hEre.php:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line">$flag = <span class="string">"HRCTF&#123;f1lt3r_var_1s_s0_c00l&#125;"</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这道题做的时候原本以为和之前的博客写的一样是利用parse_url()和curl()不同的解析顺序用两个@@绕过的,后来发现不是,即使我知道flag文件的名字,但如果直接运行一样是得不到flag的,因此需要绕过校验,进行命令执行.<br>这里首先是通过filter_var()函数的校验,这个函数后面跟的关键词是看是不是有效的url,按照url的格式去解析,举个例子,加深一下对这个函数的理解吧:</p>
+<img src="/php代码审计-1-anchorcms0-9/1-10.png">
+<p>返回为true</p>
+<img src="/php代码审计-1-anchorcms0-9/1-11.png">
+<p>返回为true</p>
+<img src="/php代码审计-1-anchorcms0-9/1-12.png">
+<p>返回为false<br>也就意味着filter_var()函数,设置参数为’FILTER_VALIDATE_URL’,只对http://进行简单校验,其余未知协议校验则不会那么严格.<br>—&gt;filter_var()透过构造除http以外的内容进行绕过<br>第二个是正则匹配的问题,前面首先会经过parse_url()的拆分,这个函数会将url的各部分拆解开返回一个数组,该函数只是简单的对每个部分的标志进行分隔,举个例子,大家就知道了,再奇怪的url,parse_url()也会尽可能的去解析.</p>
+<img src="/php代码审计-1-anchorcms0-9/1-13.png">
+<img src="/php代码审计-1-anchorcms0-9/1-14.png">
+<p>就这么一个奇怪的url,parse_url也是照样解析,注意parse_url()判断的标志,分别是’/‘和’?’,因此可以构造恶意数据进行绕过,我们只需要在第一个’/‘后带上sec-redclub.com,即可绕过正则;<br>接着就是最关键的一步命令执行了,可以参考<a href="https://www.freebuf.com/articles/web/137923.html" target="_blank" rel="noopener">命令执行的各种姿势</a>这篇文章,大致提炼一下这里需要的内容就是,linux下,命令间可以用’;’进行分隔,因此,这里构造payload</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=hello:<span class="comment">//";ls;"sec-redclub.com</span></span><br></pre></td></tr></table></figure>
+
+<p>经过拼接后,exec()里的内容就变成了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">""</span>;ls;<span class="string">"sec-redclub.com"</span></span><br></pre></td></tr></table></figure>
+
+<p>curl执行的url为空,随后执行ls命令,最后又因为”sec-redclub.com” /bash中不存在该命令是不会执行的,最后回显结果为:</p>
+<img src="/php代码审计-1-anchorcms0-9/1-15.png">
+<p>接着我们来读flag文件,这里cat不能使用’ ‘分隔,因为这样不能通过filter_var()的校验,需要成”&lt;”<br>最后结果:</p>
+<img src="/php代码审计-1-anchorcms0-9/1-16.png">
+<p>—————-the end————-</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>E-bounce</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://www.ebounce.cn/php代码审计-1-anchorcms0-9.html" title="php代码审计(1)-anchorcms0.9">https://www.ebounce.cn/php代码审计-1-anchorcms0-9.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ssti漏洞学习笔记.html" rel="next" title="ssti漏洞学习笔记">
+                <i class="fa fa-chevron-left"></i> ssti漏洞学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+	<a href="/">
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="E-bounce">
+	</a>
+            
+              <p class="site-author-name" itemprop="name">E-bounce</p>
+              <div class="site-description motion-element" itemprop="description">keep better than yesterday</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">大概算是黑盒的东西</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">大概算是白盒的东西</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">E-bounce</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">44k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">40 分钟</span>
+  
+</div>
+
+
+
+
+
+
+
+
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>
