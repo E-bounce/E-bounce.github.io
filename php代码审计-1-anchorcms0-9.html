@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="php代码审计(1)-anchorcms0.9">
 <meta property="og:url" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9.html">
-<meta property="og:site_name" content="web小白成长记">
+<meta property="og:site_name" content="Ebounce的小博客（´v｀）">
 <meta property="og:description" content="红日代码审计项目今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面. 大概算是黑盒的东西 也就是当网站访问一个不存在的连接时,404页面会直接将错误回显在页面上,如下图:  那么既然输入的错误信息能够直接回显在页面上,那么又是否存在xss?接下来进行验证:  大概算是白盒的东西 发现存在xss,我们下一步就是看看问题出在哪,首先">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-1.png">
@@ -122,7 +122,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-14.png">
 <meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-15.png">
 <meta property="og:image" content="https://www.ebounce.cn/php代码审计-1-anchorcms0-9/1-16.png">
-<meta property="og:updated_time" content="2019-07-17T07:48:08.028Z">
+<meta property="og:updated_time" content="2019-07-17T07:56:26.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php代码审计(1)-anchorcms0.9">
 <meta name="twitter:description" content="红日代码审计项目今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面. 大概算是黑盒的东西 也就是当网站访问一个不存在的连接时,404页面会直接将错误回显在页面上,如下图:  那么既然输入的错误信息能够直接回显在页面上,那么又是否存在xss?接下来进行验证:  大概算是白盒的东西 发现存在xss,我们下一步就是看看问题出在哪,首先">
@@ -144,7 +144,7 @@
   };
 </script>
 
-  <title>php代码审计(1)-anchorcms0.9 | web小白成长记</title>
+  <title>php代码审计(1)-anchorcms0.9 | Ebounce的小博客（´v｀）</title>
   
 
 
@@ -203,7 +203,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">web小白成长记</span>
+        <span class="site-title">Ebounce的小博客（´v｀）</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -320,7 +320,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="web小白成长记">
+      <meta itemprop="name" content="Ebounce的小博客（´v｀）">
     </span>
 
     
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2019-07-17 10:28:24 / 修改时间：15:48:08" itemprop="dateCreated datePublished" datetime="2019-07-17T10:28:24+08:00">2019-07-17</time>
+              <time title="创建时间：2019-07-17 10:28:24 / 修改时间：15:56:26" itemprop="dateCreated datePublished" datetime="2019-07-17T10:28:24+08:00">2019-07-17</time>
             </span>
           
 
@@ -455,14 +455,14 @@
 <img src="/php代码审计-1-anchorcms0-9/1-5.jpg">
 而这个方法则是主要调用了detect()方法,这个方法首先创建了$server对象,其实就是获得$_SERVER数组,然后将需要获得参数,以数组的形式,用foreach循环控制查询,随后获得数组中每个值,所对应的$_SERVER键值的内容,然后进行过滤.首先利用filter_var()函数进行初步过滤,这个函数是通过php本身已经定义好的内,进行过滤,第一步过滤的是
 <img src="/php代码审计-1-anchorcms0-9/1-6.png">
-如果我们注入了&ltscript&gt标签,这里会保留所有的内容,接着利用parse_url()进行解析,并指定了返回的内容,举个例子:
+如果我们注入了script标签,这里会保留所有的内容,接着利用parse_url()进行解析,并指定了返回的内容,举个例子:
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$a=parse_url(<span class="string">"http://example.com/index.php/&lt;script&gt;alert('xss')&lt;/script&gt;"</span>,PHP_URL_PATH);</span><br><span class="line">var_dump($a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="comment">//回显为:string(40) "/index.php/&lt;script&gt;alert('xss')&lt;/script&gt;"</span></span><br></pre></td></tr></table></figure>
 
 <p>也就是说这里只是将我们的相对路径,传递给format()函数,进行格式化,format函数代码及其所调用的其他函数如下:</p>
 <img src="/php代码审计-1-anchorcms0-9/1-7.jpg">
 <img src="/php代码审计-1-anchorcms0-9/1-8.jpg">
 <img src="/php代码审计-1-anchorcms0-9/1-9.jpg">
-<p>format()又进行了一次过滤,但这个过滤和第一次过滤是类似的,并没有过滤&amp;lt&amp;gt这两个xss常用的符号,因此脏数据依然得以保留,随后开始remove_script_name(),然而我们传入的url会因为含有index.php,是的判断if条件成立,因此使用substr()进行index.php之后的截取,然后再传入remove_relative_uri(),这个函数作用,在这里只是过滤首位的’&#39;而已,因此xss标签被保留下来,从而成功注入页面上.</p>
+<p>format()又进行了一次过滤,但这个过滤和第一次过滤是类似的,并没有过滤’&gt;’,’&lt;’这两个xss常用的符号,因此脏数据依然得以保留,随后开始remove_script_name(),然而我们传入的url会因为含有index.php,是的判断if条件成立,因此使用substr()进行index.php之后的截取,然后再传入remove_relative_uri(),这个函数作用,在这里只是过滤首位的’&#39;而已,因此xss标签被保留下来,从而成功注入页面上.</p>
 <p>有关遗留的ctf题,源码奉上:<br>index.php</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$url = $_GET[<span class="string">'url'</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($url) &amp;&amp; filter_var($url, FILTER_VALIDATE_URL))&#123;</span><br><span class="line">    $site_info = parse_url($url);</span><br><span class="line">    var_dump($site_info);</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">'/sec-redclub.com$/'</span>,$site_info[<span class="string">'host'</span>]))&#123;</span><br><span class="line">        exec(<span class="string">'curl "'</span>.$site_info[<span class="string">'host'</span>].<span class="string">'"'</span>, $result);</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;center&gt;&lt;h1&gt;You have curl &#123;$site_info['host']&#125; successfully!&lt;/h1&gt;&lt;/center&gt;</span></span><br><span class="line"><span class="string">              &lt;center&gt;&lt;textarea rows='20' cols='90'&gt;"</span>;</span><br><span class="line">        <span class="keyword">echo</span> implode(<span class="string">' '</span>, $result);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"&lt;center&gt;&lt;h1&gt;Error: Host not allowed&lt;/h1&gt;&lt;/center&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;center&gt;&lt;h1&gt;Just curl sec-redclub.com!&lt;/h1&gt;&lt;/center&gt;&lt;br&gt;</span></span><br><span class="line"><span class="string">          &lt;center&gt;&lt;h3&gt;For example:?url=http://sec-redclub.com&lt;/h3&gt;&lt;/center&gt;"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -478,7 +478,7 @@
 <p>返回为false<br>也就意味着filter_var()函数,设置参数为’FILTER_VALIDATE_URL’,只对http://进行简单校验,其余未知协议校验则不会那么严格.<br>—&gt;filter_var()透过构造除http以外的内容进行绕过<br>第二个是正则匹配的问题,前面首先会经过parse_url()的拆分,这个函数会将url的各部分拆解开返回一个数组,该函数只是简单的对每个部分的标志进行分隔,举个例子,大家就知道了,再奇怪的url,parse_url()也会尽可能的去解析.</p>
 <img src="/php代码审计-1-anchorcms0-9/1-13.png">
 <img src="/php代码审计-1-anchorcms0-9/1-14.png">
-<p>就这么一个奇怪的url,parse_url也是照样解析,注意parse_url()判断的标志,分别是’/‘和’?’,因此可以构造恶意数据进行绕过,我们只需要在第一个’/‘后带上sec-redclub.com,即可绕过正则;<br>接着就是最关键的一步命令执行了,可以参考<a href="https://www.freebuf.com/articles/web/137923.html" target="_blank" rel="noopener">命令执行的各种姿势</a>这篇文章,大致提炼一下这里需要的内容就是,linux下,命令间可以用’;’进行分隔,因此,这里构造payload</p>
+<p>就这么一个奇怪的url,parse_url也是照样解析,注意parse_url()判断的标志,分别是’/‘和’?’,因此可以构造恶意数据进行绕过,我们只需要在’//‘后带上sec-redclub.com,即可绕过正则;<br>接着就是最关键的一步命令执行了,可以参考<a href="https://www.freebuf.com/articles/web/137923.html" target="_blank" rel="noopener">命令执行的各种姿势</a>这篇文章,大致提炼一下这里需要的内容就是,linux下,命令间可以用’;’进行分隔,因此,这里构造payload</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=hello:<span class="comment">//";ls;"sec-redclub.com</span></span><br></pre></td></tr></table></figure>
 
 <p>经过拼接后,exec()里的内容就变成了</p>
@@ -486,7 +486,7 @@
 
 <p>curl执行的url为空,随后执行ls命令,最后又因为”sec-redclub.com” /bash中不存在该命令是不会执行的,最后回显结果为:</p>
 <img src="/php代码审计-1-anchorcms0-9/1-15.png">
-<p>接着我们来读flag文件,这里cat不能使用’ ‘分隔,因为这样不能通过filter_var()的校验,需要成”&lt;”<br>最后结果:</p>
+<p>接着我们来读flag文件,这里cat不能使用’ ‘分隔,因为这样不能通过filter_var()的校验,需要改成”&lt;”<br>最后结果:</p>
 <img src="/php代码审计-1-anchorcms0-9/1-16.png">
 <p>—————-the end————-</p>
 
@@ -552,6 +552,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/hctf2018-admin-复现.html" rel="prev" title="hctf2018-admin(复现)">
+                hctf2018-admin(复现) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -623,7 +627,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -646,7 +650,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -772,7 +778,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">44k</span>
+    <span title="站点总字数">49k</span>
   
 
   
@@ -781,7 +787,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">40 分钟</span>
+    <span title="站点阅读时长">45 分钟</span>
   
 </div>
 
