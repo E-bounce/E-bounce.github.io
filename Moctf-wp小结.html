@@ -141,7 +141,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/tn.png">
 <meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/cn.png">
 <meta property="og:image" content="https://www.ebounce.cn/Moctf-wp小结/ff.png">
-<meta property="og:updated_time" content="2019-07-11T08:31:46.273Z">
+<meta property="og:updated_time" content="2019-07-18T09:18:23.526Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Moctf-wp小结">
 <meta name="twitter:description" content="最近几天做了Moctf上的几道题,还是比较涨姿势的,这里做个记录小小的记录. 死亡退出  源码当中预定义了一个字符串c为 1&amp;lt;?php exit;?&amp;gt;  有关思考方向 而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和">
@@ -228,7 +228,7 @@
     </div>
     
       
-        <p class="site-subtitle">day day up!（´v｀）</p>
+        <h1 class="site-subtitle" itemprop="description">day day up!（´v｀）</h1>
       
     
     
@@ -347,11 +347,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Moctf-wp小结
+          <h2 class="post-title" itemprop="name headline">Moctf-wp小结
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-11 16:31:46" itemprop="dateModified" datetime="2019-07-11T16:31:46+08:00">2019-07-11</time>
+                <time title="修改时间：2019-07-18 17:18:23" itemprop="dateModified" datetime="2019-07-18T17:18:23+08:00">2019-07-18</time>
               </span>
             
           
@@ -463,7 +463,7 @@
 而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和我们传入的参数连接起来,最后将其包含,很明显的是要通过写入tmp.php去读取一些Php代码去读取flag,或者执行.而由于C已经预定义了一个退出的Php代码,因此整体思路便是如何绕过这串玩意儿,
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">exit</span>;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>这里主要参考了P神的文章<a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" target="_blank" rel="noopener">php://filter的妙用</a><br>这是官方对于php://filter的说明:</p>
+<p>这里主要参考了P神的文章<a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" rel="external nofollow noopener noreferrer" target="_blank">php://filter的妙用</a><br>这是官方对于php://filter的说明:</p>
 <img src="/Moctf-wp小结/filter.png">
 <p>我们主要是利用第二个POST进来的可控参数file来进行过滤掉死亡退出,由于file参数会被用在file_put_contents()里面,这个函数和file_get_contents()函数一样,我们知道这两个函数是可以使用PHP伪协议的.<br>而文章针对可以使用伪协议这点,提供了三种不同的绕过姿势,分别是XXE,巧用编码以及字符串操作,这里P神主要利用了base64算法问题,所以我也跟着大神的思路来讲讲吧.</p>
 <h1>有关利用</h1>
@@ -482,13 +482,13 @@
 进行字符串操作过滤掉死亡退出的关键在于,php://filter是支持我们使用多种过滤方法的,因此我们可以先将恶意代码进行base64编码,(这里主要是为了防止strip_tags去标签的时候波及恶意代码)最后先将标签去掉,我们实际上是将
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> XXXXXXX <span class="meta">?&gt;</span> &lt;------&gt; <span class="meta">&lt;?</span>xml XXXXXX <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>看作了xml标签,strip_tags主要去掉的是’<?[中间的空格]?>‘(这一堆),最后剩的还是phpexit,因此还需要添加一个任意字符构成两组,用去base64解码,最后payload可以改成:</p>
+<p>看作了xml标签,strip_tags主要去掉的是’&lt;’?[中间的空格]?’&gt;’(这一堆),最后剩的还是phpexit,因此还需要添加一个任意字符构成两组,用去base64解码,最后payload可以改成:</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=bPD9waHAgc3lzdGVtKCJjYXQgZmxhZy5waHAiKTsgPz4=&amp;file=php:<span class="comment">//filter/write=string.string_tags|convert.base64-decode/resource=tmp.php</span></span><br></pre></td></tr></table></figure>
 
 <img src="/Moctf-wp小结/string.png">
 <img src="/Moctf-wp小结/flag2.png">
+<h2>番外2:XXE的利用</h2>
 
-<p>XXE的利用因为条件原因暂时鸽了吧,等以后再补….</p>
 <h1>火眼金睛</h1>
 这道题非常简单要求我们查找他给的一大串字符里面moctf出现的次数,直接上python脚本搞定
 <img src="/Moctf-wp小结/eye.png">
@@ -588,7 +588,7 @@ payload1为:
 
 <p>然后提醒我们不允许出现127,后经测试localhost也不可以</p>
 <img src="/Moctf-wp小结/no2.png">
-<p>这时候我们可以将ip地址,进行进制转化来绕过,可以使用<a href="https://tool.520101.com/wangluo/jinzhizhuanhuan/" target="_blank">在线工具</a>进行转化</p>
+<p>这时候我们可以将ip地址,进行进制转化来绕过,可以使用<a href="https://tool.520101.com/wangluo/jinzhizhuanhuan/" target="_blank" rel="external nofollow noopener noreferrer">在线工具</a>进行转化</p>
 <img src="/Moctf-wp小结/ip.png">
 <p>经过测试发现这几个ip地址,只有十进制那个可以被识别,具体原理不太清楚,所以最后的payload为:</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url=http:<span class="comment">//www.moctf.com@2130706433/%25%36%36%25%36%63%25%36%31%25%36%37%25%32%65%25%37%30%25%36%38%25%37%30</span></span><br></pre></td></tr></table></figure>
@@ -655,7 +655,7 @@ payload1为:
     <a href="https://www.ebounce.cn/Moctf-wp小结.html" title="Moctf-wp小结">https://www.ebounce.cn/Moctf-wp小结.html</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
 </ul>
 
       </div>
@@ -833,7 +833,7 @@ payload1为:
                   
                     
                   
-                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
                 </span>
               
                 <span class="links-of-author-item">
@@ -844,7 +844,7 @@ payload1为:
                   
                     
                   
-                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                 </span>
               
             </div>
@@ -874,7 +874,7 @@ payload1为:
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">死亡退出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">有关思考方向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">有关利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">番外:那么字符操作呢?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">火眼金睛</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text">Unset</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">PUBG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">6.</span> <span class="nav-text">网站检测器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">7.</span> <span class="nav-text">简单注入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">死亡退出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">有关思考方向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">有关利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">番外:那么字符操作呢?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.2.</span> <span class="nav-text">番外2:XXE的利用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">火眼金睛</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text">Unset</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">PUBG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">6.</span> <span class="nav-text">网站检测器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">7.</span> <span class="nav-text">简单注入</span></a></li></ol></div>
             
 
           </div>

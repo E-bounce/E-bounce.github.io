@@ -202,7 +202,7 @@
     </div>
     
       
-        <p class="site-subtitle">day day up!（´v｀）</p>
+        <h1 class="site-subtitle" itemprop="description">day day up!（´v｀）</h1>
       
     
     
@@ -321,11 +321,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ssti漏洞学习笔记
+          <h2 class="post-title" itemprop="name headline">ssti漏洞学习笔记
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -493,7 +493,7 @@ ssti模块注入,实际上还是注入类型的一种,其原因都是信任用�
 这种payload思考方法和前面的类似,都是通过基类object进行查找,找到os所在的位置然后执行相应的系统命令,同类型的payload有:
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.base__.__subclasses__()[(warnings.catch_warnings所在位置)].__init__.func_globals.linecache.os.popen(<span class="string">'id'</span>).read()</span><br></pre></td></tr></table></figure>
 
-<p>这里利用了一个.func_globals属性是用于查找该类下的全局函数,后面的.linecache则是读取任意文件的某一行,通过这个方法找到os,然后再利用popen()执行系统命令,并用read进行读取.<br>更多信息可以参考以下文章:<br><a href="https://blog.csdn.net/yh1013024906/article/details/84330056" target="_blank" rel="noopener">FLASK模板注入 （SSTI）</a><br><a href="https://www.freebuf.com/articles/web/98928.html" target="_blank" rel="noopener">探索Flask/Jinja2中的服务端模版注入（二） </a><br><a href="https://xz.aliyun.com/t/2308" target="_blank" rel="noopener">用python继承链搞事情</a><br>——————the end———————-</p>
+<p>这里利用了一个.func_globals属性是用于查找该类下的全局函数,后面的.linecache则是读取任意文件的某一行,通过这个方法找到os,然后再利用popen()执行系统命令,并用read进行读取.<br>更多信息可以参考以下文章:<br><a href="https://blog.csdn.net/yh1013024906/article/details/84330056" rel="external nofollow noopener noreferrer" target="_blank">FLASK模板注入 （SSTI）</a><br><a href="https://www.freebuf.com/articles/web/98928.html" rel="external nofollow noopener noreferrer" target="_blank">探索Flask/Jinja2中的服务端模版注入（二） </a><br><a href="https://xz.aliyun.com/t/2308" rel="external nofollow noopener noreferrer" target="_blank">用python继承链搞事情</a><br>——————the end———————-</p>
 
       
     </div>
@@ -531,7 +531,7 @@ ssti模块注入,实际上还是注入类型的一种,其原因都是信任用�
     <a href="https://www.ebounce.cn/ssti漏洞学习笔记.html" title="ssti漏洞学习笔记">https://www.ebounce.cn/ssti漏洞学习笔记.html</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
 </ul>
 
       </div>
@@ -709,7 +709,7 @@ ssti模块注入,实际上还是注入类型的一种,其原因都是信任用�
                   
                     
                   
-                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
                 </span>
               
                 <span class="links-of-author-item">
@@ -720,7 +720,7 @@ ssti模块注入,实际上还是注入类型的一种,其原因都是信任用�
                   
                     
                   
-                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                 </span>
               
             </div>

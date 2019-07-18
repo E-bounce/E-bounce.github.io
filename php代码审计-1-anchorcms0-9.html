@@ -209,7 +209,7 @@
     </div>
     
       
-        <p class="site-subtitle">day day up!（´v｀）</p>
+        <h1 class="site-subtitle" itemprop="description">day day up!（´v｀）</h1>
       
     
     
@@ -328,11 +328,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">php代码审计(1)-anchorcms0.9
+          <h2 class="post-title" itemprop="name headline">php代码审计(1)-anchorcms0.9
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -439,7 +439,7 @@
       
 
       
-        <p><a href="https://github.com/hongriSec/PHP-Audit-Labs" target="_blank" rel="noopener">红日代码审计项目</a><br>今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面.</p>
+        <p><a href="https://github.com/hongriSec/PHP-Audit-Labs" rel="external nofollow noopener noreferrer" target="_blank">红日代码审计项目</a><br>今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面.</p>
 <h1>大概算是黑盒的东西</h1>
 也就是当网站访问一个不存在的连接时,404页面会直接将错误回显在页面上,如下图:
 <img src="/php代码审计-1-anchorcms0-9/1-1.png">
@@ -478,7 +478,7 @@
 <p>返回为false<br>也就意味着filter_var()函数,设置参数为’FILTER_VALIDATE_URL’,只对http://进行简单校验,其余未知协议校验则不会那么严格.<br>—&gt;filter_var()透过构造除http以外的内容进行绕过<br>第二个是正则匹配的问题,前面首先会经过parse_url()的拆分,这个函数会将url的各部分拆解开返回一个数组,该函数只是简单的对每个部分的标志进行分隔,举个例子,大家就知道了,再奇怪的url,parse_url()也会尽可能的去解析.</p>
 <img src="/php代码审计-1-anchorcms0-9/1-13.png">
 <img src="/php代码审计-1-anchorcms0-9/1-14.png">
-<p>就这么一个奇怪的url,parse_url也是照样解析,注意parse_url()判断的标志,分别是’/‘和’?’,因此可以构造恶意数据进行绕过,我们只需要在’//‘后带上sec-redclub.com,即可绕过正则;<br>接着就是最关键的一步命令执行了,可以参考<a href="https://www.freebuf.com/articles/web/137923.html" target="_blank" rel="noopener">命令执行的各种姿势</a>这篇文章,大致提炼一下这里需要的内容就是,linux下,命令间可以用’;’进行分隔,因此,这里构造payload</p>
+<p>就这么一个奇怪的url,parse_url也是照样解析,注意parse_url()判断的标志,分别是’/‘和’?’,因此可以构造恶意数据进行绕过,我们只需要在’//‘后带上sec-redclub.com,即可绕过正则;<br>接着就是最关键的一步命令执行了,可以参考<a href="https://www.freebuf.com/articles/web/137923.html" rel="external nofollow noopener noreferrer" target="_blank">命令执行的各种姿势</a>这篇文章,大致提炼一下这里需要的内容就是,linux下,命令间可以用’;’进行分隔,因此,这里构造payload</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=hello:<span class="comment">//";ls;"sec-redclub.com</span></span><br></pre></td></tr></table></figure>
 
 <p>经过拼接后,exec()里的内容就变成了</p>
@@ -526,7 +526,7 @@
     <a href="https://www.ebounce.cn/php代码审计-1-anchorcms0-9.html" title="php代码审计(1)-anchorcms0.9">https://www.ebounce.cn/php代码审计-1-anchorcms0-9.html</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
 </ul>
 
       </div>
@@ -704,7 +704,7 @@
                   
                     
                   
-                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
                 </span>
               
                 <span class="links-of-author-item">
@@ -715,7 +715,7 @@
                   
                     
                   
-                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                 </span>
               
             </div>

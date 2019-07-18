@@ -195,7 +195,7 @@
     </div>
     
       
-        <p class="site-subtitle">day day up!（´v｀）</p>
+        <h1 class="site-subtitle" itemprop="description">day day up!（´v｀）</h1>
       
     
     
@@ -314,11 +314,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CTF快速口算脚本
+          <h2 class="post-title" itemprop="name headline">CTF快速口算脚本
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -435,7 +435,7 @@
       
 
       
-        <p>消失了一段时间，练习了一下python以弥补肝CTF题时，因为不会写脚本，而无法解决快速口算之类问题的遗憾。<br>不多说来贴脚本源码吧，这是按照某个大佬的脚本来写的，链接在这里:<a href="https://www.jianshu.com/p/344538576ecb" target="_blank" rel="noopener">CTF快速口算</a><br>这里就来贴源码:</p>
+        <p>消失了一段时间，练习了一下python以弥补肝CTF题时，因为不会写脚本，而无法解决快速口算之类问题的遗憾。<br>不多说来贴脚本源码吧，这是按照某个大佬的脚本来写的，链接在这里:<a href="https://www.jianshu.com/p/344538576ecb" rel="external nofollow noopener noreferrer" target="_blank">CTF快速口算</a><br>这里就来贴源码:</p>
 <pre><code>import requests
 url=&quot;******************&quot;
 cook=requests.session()
@@ -452,7 +452,7 @@ result=eval(exp)
 print(v)
 data={&quot;result&quot;:result}
 final=cook.post(url,data=data)
-print(final.text)</code></pre><p>首先对于这种网页的爬取操作，我们需要的就是Python里面的requests模块了，这个模块也在爬虫里面经常使用，建议可以去学习一下。<br>分析如下：<br>首先就是把url给定，然后就是得到给定url的session了,<a href="https://baijiahao.baidu.com/s?id=1569587264497242&wfr=spider&for=pc" target="_blank" rel="noopener">有关session是个啥</a><br>虽然通过requests里面自带的get（）方法爬取页面的html代码，然后再转化成为文本格式也就是后面.text的作用。<br>爬取的页面内容如下图：</p>
+print(final.text)</code></pre><p>首先对于这种网页的爬取操作，我们需要的就是Python里面的requests模块了，这个模块也在爬虫里面经常使用，建议可以去学习一下。<br>分析如下：<br>首先就是把url给定，然后就是得到给定url的session了,<a href="https://baijiahao.baidu.com/s?id=1569587264497242&wfr=spider&for=pc" rel="external nofollow noopener noreferrer" target="_blank">有关session是个啥</a><br>虽然通过requests里面自带的get（）方法爬取页面的html代码，然后再转化成为文本格式也就是后面.text的作用。<br>爬取的页面内容如下图：</p>
 <img src="/CTF快速口算脚本/paqu.png">
 <p>然后我们找到需要截取内容的特征，这里可以看到表达式位于标签</p>
 <pre><code>&lt;br/&gt;</code></pre><p>之后，位于</p>
@@ -494,7 +494,7 @@ print(final.text)</code></pre><p>首先对于这种网页的爬取操作，我�
     <a href="https://www.ebounce.cn/CTF快速口算脚本.html" title="CTF快速口算脚本">https://www.ebounce.cn/CTF快速口算脚本.html</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
 </ul>
 
       </div>
@@ -672,7 +672,7 @@ print(final.text)</code></pre><p>首先对于这种网页的爬取操作，我�
                   
                     
                   
-                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
                 </span>
               
                 <span class="links-of-author-item">
@@ -683,7 +683,7 @@ print(final.text)</code></pre><p>首先对于这种网页的爬取操作，我�
                   
                     
                   
-                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                 </span>
               
             </div>
