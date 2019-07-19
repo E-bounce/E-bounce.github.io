@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+<script type="text/javascript" src="/js/mouse.js"></script>
+<script type="text/javascript" src="/js/click.js"></script>
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon2.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="今天研究了一下去年hctf2018-admin的题解,总之还是涨了不少姿♂势,接下来是一个复现的过程,首先利用docker进行环境的复现,然后进入题目页面,先F12看看 Part1  发现这里会给个hint1,大概是要求我们使用admin的身份登陆,先注册账户,后登陆,在登陆后的改密码页面找到了hint2,将所给地址源码下载下来,便是这道题的源码了,使用flask框架写的,先看看routes.py">
+<meta name="keywords" content="security,CTF,others">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hctf2018-admin(复现)">
+<meta property="og:url" content="https://www.ebounce.cn/article/39562ca3/index.html">
+<meta property="og:site_name" content="Ebounce的小博客（´v｀）">
+<meta property="og:description" content="今天研究了一下去年hctf2018-admin的题解,总之还是涨了不少姿♂势,接下来是一个复现的过程,首先利用docker进行环境的复现,然后进入题目页面,先F12看看 Part1  发现这里会给个hint1,大概是要求我们使用admin的身份登陆,先注册账户,后登陆,在登陆后的改密码页面找到了hint2,将所给地址源码下载下来,便是这道题的源码了,使用flask框架写的,先看看routes.py">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-0-1-a.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-1.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-1-2.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-2.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-3.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-4.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-6.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-6-0.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-7.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-8.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-9.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-10.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-11.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-12.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-14.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-12-1.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-13.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-15.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-16.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1-17.png">
+<meta property="og:updated_time" content="2019-07-18T08:40:00.900Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hctf2018-admin(复现)">
+<meta name="twitter:description" content="今天研究了一下去年hctf2018-admin的题解,总之还是涨了不少姿♂势,接下来是一个复现的过程,首先利用docker进行环境的复现,然后进入题目页面,先F12看看 Part1  发现这里会给个hint1,大概是要求我们使用admin的身份登陆,先注册账户,后登陆,在登陆后的改密码页面找到了hint2,将所给地址源码下载下来,便是这道题的源码了,使用flask框架写的,先看看routes.py">
+<meta name="twitter:image" content="https://www.ebounce.cn/article/undefined/1-0-1-a.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.ebounce.cn/article/39562ca3/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>hctf2018-admin(复现) | Ebounce的小博客（´v｀）</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ebounce的小博客（´v｀）</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">day day up!（´v｀）</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/article/39562ca3/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="E-bounce">
+      <meta itemprop="description" content="keep better than yesterday">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ebounce的小博客（´v｀）">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">hctf2018-admin(复现)
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-18 11:21:31 / 修改时间：16:40:00" itemprop="dateCreated datePublished" datetime="2019-07-18T11:21:31+08:00">2019-07-18</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">5.1k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">5 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天研究了一下去年hctf2018-admin的题解,总之还是涨了不少姿♂势,接下来是一个复现的过程,首先利用docker进行环境的复现,然后进入题目页面,先F12看看</p>
+<h1>Part1</h1>
+<img src="/article/undefined/1-0-1-a.jpg">
+发现这里会给个hint1,大概是要求我们使用admin的身份登陆,先注册账户,后登陆,在登陆后的改密码页面找到了hint2,将所给地址源码下载下来,便是这道题的源码了,使用flask框架写的,先看看routes.py,看看都允许访问哪些路径吧
+routes.py:
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route('/code')</span></span><br><span class="line">...//生成验证码</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="meta">@app.route('/index')</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/register', methods = ['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> current_user.is_authenticated:</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">'index'</span>))</span><br><span class="line"></span><br><span class="line">    form = RegisterForm()</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        name = strlower(form.username.data)</span><br><span class="line">        <span class="keyword">if</span> session.get(<span class="string">'image'</span>).lower() != form.verify_code.data.lower():</span><br><span class="line">            flash(<span class="string">'Wrong verify code.'</span>)</span><br><span class="line">            <span class="keyword">return</span> render_template(<span class="string">'register.html'</span>, title = <span class="string">'register'</span>, form=form)</span><br><span class="line">        <span class="keyword">if</span> User.query.filter_by(username = name).first():</span><br><span class="line">            flash(<span class="string">'The username has been registered'</span>)</span><br><span class="line">            <span class="keyword">return</span> redirect(url_for(<span class="string">'register'</span>))</span><br><span class="line">        user = User(username=name)</span><br><span class="line">        user.set_password(form.password.data)</span><br><span class="line">        db.session.add(user)</span><br><span class="line">        db.session.commit()</span><br><span class="line">        flash(<span class="string">'register successful'</span>)</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">'login'</span>))</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'register.html'</span>, title = <span class="string">'register'</span>, form = form)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/login', methods = ['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> current_user.is_authenticated:</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">'index'</span>))</span><br><span class="line"></span><br><span class="line">    form = LoginForm()</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        name = strlower(form.username.data)</span><br><span class="line">        session[<span class="string">'name'</span>] = name</span><br><span class="line">        user = User.query.filter_by(username=name).first()</span><br><span class="line">        <span class="keyword">if</span> user <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">or</span> <span class="keyword">not</span> user.check_password(form.password.data):</span><br><span class="line">            flash(<span class="string">'Invalid username or password'</span>)</span><br><span class="line">            <span class="keyword">return</span> redirect(url_for(<span class="string">'login'</span>))</span><br><span class="line">        login_user(user, remember=form.remember_me.data)</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">'index'</span>))</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'login.html'</span>, title = <span class="string">'login'</span>, form = form)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/logout')</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/change', methods = ['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> current_user.is_authenticated:</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">'login'</span>))</span><br><span class="line">    form = NewpasswordForm()</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        name = strlower(session[<span class="string">'name'</span>])</span><br><span class="line">        user = User.query.filter_by(username=name).first()</span><br><span class="line">        user.set_password(form.newpassword.data)</span><br><span class="line">        db.session.commit()</span><br><span class="line">        flash(<span class="string">'change successful'</span>)</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">'index'</span>))</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'change.html'</span>, title = <span class="string">'change'</span>, form = form)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/edit', methods = ['GET', 'POST'])</span></span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.errorhandler(404)</span></span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">strlower</span><span class="params">(username)</span>:</span></span><br><span class="line">    username = nodeprep.prepare(username)</span><br><span class="line">    <span class="keyword">return</span> username</span><br></pre></td></tr></table></figure>
+<p>这里省略了一些不太会用到的路径,接着进行代码审计,发现了一个问题这里在注册时,会将我们传入的用户名数据转变为小写,</p>
+<img src="/article/undefined/1-1.jpg">
+<p>并且在改密码处也有相同的操作</p>
+<img src="/article/undefined/1-1-2.jpg">
+<p>这里使用的不是python自带的lower()方法,而是自定义的strlower(),或许有什么端倪,先来看看.</p>
+<img src="/article/undefined/1-2.png">
+<p>这里使用了一个nodeprep.prepare()进行小写操作,我们并不知道是什么,然后进行谷歌</p>
+<img src="/article/undefined/1-3.png">
+<p>发现这是Twisted包中的一个方法,接着查看requirements.txt发现当前环境Twisted为10.2.0,然后去github上查看当前最新版本已经19.2.1了,说明这里会有问题</p>
+<img src="/article/undefined/1-4.png">
+<p>最后找到两篇文章<br>
+<a href="https://labs.spotify.com/2013/06/18/creative-usernames/
+" rel="external nofollow noopener noreferrer" target="_blank">有关Twisted某个版本转换问题</a><br>
+<a href="http://blog.lnyas.xyz/?p=1411" rel="external nofollow noopener noreferrer" target="_blank">Unicode编码安全问题</a><br>
+最后得到信息:</p>
+<img src="/article/undefined/1-6.png">
+<p>说明在11.0版本以下的Twisted均存在这样的问题,我们环境版本为10.2.0刚好符合,同时提到nodeprep.prepare()不具有幂等性,即对某个数据反复进行某个操作,总会得到相同的结果举个例子</p>
+<img src="/article/undefined/1-6-0.png">
+<p>这种情况a字符串无论进行多少次lower()都会得到一个结果,因此lower()方法具有幂等性,而nodeprep.prepare(),则会出现下面的情况</p>
+<img src="/article/undefined/1-7.png">
+<p>也就是说,同样举个例子,也就说:<br>
+ᴺ—&gt;N—&gt;n(Unicode中相同的字母和符好,对应的编码可能不同,如:Ω和Ω)<br>
+nodeprep.prepare()会执行类似于这样的转换,在第一次进行转化时会将其匹配为类似的大写字母,然后第二次才将其匹配为小写字母,两次相同操作所得结果不一样,因此这个方法不具有幂等性.<br>
+</p><h2>有关利用</h2><br>
+首先我们注册一个<br>
+ᴬᴰmin的账户,这时候我们传入的数据会进行一次转化,这时ᴬᴰmin–&gt;ADmin,服务器端会判断该用户是否存在,然后成功注册<p></p>
+<img src="/article/undefined/1-8.png">
+<p>登陆该账号,因为登陆时也会被进行一次转化,所以使用ᴬᴰmin登陆,但后台的账号是ADmin</p>
+<img src="/article/undefined/1-9.png">
+<p>我们可以看到账号登陆成功,且为ADmin</p>
+<img src="/article/undefined/1-10.png">
+<p>然后执行一次更改密码操作,改密码时也会进行一次转化,这时我们便从ADmin–&gt;admin,完成了admin账户的密码更改操作,这时候再登陆admin账号,就可以得到flag了</p>
+<img src="/article/undefined/1-11.png">
+<h1>Part2</h1>
+<h2>有关session欺骗</h2>
+session欺骗似乎是非预期解法,但这好像是flask框架本身存在的问题,这里再次贴出P神的文章
+<p>传送门: <a href="https://www.leavesongs.com/PENETRATION/client-session-security.html" rel="external nofollow noopener noreferrer" target="_blank">客户端 session 导致的安全问题</a></p>
+简要来讲,就是flask由于flask框架是不带数据库的,因此无法想PHP,或者JAVA等语言发放一个查询session的id,如PHPSESSIONID,JSSESSIONID,这些能够将真正的session存放在服务器上,在客户端上仅仅只是一个查询的凭证,而flask框架由于没有这样的功能,因此只能将session发放给客户端储存,虽然flask对session进行了前面,防止了用户篡改session,但session的所有内容是在客户端可见的,而由于没有对session进行加密,因此如果用户知道了secret_key的情况下,就会造成安全问题,而由于源码可见,通过查找发现,secret_key已知.
+<img src="/article/undefined/1-12.jpg">
+这样我们就可以进行session伪造了,并且通过index.html发现了得到flag的条件
+<img src="/article/undefined/1-14.jpg">
+由前面源码可知,这里的参数name是直接从session中取出来的,并没有进行任何处理,因此session伪造可行.
+先随便注册一个账号获取当前session
+<img src="/article/undefined/1-12-1.png">
+然后进行解密,这里直接使用P神的解session脚本进行解密.
+decodeflask.py:
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> zlib</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode</span><br><span class="line"><span class="keyword">from</span> flask.sessions <span class="keyword">import</span> session_json_serializer</span><br><span class="line"><span class="keyword">from</span> itsdangerous <span class="keyword">import</span> base64_decode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decryption</span><span class="params">(payload)</span>:</span></span><br><span class="line">    payload, sig = payload.rsplit(<span class="string">b'.'</span>, <span class="number">1</span>)</span><br><span class="line">    payload, timestamp = payload.rsplit(<span class="string">b'.'</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    decompress = <span class="keyword">False</span></span><br><span class="line">    <span class="keyword">if</span> payload.startswith(<span class="string">b'.'</span>):</span><br><span class="line">        payload = payload[<span class="number">1</span>:]</span><br><span class="line">        decompress = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        payload = base64_decode(payload)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">'Could not base64 decode the payload because of '</span></span><br><span class="line">                         <span class="string">'an exception'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> decompress:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            payload = zlib.decompress(payload)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">'Could not zlib decompress the payload before '</span></span><br><span class="line">                             <span class="string">'decoding the payload'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> session_json_serializer.loads(payload)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(decryption(sys.argv[<span class="number">1</span>].encode()))</span><br></pre></td></tr></table></figure>
+<p>得到结果:</p>
+<img src="/article/undefined/1-13.png">
+<p>然后修改name参数为admin,为了防止u_id也要被查询,因此改成1,然后利用github脚本<br>
+<a href="https://github.com/noraj/flask-session-cookie-manager" rel="external nofollow noopener noreferrer" target="_blank">flask-session-cookie-manager</a><br>
+进行加密得到:</p>
+<img src="/article/undefined/1-15.png">
+<p>修改当前session,刷新最后得到flag:</p>
+<img src="/article/undefined/1-16.png">
+<img src="/article/undefined/1-17.png">
+<p>-------------------------the end-----------------------</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>E-bounce</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://www.ebounce.cn/article/39562ca3/" title="hctf2018-admin(复现)">https://www.ebounce.cn/article/39562ca3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/article/dd1af0bf/" rel="next" title="php代码审计(1)-anchorcms0.9">
+                <i class="fa fa-chevron-left"></i> php代码审计(1)-anchorcms0.9
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+	<a href="/">
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="E-bounce">
+	</a>
+            
+              <p class="site-author-name" itemprop="name">E-bounce</p>
+              <div class="site-description motion-element" itemprop="description">keep better than yesterday</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">Part1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">有关利用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">Part2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">有关session欺骗</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">E-bounce</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">50k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">45 分钟</span>
+  
+</div>
+
+
+
+
+
+
+
+
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>

@@ -1,3 +1,3 @@
-https://www.ebounce.cn/hctf2018-admin-复现.html
-https://www.ebounce.cn/php代码审计-1-anchorcms0-9.html
-https://www.ebounce.cn/ssti漏洞学习笔记.html
+https://www.ebounce.cn/article/39562ca3/
+https://www.ebounce.cn/article/dd1af0bf/
+https://www.ebounce.cn/article/18d9c9f4/

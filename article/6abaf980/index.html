@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+<script type="text/javascript" src="/js/mouse.js"></script>
+<script type="text/javascript" src="/js/click.js"></script>
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon2.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="最近都没怎么写博客了，一是前段时间有点忙，二是研究了一段时间的爬虫，废话不多说直接上代码吧。 以下代码主要参照一个python爬虫学习的公众号–学习python的正确姿势，是非常有趣的python学习公众号，你看了下面的代码用途就知道为什么有趣了。 from selenium import webdriver from selenium.webdriver.common.by import By/">
+<meta name="keywords" content="爬虫学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫学习1-selenium简单爬虫">
+<meta property="og:url" content="https://www.ebounce.cn/article/6abaf980/index.html">
+<meta property="og:site_name" content="Ebounce的小博客（´v｀）">
+<meta property="og:description" content="最近都没怎么写博客了，一是前段时间有点忙，二是研究了一段时间的爬虫，废话不多说直接上代码吧。 以下代码主要参照一个python爬虫学习的公众号–学习python的正确姿势，是非常有趣的python学习公众号，你看了下面的代码用途就知道为什么有趣了。 from selenium import webdriver from selenium.webdriver.common.by import By/">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/0.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/2.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/3.jpg">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/4.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/undefined/5.png">
+<meta property="og:updated_time" content="2019-07-06T10:40:51.960Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫学习1-selenium简单爬虫">
+<meta name="twitter:description" content="最近都没怎么写博客了，一是前段时间有点忙，二是研究了一段时间的爬虫，废话不多说直接上代码吧。 以下代码主要参照一个python爬虫学习的公众号–学习python的正确姿势，是非常有趣的python学习公众号，你看了下面的代码用途就知道为什么有趣了。 from selenium import webdriver from selenium.webdriver.common.by import By/">
+<meta name="twitter:image" content="https://www.ebounce.cn/article/undefined/0.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.ebounce.cn/article/6abaf980/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>爬虫学习1-selenium简单爬虫 | Ebounce的小博客（´v｀）</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ebounce的小博客（´v｀）</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">day day up!（´v｀）</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/article/6abaf980/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="E-bounce">
+      <meta itemprop="description" content="keep better than yesterday">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ebounce的小博客（´v｀）">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">爬虫学习1-selenium简单爬虫
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-03 22:29:55" itemprop="dateCreated datePublished" datetime="2019-05-03T22:29:55+08:00">2019-05-03</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-06 18:40:51" itemprop="dateModified" datetime="2019-07-06T18:40:51+08:00">2019-07-06</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">4.9k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">4 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近都没怎么写博客了，一是前段时间有点忙，二是研究了一段时间的爬虫，废话不多说直接上代码吧。<br>
+以下代码主要参照一个python爬虫学习的公众号–学习python的正确姿势，是非常有趣的python学习公众号，你看了下面的代码用途就知道为什么有趣了。</p>
+<pre><code class="language-Python">from selenium import webdriver
+from selenium.webdriver.common.by import By//通过什么方式去定位元素的一个类
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.firefox.options import Options//可以从这个去设置浏览器为无头模式
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait//引入一个控制是否超时的机制
+from bs4 import BeautifulSoup//解析xml的库
+import time
+import xlwt
+import json
+&quot;&quot;&quot;这里主要是引入一些定制好的库，比如最出名的selenium是可以模拟浏览器的操作；然后time库是用于进行一定时间的休息，算是反反爬虫，xlwt是一个写入excel文件的库
+json就不用我多说了吧。
+&quot;&quot;&quot;
+def search():
+    try:
+        print(&quot;开始访问B站..............&quot;)
+        fox.get(url)
+//这里的url是B站的首页
+        index=wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,&quot;#primary_menu&gt;ul&gt;li.home&gt;a&quot;)))
+        index.click()
+//这里我们通过css选择器定位到了B站的”首页“元素，由于刚打开开始爬取是会要求我们登陆，从而影响定位，所以先点击首页刷新一下
+        input=wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,&quot;#banner_link&gt;div&gt;div&gt;form&gt;input&quot;)))
+        input.send_keys(&quot;鸡你太美&quot;)
+//这里我们选中了B站的搜索框，并输入了关键字”鸡你太美“
+        button=wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,&quot;#banner_link&gt;div&gt;div&gt;form&gt;button&quot;)))
+        button.click()
+//这里选中了B站的搜索按钮，并点击了搜索
+        print(&quot;跳转新窗口&quot;)
+        all_h = fox.window_handles
+        fox.switch_to.window(all_h[1])
+        get_source()
+        total=wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,&quot;#server-search-app&gt;div.contain&gt;div.body-contain&gt;div&gt;div.page-wrap&gt;div&gt;ul&gt;li.page-item.last&gt;button&quot;)))
+		//这里定位到了B站的最后一页元素
+        return int(total.text)
+//获得最后一页元素的数字，方便我们知道要执行多少次
+    except TimeoutException:
+        return search()
+
+def next_page(page_num):
+    try:
+        print('获取下一页数据')
+        time.sleep(3)
+//爬取太快似乎会被B站搞，所以暂时性的休眠3秒，如果决定慢也可以自行修改
+        next= wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,'#server-search-app&gt;div.contain&gt;div.body-contain &gt;div&gt;div.page-wrap&gt;div&gt;ul&gt;li.page-item.next&gt;button')))
+        next.click()//定位到了下一个元素并点击
+        wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR,'#server-search-app&gt;div.contain&gt;div.body-contain&gt;div&gt;div.page-wrap&gt;div&gt;ul&gt;li.page-item.active&gt;button'),str(page_num)))//这里定位到当前页面
+        get_source()
+    except TimeoutException:
+        fox.refresh()
+        return next_page(page_num)
+
+
+def get_source():
+    try:
+        print(&quot;正在获得当前数据中.......&quot;)
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,&quot;#server-search-app&gt;div.contain&gt;div.body-contain&gt;div&gt;div.result-wrap.clearfix&quot;)))
+        html=fox.page_source//这里是获得B站下面一大块具有视频信息的DOM位置
+        soup=BeautifulSoup(html,'lxml')
+        print(&quot;获得数据完毕.......&quot;)
+        save_data(soup)
+    except:
+        pass
+
+def save_data(soup):
+    print(&quot;开始写入数据...........&quot;)
+    list=soup.find(class_=&quot;all-contain&quot;).find_all(class_=&quot;info&quot;)
+    for item in list:
+        item_title=item.find(&quot;a&quot;).get(&quot;title&quot;)//得到标题
+        item_link=item.find(&quot;a&quot;).get(&quot;href&quot;)//得到链接
+        item_dec=item.find(class_=&quot;des hide&quot;).text//得到描述
+        item_view=item.find(class_=&quot;so-icon watch-num&quot;).text//得到播放量
+        item_time=item.find(class_=&quot;so-icon time&quot;).text//得到上传时间
+        item_up=item.find(class_=&quot;up-name&quot;).text//得到UP主名称
+        print(item_up)//这里将其打印出来，以便在控制台观察是否出错
+        item_danmu=item.find(class_=&quot;so-icon hide&quot;).text//这里是弹幕数
+        print(&quot;爬取:&quot;+item_title)
+        global n//设置为全局变量
+        sheet.write(n, 0,item_title)
+        sheet.write(n, 1,item_link)
+        sheet.write(n, 2, item_dec)
+        sheet.write(n, 3, item_view)
+        sheet.write(n, 4, item_time)
+        sheet.write(n, 5, item_up)
+        sheet.write(n, 6, item_danmu)//分别写入xls对应得列
+        print(&quot;当前数据写入完成........&quot;)
+        n=n+1
+data=xlwt.Workbook(encoding=&quot;utf-8&quot;,style_compression=0)
+sheet=data.add_sheet(&quot;鸡你太美&quot;,cell_overwrite_ok=True)
+sheet.write(0,0,&quot;名称&quot;)
+sheet.write(0,1,&quot;链接&quot;)
+sheet.write(0,2,&quot;描述&quot;)
+sheet.write(0,3,&quot;观看次数&quot;)
+sheet.write(0,4,&quot;上传时间&quot;)
+sheet.write(0,5,&quot;Up主&quot;)
+sheet.write(0,6,&quot;弹幕数&quot;)
+n=1//进行excel最初列的设置
+url = &quot;https://www.bilibili.com&quot;
+fox = webdriver.Firefox()
+//安装什么浏览器的内核就用什么浏览器
+wait = WebDriverWait(fox,10)
+//设置最大的等待时间是多少
+try:
+    total = search()
+    print(total)
+    for i in range(1, int(total)+1)://
+这里用获得的最大页数控制循环次数，因为前面以及爬取了第一页因此从1开始
+        next_page(i)
+finally:
+    fox.close()
+data.save(u&quot;菜虚鲲打篮球.xls&quot;)
+</code></pre>
+<p>效果图如下：<br>
+刚开始的时候弹出了登录框：</p>
+<img src="/article/undefined/0.jpg">
+<p>随后进行刷新：</p>
+<img src="/article/undefined/1.jpg">
+<p>然后开始爬取：</p>
+<img src="/article/undefined/2.jpg">
+<img src="/article/undefined/3.jpg">
+<p>最后爬取的文件和内容：</p>
+<img src="/article/undefined/4.png">
+<img src="/article/undefined/5.png">
+<p>PS：这里选中元素也可以使用XML，但是无论CSS选择器还是XML都能在定位好元素后，对定位元素点右键复制，能够<br>
+直接复制CSS选择器和XML不需要自行填写</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>E-bounce</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://www.ebounce.cn/article/6abaf980/" title="爬虫学习1-selenium简单爬虫">https://www.ebounce.cn/article/6abaf980/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/爬虫学习/" rel="tag"><i class="fa fa-tag"># 爬虫学习</i></a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/article/c82eeaba/" rel="next" title="CTF快速口算脚本">
+                <i class="fa fa-chevron-left"></i> CTF快速口算脚本
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/article/fcf74f28/" rel="prev" title="Python2输出贴士">
+                Python2输出贴士 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+	<a href="/">
+              <img class="site-author-image" itemprop="image" src="/images/touxiang.jpg" alt="E-bounce">
+	</a>
+            
+              <p class="site-author-name" itemprop="name">E-bounce</p>
+              <div class="site-description motion-element" itemprop="description">keep better than yesterday</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/E-bounce" title="GitHub &rarr; https://github.com/E-bounce" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:3199729962@qq.com" title="E-Mail &rarr; mailto:3199729962@qq.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">E-bounce</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">50k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">45 分钟</span>
+  
+</div>
+
+
+
+
+
+
+
+
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body>
+</html>
