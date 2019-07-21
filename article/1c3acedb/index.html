@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Ebounce的小博客（´v｀）">
 <meta property="og:description" content="刚刚学了一点CSRF漏洞的应用方法，难怪目前都很少有网站存在CSRF漏洞了，由于我们利用CSRF攻击的是其他用户，因此当这些用户出现校验属性的时候，这个漏洞就会显得比较无力， 我们必须与其他漏洞相结合，来获取用户校验属性的值，否则很难构造一个合适的表单，来发送自己想要达成的跨域请求，注入改密码这种敏感操作，各个网站之间都会运用输入原始 密码或者进行邮件校验来防止CSRF攻击，起码目前的CSRF确实">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-22T10:33:32.133Z">
+<meta property="og:updated_time" content="2019-07-19T09:23:59.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于CSRF的一点想法">
 <meta name="twitter:description" content="刚刚学了一点CSRF漏洞的应用方法，难怪目前都很少有网站存在CSRF漏洞了，由于我们利用CSRF攻击的是其他用户，因此当这些用户出现校验属性的时候，这个漏洞就会显得比较无力， 我们必须与其他漏洞相结合，来获取用户校验属性的值，否则很难构造一个合适的表单，来发送自己想要达成的跨域请求，注入改密码这种敏感操作，各个网站之间都会运用输入原始 密码或者进行邮件校验来防止CSRF攻击，起码目前的CSRF确实">
@@ -352,7 +352,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-22 18:33:32" itemprop="dateModified" datetime="2019-02-22T18:33:32+08:00">2019-02-22</time>
+                <time title="修改时间：2019-07-19 17:23:59" itemprop="dateModified" datetime="2019-07-19T17:23:59+08:00">2019-07-19</time>
               </span>
             
           
@@ -865,6 +865,35 @@
 
 
   
+
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
 
 
   

@@ -106,16 +106,16 @@
 <meta property="og:site_name" content="Ebounce的小博客（´v｀）">
 <meta property="og:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。 就是PHP trick这道题，我们先看源码，如下图：  然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用） 所以先来看看给出的源码，所有参数都是通过GET方法">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/源码.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/baidu.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/admin.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/flag.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/undefined/payload.png">
-<meta property="og:updated_time" content="2019-07-17T03:14:25.945Z">
+<meta property="og:image" content="https://www.ebounce.cn/article/8d1acd56/源码.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/8d1acd56/baidu.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/8d1acd56/admin.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/8d1acd56/flag.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/8d1acd56/payload.png">
+<meta property="og:updated_time" content="2019-07-19T09:23:59.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hgameCTF之PHP trick">
 <meta name="twitter:description" content="做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。 就是PHP trick这道题，我们先看源码，如下图：  然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用） 所以先来看看给出的源码，所有参数都是通过GET方法">
-<meta name="twitter:image" content="https://www.ebounce.cn/article/undefined/源码.png">
+<meta name="twitter:image" content="https://www.ebounce.cn/article/8d1acd56/源码.png">
 
 
 
@@ -358,7 +358,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-17 11:14:25" itemprop="dateModified" datetime="2019-07-17T11:14:25+08:00">2019-07-17</time>
+                <time title="修改时间：2019-07-19 17:23:59" itemprop="dateModified" datetime="2019-07-19T17:23:59+08:00">2019-07-19</time>
               </span>
             
           
@@ -440,7 +440,7 @@
       
         <p>做了一下Hgame2019的CTF，由于后面涉及写脚本问题，暂时只能动到第二周的题，这道题我感觉收获最大。<br>
 就是PHP trick这道题，我们先看源码，如下图：</p>
-<img src="/article/undefined/源码.png">
+<img src="/article/8d1acd56/源码.png">
 <p>然后按照这个题给的意思应该是需要我们绕过这层层过滤，去访问admin.php。（PS:我尝试了直接访问，提示需要本地访问–localhost，然后用burpsuite改了并没有什么用）<br>
 所以先来看看给出的源码，所有参数都是通过GET方法来获取的，这样我们直接使用hackbar就可以了</p>
 <h1>第一二个if的绕过</h1>
@@ -462,7 +462,7 @@ parse_url（）函数是用于解析我们的URL并返回组成部分，这最�
 就会出现问题。如果我们直接传入
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url=http:<span class="comment">//www.baidu.com</span></span><br></pre></td></tr></table></figure>
 <p>那么我们会发现下面出现了百度的界面</p>
-<img src="/article/undefined/baidu.png">
+<img src="/article/8d1acd56/baidu.png">
 <h1>curl的处理</h1>
 curl在这里相当于解析我们的url并进行访问，但注意curl的访问，相当于在服务器内部进行的访问，也就是说如果我们访问本地的文件，就相当于以localhost去访问本地
 资源，因此要想办法让curl解析访问admin.php，这里就要利用URL的组成了，首先parse_url（）在解析host时，会解析第二个@后面的内容，而CURL则会解析第一个@后的内容
@@ -479,11 +479,11 @@ admin.php的源码如下：
 <a href="http://www.cnblogs.com/LittleHann/p/3665062.html" rel="external nofollow noopener noreferrer" target="_blank">PHP伪协议</a>
 最后利用php://filter读取flag.php
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filename=php:<span class="comment">//filter/read=convert.base64-encode/resource=flag.php</span></span><br></pre></td></tr></table></figure>
-<img src="/article/undefined/admin.png">
+<img src="/article/8d1acd56/admin.png">
 <p>最后将这段base64解码就可以得到flag啦。</p>
-<img src="/article/undefined/flag.png">
+<img src="/article/8d1acd56/flag.png">
 <p>完整的payload如下图:</p>
-<img src="/article/undefined/payload.png"></=0。>
+<img src="/article/8d1acd56/payload.png"></=0。>
       
     </div>
 
@@ -936,6 +936,35 @@ admin.php的源码如下：
 
 
   
+
+
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
 
 
   
