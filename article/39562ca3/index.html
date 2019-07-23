@@ -126,7 +126,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-15.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-16.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-17.png">
-<meta property="og:updated_time" content="2019-07-19T09:23:59.640Z">
+<meta property="og:updated_time" content="2019-07-23T02:44:58.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hctf2018-admin(复现)">
 <meta name="twitter:description" content="今天研究了一下去年hctf2018-admin的题解,总之还是涨了不少姿♂势,接下来是一个复现的过程,首先利用docker进行环境的复现,然后进入题目页面,先F12看看 Part1  发现这里会给个hint1,大概是要求我们使用admin的身份登陆,先注册账户,后登陆,在登陆后的改密码页面找到了hint2,将所给地址源码下载下来,便是这道题的源码了,使用flask框架写的,先看看routes.py">
@@ -373,7 +373,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-19 17:23:59" itemprop="dateModified" datetime="2019-07-19T17:23:59+08:00">2019-07-19</time>
+                <time title="修改时间：2019-07-23 10:44:58" itemprop="dateModified" datetime="2019-07-23T10:44:58+08:00">2019-07-23</time>
               </span>
             
           
@@ -422,7 +422,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">5.1k</span>
+              <span title="本文字数">5.2k</span>
             </span>
           
 
@@ -496,7 +496,7 @@ nodeprep.prepare()会执行类似于这样的转换,在第一次进行转化时�
 <h2>有关session欺骗</h2>
 session欺骗似乎是非预期解法,但这好像是flask框架本身存在的问题,这里再次贴出P神的文章
 <p>传送门: <a href="https://www.leavesongs.com/PENETRATION/client-session-security.html" rel="external nofollow noopener noreferrer" target="_blank">客户端 session 导致的安全问题</a></p>
-简要来讲,就是flask由于flask框架是不带数据库的,因此无法想PHP,或者JAVA等语言发放一个查询session的id,如PHPSESSIONID,JSSESSIONID,这些能够将真正的session存放在服务器上,在客户端上仅仅只是一个查询的凭证,而flask框架由于没有这样的功能,因此只能将session发放给客户端储存,虽然flask对session进行了前面,防止了用户篡改session,但session的所有内容是在客户端可见的,而由于没有对session进行加密,因此如果用户知道了secret_key的情况下,就会造成安全问题,而由于源码可见,通过查找发现,secret_key已知.
+简要来讲,就是由于flask框架是不带数据库的,因此无法像PHP,或者JAVA等语言发放一个查询session的id,如PHPSESSIONID,JSSESSIONID,这些能够将真正的session存放在服务器上,在客户端上仅仅只是一个查询的凭证,而flask框架由于没有这样的功能,因此只能将session发放给客户端储存,虽然flask对session进行了签名,防止了用户篡改session,根据源码签名的内容是直接连接在session值后面,也就是说session的所有内容是在客户端可见的,而由于没有对session进行加密,因此如果用户知道了secret_key的情况下,就会造成安全问题,而由于源码可见,通过查找发现,secret_key已知.
 <img src="/article/39562ca3/1-12.jpg">
 这样我们就可以进行session伪造了,并且通过index.html发现了得到flag的条件
 <img src="/article/39562ca3/1-14.jpg">
