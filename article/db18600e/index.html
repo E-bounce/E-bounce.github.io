@@ -141,7 +141,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/article/db18600e/tn.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/db18600e/cn.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/db18600e/ff.png">
-<meta property="og:updated_time" content="2019-07-19T09:23:59.642Z">
+<meta property="og:updated_time" content="2019-07-27T02:26:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Moctf-wp小结">
 <meta name="twitter:description" content="最近几天做了Moctf上的几道题,还是比较涨姿势的,这里做个记录小小的记录. 死亡退出  源码当中预定义了一个字符串c为 1&amp;lt;?php exit;?&amp;gt; 有关思考方向 而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和我">
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-19 17:23:59" itemprop="dateModified" datetime="2019-07-19T17:23:59+08:00">2019-07-19</time>
+                <time title="修改时间：2019-07-27 10:26:35" itemprop="dateModified" datetime="2019-07-27T10:26:35+08:00">2019-07-27</time>
               </span>
             
           
@@ -488,7 +488,6 @@ PS:这里原本写成功了,但我没有发现,就不小心把flag.php覆盖成�
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=bPD9waHAgc3lzdGVtKCJjYXQgZmxhZy5waHAiKTsgPz4=&amp;file=php:<span class="comment">//filter/write=string.string_tags|convert.base64-decode/resource=tmp.php</span></span><br></pre></td></tr></table></figure>
 <img src="/article/db18600e/string.png">
 <img src="/article/db18600e/flag2.png">
-<p></p><h2>番外2:XXE的利用</h2><p></p>
 <h1>火眼金睛</h1>
 这道题非常简单要求我们查找他给的一大串字符里面moctf出现的次数,直接上python脚本搞定
 <img src="/article/db18600e/eye.png">
@@ -710,6 +709,10 @@ payload2:</p>
           
 
   
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
 
 
 
@@ -759,7 +762,7 @@ payload2:</p>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -877,7 +880,7 @@ payload2:</p>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">死亡退出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">有关思考方向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">有关利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">番外:那么字符操作呢?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.2.</span> <span class="nav-text">番外2:XXE的利用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">火眼金睛</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text">Unset</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">PUBG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">6.</span> <span class="nav-text">网站检测器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">7.</span> <span class="nav-text">简单注入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">死亡退出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">有关思考方向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">有关利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">番外:那么字符操作呢?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">火眼金睛</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text">Unset</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">5.</span> <span class="nav-text">PUBG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">6.</span> <span class="nav-text">网站检测器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">7.</span> <span class="nav-text">简单注入</span></a></li></ol></div>
             
 
           </div>
@@ -910,7 +913,7 @@ payload2:</p>
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">50k</span>
+    <span title="站点总字数">49k</span>
   
 
   
@@ -1074,6 +1077,35 @@ payload2:</p>
 
 
   
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'c0376b8fb84d5b21095f',
+    clientSecret: '364a87c8d8cb7d215a9abeb494a0d356c1e655a9',
+    repo: 'blogcomment',
+    owner: 'E-bounce',
+    admin: ['E-bounce'],
+    id: md5(location.pathname),
+    
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'false'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
 
 
 
@@ -1089,16 +1121,16 @@ payload2:</p>
 
 <script>
   var gitalk = new Gitalk({
-    clientID: '',
-    clientSecret: '',
-    repo: '',
-    owner: '',
-    admin: [''],
+    clientID: 'c0376b8fb84d5b21095f',
+    clientSecret: '364a87c8d8cb7d215a9abeb494a0d356c1e655a9',
+    repo: 'blogcomment',
+    owner: 'E-bounce',
+    admin: ['E-bounce'],
     id: md5(location.pathname),
     
       language: 'zh-CN',
     
-    distractionFreeMode: 'true'
+    distractionFreeMode: 'false'
   });
   gitalk.render('gitalk-container');
 </script>

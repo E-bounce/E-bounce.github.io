@@ -649,6 +649,10 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
           
 
   
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
 
 
 
@@ -698,7 +702,7 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -849,7 +853,7 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">50k</span>
+    <span title="站点总字数">49k</span>
   
 
   
@@ -1013,6 +1017,35 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
 
 
   
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'c0376b8fb84d5b21095f',
+    clientSecret: '364a87c8d8cb7d215a9abeb494a0d356c1e655a9',
+    repo: 'blogcomment',
+    owner: 'E-bounce',
+    admin: ['E-bounce'],
+    id: md5(location.pathname),
+    
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'false'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
 
 
 
@@ -1028,16 +1061,16 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
 
 <script>
   var gitalk = new Gitalk({
-    clientID: '',
-    clientSecret: '',
-    repo: '',
-    owner: '',
-    admin: [''],
+    clientID: 'c0376b8fb84d5b21095f',
+    clientSecret: '364a87c8d8cb7d215a9abeb494a0d356c1e655a9',
+    repo: 'blogcomment',
+    owner: 'E-bounce',
+    admin: ['E-bounce'],
     id: md5(location.pathname),
     
       language: 'zh-CN',
     
-    distractionFreeMode: 'true'
+    distractionFreeMode: 'false'
   });
   gitalk.render('gitalk-container');
 </script>
