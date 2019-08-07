@@ -117,8 +117,8 @@
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-7.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-8.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-9.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-10.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-11.png">
+<meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-10.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-12.jpg">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-14.jpg">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-12-1.png">
@@ -126,7 +126,7 @@
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-15.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-16.png">
 <meta property="og:image" content="https://www.ebounce.cn/article/39562ca3/1-17.png">
-<meta property="og:updated_time" content="2019-07-23T02:44:58.369Z">
+<meta property="og:updated_time" content="2019-08-07T09:21:15.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hctf2018-admin(复现)">
 <meta name="twitter:description" content="今天研究了一下去年hctf2018-admin的题解,总之还是涨了不少姿♂势,接下来是一个复现的过程,首先利用docker进行环境的复现,然后进入题目页面,先F12看看 Part1  发现这里会给个hint1,大概是要求我们使用admin的身份登陆,先注册账户,后登陆,在登陆后的改密码页面找到了hint2,将所给地址源码下载下来,便是这道题的源码了,使用flask框架写的,先看看routes.py">
@@ -373,7 +373,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-23 10:44:58" itemprop="dateModified" datetime="2019-07-23T10:44:58+08:00">2019-07-23</time>
+                <time title="修改时间：2019-08-07 17:21:15" itemprop="dateModified" datetime="2019-08-07T17:21:15+08:00">2019-08-07</time>
               </span>
             
           
@@ -489,9 +489,9 @@ nodeprep.prepare()会执行类似于这样的转换,在第一次进行转化时�
 <p>登陆该账号,因为登陆时也会被进行一次转化,所以使用ᴬᴰmin登陆,但后台的账号是ADmin</p>
 <img src="/article/39562ca3/1-9.png">
 <p>我们可以看到账号登陆成功,且为ADmin</p>
-<img src="/article/39562ca3/1-10.png">
-<p>然后执行一次更改密码操作,改密码时也会进行一次转化,这时我们便从ADmin–&gt;admin,完成了admin账户的密码更改操作,这时候再登陆admin账号,就可以得到flag了</p>
 <img src="/article/39562ca3/1-11.png">
+<p>然后执行一次更改密码操作,改密码时也会进行一次转化,这时我们便从ADmin–&gt;admin,完成了admin账户的密码更改操作,这时候再登陆admin账号,就可以得到flag了</p>
+<img src="/article/39562ca3/1-10.png">
 <h1>Part2</h1>
 <h2>有关session欺骗</h2>
 session欺骗似乎是非预期解法,但这好像是flask框架本身存在的问题,这里再次贴出P神的文章
