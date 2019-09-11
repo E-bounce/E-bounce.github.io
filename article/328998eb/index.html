@@ -102,49 +102,49 @@
 <meta name="keywords" content="web安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php代码审计入门笔记-bluecms">
-<meta property="og:url" content="https://www.ebounce.cn/article/328998eb/index.html">
+<meta property="og:url" content="http://old.ebounce.cn/article/328998eb/index.html">
 <meta property="og:site_name" content="Ebounce的小博客（´v｀）">
 <meta property="og:description" content="最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的) 参考大佬文章: https://www.freebuf.com/article">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/aj_js_sql.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/table1.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/table2.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/getone.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/magic.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/lu.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/exap.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/hui.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/wrong1.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/wrong.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/xian.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/btable.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/bcolumn.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/data.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/ip.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/where.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/ip_sql_point_LI.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/ying.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/zhu.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/reu.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/pay.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/LI.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/from.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/from.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/burp.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/blue.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/showmsg.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/fun.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/htm.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/xss.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/filter.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/payload.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/qian.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/328998eb/tan.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/aj_js_sql.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/table1.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/table2.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/getone.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/magic.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/lu.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/exap.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/hui.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/wrong1.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/wrong.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/xian.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/btable.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/bcolumn.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/data.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/ip.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/where.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/ip_sql_point_LI.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/ying.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/zhu.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/reu.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/pay.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/LI.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/from.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/from.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/burp.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/blue.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/showmsg.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/fun.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/htm.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/xss.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/filter.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/payload.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/qian.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/328998eb/tan.png">
 <meta property="og:updated_time" content="2019-07-19T09:23:59.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php代码审计入门笔记-bluecms">
 <meta name="twitter:description" content="最近准备入坑代码审计了,当然作为一名萌新,肯定少不了参考很多大佬的资料了,也是经由大佬推荐,入门比较适合审计BlueCMS1.6 SP1,除了第一次看CMS的代码,犯了很萌新的错误就是,文件是一个个读的没有切入点,自然读了很久也审不出来什么东西了,好了,废话不多说,来看看这个CMS有哪些漏洞吧(我跟随大佬的脚步找到的) 参考大佬文章: https://www.freebuf.com/article">
-<meta name="twitter:image" content="https://www.ebounce.cn/article/328998eb/aj_js_sql.jpg">
+<meta name="twitter:image" content="http://old.ebounce.cn/article/328998eb/aj_js_sql.jpg">
 
 
 
@@ -152,7 +152,7 @@
 
   
   
-  <link rel="canonical" href="https://www.ebounce.cn/article/328998eb/">
+  <link rel="canonical" href="http://old.ebounce.cn/article/328998eb/">
 
 
 
@@ -336,7 +336,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/article/328998eb/">
+    <link itemprop="mainEntityOfPage" href="http://old.ebounce.cn/article/328998eb/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="E-bounce">
@@ -592,7 +592,7 @@ PS:这里的%00用不了,应为前面$_POST会直接调用deep_addslashe()函数
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://www.ebounce.cn/article/328998eb/" title="php代码审计入门笔记-bluecms">https://www.ebounce.cn/article/328998eb/</a>
+    <a href="http://old.ebounce.cn/article/328998eb/" title="php代码审计入门笔记-bluecms">http://old.ebounce.cn/article/328998eb/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>

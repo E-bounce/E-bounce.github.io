@@ -102,31 +102,31 @@
 <meta name="keywords" content="security,CTF,others">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php代码审计(1)-anchorcms0.9">
-<meta property="og:url" content="https://www.ebounce.cn/article/dd1af0bf/index.html">
+<meta property="og:url" content="http://old.ebounce.cn/article/dd1af0bf/index.html">
 <meta property="og:site_name" content="Ebounce的小博客（´v｀）">
 <meta property="og:description" content="红日代码审计项目 今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面. 大概算是黑盒的东西 也就是当网站访问一个不存在的连接时,404页面会直接将错误回显在页面上,如下图:  那么既然输入的错误信息能够直接回显在页面上,那么又是否存在xss?接下来进行验证:  大概算是白盒的东西 发现存在xss,我们下一步就是看看问题出在哪,首">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-1.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-3.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-2.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-4.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-5.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-6.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-7.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-8.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-9.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-10.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-11.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-12.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-13.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-14.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-15.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/dd1af0bf/1-16.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-1.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-3.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-2.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-4.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-5.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-6.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-7.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-8.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-9.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-10.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-11.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-12.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-13.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-14.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-15.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/dd1af0bf/1-16.png">
 <meta property="og:updated_time" content="2019-07-19T09:23:59.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php代码审计(1)-anchorcms0.9">
 <meta name="twitter:description" content="红日代码审计项目 今天跟着红日团队的php审计项目,试着做了一下anchor的代码审计,整体还算比较简单,漏洞触发点是在404.php里面. 大概算是黑盒的东西 也就是当网站访问一个不存在的连接时,404页面会直接将错误回显在页面上,如下图:  那么既然输入的错误信息能够直接回显在页面上,那么又是否存在xss?接下来进行验证:  大概算是白盒的东西 发现存在xss,我们下一步就是看看问题出在哪,首">
-<meta name="twitter:image" content="https://www.ebounce.cn/article/dd1af0bf/1-1.png">
+<meta name="twitter:image" content="http://old.ebounce.cn/article/dd1af0bf/1-1.png">
 
 
 
@@ -134,7 +134,7 @@
 
   
   
-  <link rel="canonical" href="https://www.ebounce.cn/article/dd1af0bf/">
+  <link rel="canonical" href="http://old.ebounce.cn/article/dd1af0bf/">
 
 
 
@@ -318,7 +318,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/article/dd1af0bf/">
+    <link itemprop="mainEntityOfPage" href="http://old.ebounce.cn/article/dd1af0bf/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="E-bounce">
@@ -543,7 +543,7 @@ index.php</p>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://www.ebounce.cn/article/dd1af0bf/" title="php代码审计(1)-anchorcms0.9">https://www.ebounce.cn/article/dd1af0bf/</a>
+    <a href="http://old.ebounce.cn/article/dd1af0bf/" title="php代码审计(1)-anchorcms0.9">http://old.ebounce.cn/article/dd1af0bf/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>

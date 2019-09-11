@@ -102,50 +102,50 @@
 <meta name="keywords" content="security,CTF,others">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Moctf-wp小结">
-<meta property="og:url" content="https://www.ebounce.cn/article/db18600e/index.html">
+<meta property="og:url" content="http://old.ebounce.cn/article/db18600e/index.html">
 <meta property="og:site_name" content="Ebounce的小博客（´v｀）">
 <meta property="og:description" content="最近几天做了Moctf上的几道题,还是比较涨姿势的,这里做个记录小小的记录. 死亡退出  源码当中预定义了一个字符串c为 1&amp;lt;?php exit;?&amp;gt; 有关思考方向 而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和我">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/source.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/filter.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/file.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/get.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/cat.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/flag.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/string.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/flag2.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/eye.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/py.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/php.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/unset.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/pay.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/pflag.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/index.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/a.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/explode.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/p1.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/bash.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/p2.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/p3.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/pflag.jpg">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/curl.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/No1.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/no2.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/ip.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/f.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/t1.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/t3.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/waf.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/char.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/blank.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/tn.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/cn.png">
-<meta property="og:image" content="https://www.ebounce.cn/article/db18600e/ff.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/source.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/filter.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/file.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/get.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/cat.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/flag.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/string.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/flag2.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/eye.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/py.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/php.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/unset.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/pay.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/pflag.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/index.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/a.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/explode.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/p1.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/bash.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/p2.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/p3.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/pflag.jpg">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/curl.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/No1.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/no2.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/ip.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/f.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/t1.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/t3.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/waf.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/char.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/blank.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/tn.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/cn.png">
+<meta property="og:image" content="http://old.ebounce.cn/article/db18600e/ff.png">
 <meta property="og:updated_time" content="2019-07-27T02:26:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Moctf-wp小结">
 <meta name="twitter:description" content="最近几天做了Moctf上的几道题,还是比较涨姿势的,这里做个记录小小的记录. 死亡退出  源码当中预定义了一个字符串c为 1&amp;lt;?php exit;?&amp;gt; 有关思考方向 而后面的代码主要就是接收POST传进来file值,并作判断,我们是否传入了file的值,并且如果我们传入了file,则将tmp.php中的内容设置为空,或者直接创建一个tmp.php的文件,最后再将之前预定义的字符串C和我">
-<meta name="twitter:image" content="https://www.ebounce.cn/article/db18600e/source.png">
+<meta name="twitter:image" content="http://old.ebounce.cn/article/db18600e/source.png">
 
 
 
@@ -153,7 +153,7 @@
 
   
   
-  <link rel="canonical" href="https://www.ebounce.cn/article/db18600e/">
+  <link rel="canonical" href="http://old.ebounce.cn/article/db18600e/">
 
 
 
@@ -337,7 +337,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ebounce.cn/article/db18600e/">
+    <link itemprop="mainEntityOfPage" href="http://old.ebounce.cn/article/db18600e/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="E-bounce">
@@ -588,7 +588,7 @@ $$__k=&gt;$_GET[flag]=“QNKCDZO”===$__v,<br>
 这道题你试着输入几个网站之后,就会发现要求必须是http协议,且域名只能是www.moctf.com,你输入之后,会出现moctf的页面,猜测后台使用了curl()函数,且用parse_url()进行解析,
 <img src="/article/db18600e/curl.png">
 有关parse_url()和curl()解析的问题,可以参考我之前写的博客:
-<a href="https://www.ebounce.cn/hgameCTF%E4%B9%8BPHP%20trick.html" target="_blank">hgameCTF-php-trick</a>
+<a href="https://www.ebounce.cn/hgameCTF%E4%B9%8BPHP%20trick.html" target="_blank" rel="external nofollow noopener noreferrer">hgameCTF-php-trick</a>
 这个时候curl()就会解析我们@后面的内容了,这个时候又会提示不允许'.'的出现,经过测试时由于后面的flag.php中含有'.'
 payload1为:
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url=http:<span class="comment">//www.moctf.com@127.0.00.1/flag.php //POST过去的</span></span><br></pre></td></tr></table></figure>
@@ -661,7 +661,7 @@ payload2:</p>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://www.ebounce.cn/article/db18600e/" title="Moctf-wp小结">https://www.ebounce.cn/article/db18600e/</a>
+    <a href="http://old.ebounce.cn/article/db18600e/" title="Moctf-wp小结">http://old.ebounce.cn/article/db18600e/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
